@@ -19,7 +19,7 @@ public class Battlefield : MonoBehaviour
         for(int i = 0; i < numberOfZones; i++)
         {
             Battlezone zone = Instantiate(battleZonePrefab);
-            Debug.Log("Render Size : " + zone.GetComponent<Renderer>().bounds.size.z);
+            //Debug.Log("Render Size : " + zone.GetComponent<Renderer>().bounds.size.z);
             float offset = i * zone.GetComponent<Renderer>().bounds.size.z;
             zone.transform.parent = this.gameObject.transform;
             zone.transform.position += new Vector3(0, 0, offset);
