@@ -19,10 +19,8 @@ public class BattleStateController : MonoBehaviour
     public ReturnBattleState returnBattleState = new ReturnBattleState();
 
 
-
-
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         turnCounter = 0;
         ChangeState(startBattleState);

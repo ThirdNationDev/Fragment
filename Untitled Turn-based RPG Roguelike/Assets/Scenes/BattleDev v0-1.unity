@@ -248,6 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 756923212}
   - component: {fileID: 756923213}
+  - component: {fileID: 756923214}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -285,6 +286,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatantPrefab: {fileID: 5469677981619767051, guid: c1a51f746fb48dd44a98b9926ac504e4, type: 3}
   turnCounter: 0
+--- !u!114 &756923214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756923211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea9fa105918d41419f7bde2d94fe718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatants:
+  - {fileID: 2706256118859309072, guid: 51041a42a74c93d41b84d50a9d144e9c, type: 3}
+  - {fileID: 4035960594045529963, guid: 9409ea63b66fc43408f0a43cfbf00cdb, type: 3}
+  - {fileID: 7515687299735268035, guid: 1cb0433df99e43a4097238281598b3c8, type: 3}
+  - {fileID: 6414548172367155367, guid: d619aaad62f7ba74a8020c0c0a37184a, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +429,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1334c96e2072a1a408e48f1ab5b19681, type: 3}
   m_Name: 

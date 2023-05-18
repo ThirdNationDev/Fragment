@@ -20,7 +20,7 @@ public class ExecuteBattleState : IBattleState
 
     public void UpdateState(BattleStateController controller)
     {
-        Debug.Log("ExecuteBattleState.UpdateState() called.");
+        //Debug.Log("ExecuteBattleState.UpdateState() called.");
         //TODO: When cinematics are done, move to next character in queue
         //if all enemy combatants dead, you won!
         controller.ChangeState(controller.wonBattleState);
@@ -29,6 +29,11 @@ public class ExecuteBattleState : IBattleState
         //otherwise, move to next combatant in queue and start the next turn
         controller.ChangeState(controller.startTurnBattleState);
 
+    }
+
+    void OnConfirm()
+    {
+        Debug.Log("OnConfirm called in Execute Battle State");
     }
 
  
