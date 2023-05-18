@@ -22,7 +22,10 @@ public class InputBattleState : IBattleState
     {
         Debug.Log("InputBattleState.OnUpdateState() called");
         //Todo: When user hits confirm
-        controller.ChangeState(controller.executeBattleState);
+        if (UIManager.Instance.currentCommand is ConfirmBCom)
+        {
+            controller.ChangeState(controller.executeBattleState);
+        }
     }
 
  

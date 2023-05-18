@@ -13,7 +13,8 @@ public class StartBattleState : IBattleState
         //TODO: Opening cinematic and info
         BattleManager.Instance.CreateBattlefield();
         BattleManager.Instance.PlaceCombatants();
-        
+
+        controller.ChangeState(controller.startTurnBattleState);
     }
 
     public void OnExit(BattleStateController controller)

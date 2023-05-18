@@ -41,6 +41,7 @@ public class Battlefield : MonoBehaviour
         {
             Debug.Log("Combatant Loop: " + i.ToString());
             Instantiate(combatants[i], battlezones[i].transform.position, Quaternion.identity);
+            combatants[i].battlezone = battlezones[i];
         }
     }
 

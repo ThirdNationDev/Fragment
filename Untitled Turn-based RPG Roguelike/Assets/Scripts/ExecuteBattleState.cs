@@ -23,10 +23,11 @@ public class ExecuteBattleState : IBattleState
         //Debug.Log("ExecuteBattleState.UpdateState() called.");
         //TODO: When cinematics are done, move to next character in queue
         //if all enemy combatants dead, you won!
-        controller.ChangeState(controller.wonBattleState);
+        //controller.ChangeState(controller.wonBattleState);
         //if all player characters dead, you lose!
-        controller.ChangeState(controller.lostBattleState);
+        //controller.ChangeState(controller.lostBattleState);
         //otherwise, move to next combatant in queue and start the next turn
+
         controller.ChangeState(controller.startTurnBattleState);
 
     }

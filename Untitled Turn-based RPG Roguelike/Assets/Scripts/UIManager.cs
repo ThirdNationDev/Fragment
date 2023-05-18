@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
+    public BattleCommand currentCommand { get; private set; }
+
     public static UIManager Instance { get; private set; }
 
     private void Awake()
@@ -16,11 +18,13 @@ public class UIManager : MonoBehaviour
         }
 
         Instance = this;
+
+        currentCommand = null;
     }
 
     void OnConfirm()
     {
-        Debug.Log("Confirm hit.");
+        currentCommand = new ConfirmBCom();
     }
 
 }
