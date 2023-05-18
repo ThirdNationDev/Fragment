@@ -22,6 +22,11 @@ public class UIManager : MonoBehaviour
         currentCommand = null;
     }
 
+    public void Clear()
+    {
+        currentCommand = null;
+    }
+
     void OnConfirm()
     {
         currentCommand = new ConfirmBCom();

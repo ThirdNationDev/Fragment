@@ -27,15 +27,17 @@ public class ExecuteBattleState : IBattleState
         //if all player characters dead, you lose!
         //controller.ChangeState(controller.lostBattleState);
         //otherwise, move to next combatant in queue and start the next turn
-
-        controller.ChangeState(controller.startTurnBattleState);
+        if(UIManager.Instance.currentCommand != null)
+        {
+            UIManager.Instance.currentCommand.Execute();
+            BattleManager.Instance.commandList.Add(UIManager.Instance.currentCommand);
+            UIManager.Instance.Clear();
+            controller.ChangeState(controller.startTurnBattleState);
+        }
 
     }
 
-    void OnConfirm()
-    {
-        Debug.Log("OnConfirm called in Execute Battle State");
-    }
+
 
  
  

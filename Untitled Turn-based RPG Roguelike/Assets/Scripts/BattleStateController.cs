@@ -11,7 +11,6 @@ public class BattleStateController : MonoBehaviour
 
     public StartBattleState startBattleState = new StartBattleState();
     public StartTurnBattleState startTurnBattleState = new StartTurnBattleState();
-    public InputBattleState inputBattleState = new InputBattleState();
     public ExecuteBattleState executeBattleState = new ExecuteBattleState();
     public WonBattleState wonBattleState = new WonBattleState();
     public LostBattleState lostBattleState = new LostBattleState();

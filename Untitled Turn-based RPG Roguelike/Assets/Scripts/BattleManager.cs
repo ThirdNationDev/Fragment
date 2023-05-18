@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
     public Combatant[] combatants;
     public BattleStateController battleStateController { get; private set; }
     public Battlefield battlefield { get; private set; }
+    public List<BattleCommand> commandList;
 
 
     private void Awake()
@@ -21,7 +22,7 @@ public class BattleManager : MonoBehaviour
         Instance = this;
         battleStateController = GetComponent<BattleStateController>();
         battlefield = GetComponentInChildren<Battlefield>();
-
+        commandList = new List<BattleCommand>();
     }
 
     public void PlaceCombatants()

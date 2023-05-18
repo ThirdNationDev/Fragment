@@ -23,7 +23,7 @@ public class StartTurnBattleState : IBattleState
     {
         Debug.Log("StartTurnBattleState.UpdateState() called.");
         //TODO: Make sure on enter effects are done
-        controller.ChangeState(controller.inputBattleState);
+        controller.ChangeState(controller.executeBattleState);
     }
 
  
