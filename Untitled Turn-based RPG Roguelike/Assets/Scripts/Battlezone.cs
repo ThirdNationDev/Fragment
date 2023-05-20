@@ -8,6 +8,8 @@ public class Battlezone : MonoBehaviour
     [SerializeField]
     private Vector3 scale;
 
+    public int zoneNumber;
+
     // Start is called before the first frame update
     void Start()
     {

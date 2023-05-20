@@ -38,6 +38,7 @@ public class Battlefield : MonoBehaviour
             zone.transform.parent = this.gameObject.transform;
             zone.transform.position += new Vector3(0, 0, offset);
             zone.name = "Battlezone " + i.ToString();
+            zone.zoneNumber = i;
             battlezones[i] = zone;
         }
     }
@@ -47,6 +48,18 @@ public class Battlefield : MonoBehaviour
         for(int i = 0; i < combatants.Length; i++)
         {
             combatants[i].EnterCombat(battlezones[startingZone]);
+        }
+    }
+
+    public Battlezone getZone(int i)
+    {
+        if ((0 <= i) &&(i < battlezones.Length))
+        {
+            return battlezones[i];
+        }
+        else
+        {
+            return battlezones[0];
         }
     }
 
