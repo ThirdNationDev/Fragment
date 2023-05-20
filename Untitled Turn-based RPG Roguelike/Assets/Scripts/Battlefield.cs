@@ -11,6 +11,9 @@ public class Battlefield : MonoBehaviour
     [SerializeField]
     private int numberOfZones;
 
+    [SerializeField]
+    private int startingZone;
+
     private Battlezone[] battlezones;
 
     // Start is called before the first frame update
@@ -21,6 +24,11 @@ public class Battlefield : MonoBehaviour
 
     internal void CreateBattlefield()
     {
+        if(startingZone <0 || startingZone >= numberOfZones)
+        {
+            Debug.LogError("Battlefield starting zone is incorrect.");
+        }
+
         battlezones = new Battlezone[numberOfZones];
         for (int i = 0; i < numberOfZones; i++)
         {
@@ -36,12 +44,9 @@ public class Battlefield : MonoBehaviour
 
     public void PlaceCombatants(Combatant[] combatants)
     {
-        Debug.Log("Battlefield.PlaceCombatants called.");
         for(int i = 0; i < combatants.Length; i++)
         {
-            Debug.Log("Combatant Loop: " + i.ToString());
-            Instantiate(combatants[i], battlezones[i].transform.position, Quaternion.identity);
-            combatants[i].battlezone = battlezones[i];
+            combatants[i].EnterCombat(battlezones[startingZone]);
         }
     }
 

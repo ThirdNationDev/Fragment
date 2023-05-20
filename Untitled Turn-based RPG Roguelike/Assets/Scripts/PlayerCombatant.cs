@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCombatant : Combatant
 {
-
     // Start is called before the first frame update
     void Start()
     {
