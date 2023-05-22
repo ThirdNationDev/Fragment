@@ -4,7 +4,12 @@ using UnityEngine;
 
 public abstract class BattleCommand
 {
+    internal Combatant combatant;
 
+    public BattleCommand(Combatant actor)
+    {
+        combatant = actor;
+    }
     public virtual void Execute()
     {
 

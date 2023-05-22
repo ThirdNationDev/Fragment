@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatantStats: MonoBehaviour
+[CreateAssetMenu]
+public class CombatantStats: ScriptableObject
 {
 
     public int unitNumber;
@@ -16,10 +17,4 @@ public class CombatantStats: MonoBehaviour
     public int diligence;
     public int guile;
 
-    void Awake()
-    {
-        health = maxHealth;
-        AP = startingAP;
-
-    }
 }

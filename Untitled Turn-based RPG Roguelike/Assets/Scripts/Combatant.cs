@@ -6,19 +6,18 @@ public abstract class Combatant : MonoBehaviour
 {
     private UnitProfile unit;
     public Battlezone battlezone;
-    Combatant myCombatant;
     public CombatantStats stats;
 
 
     public virtual void EnterCombat(Battlezone zone)
     {
-        //Instantiate commbatant at the location
-        GameObject gameObject = Instantiate(this.gameObject, zone.transform.position, Quaternion.identity);
-        myCombatant = gameObject.GetComponent<Combatant>();
-        myCombatant.battlezone = zone;
-        myCombatant.gameObject.transform.parent = zone.transform;
+        battlezone = zone;
+        transform.position = zone.transform.position;
+        transform.parent = zone.transform;
 
-        stats = gameObject.GetComponent<CombatantStats>();
+        stats.AP = stats.startingAP;
+        stats.health = stats.maxHealth;
+
     }
 
     public virtual void MoveTo(Battlezone newZone)
@@ -36,13 +35,20 @@ public abstract class Combatant : MonoBehaviour
 
     public virtual void MoveForwardOne()
     {
+        Debug.Log("BMI: " + BattleManager.Instance);
+        Debug.Log("BMIB: " + BattleManager.Instance.battlefield);
+        Debug.Log("BMIBZ: " + BattleManager.Instance.battlefield.getZone(0));
+        Debug.Log("BZ: " + battlezone);
         Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber + 1);
-        MoveTo(targetZone);
+        ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
+        BattleManager.Instance.ExecuteCommand(command);
+        //MoveTo(targetZone);
     }
 
     public virtual void MoveBackOne()
     {
         Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber - 1);
-        MoveTo(targetZone);
+        ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
+        BattleManager.Instance.ExecuteCommand(command);
     }
 }

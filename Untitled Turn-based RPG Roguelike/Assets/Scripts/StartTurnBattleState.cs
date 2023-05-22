@@ -10,7 +10,8 @@ public class StartTurnBattleState : IBattleState
 
         //TODO: Cinematics on combatant
         //TODO: Starting effects (poison, etc)
-        controller.turnCounter++;
+        BattleManager.Instance.turnCtr++;
+        BattleManager.Instance.nextCombatant();
     }
 
     public void OnExit(BattleStateController controller)

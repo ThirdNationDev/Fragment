@@ -1,11 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleStateController : MonoBehaviour
 {
-    public GameObject combatantPrefab;
-    public int turnCounter;
     
     IBattleState currentState;
 
@@ -21,7 +20,6 @@ public class BattleStateController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        turnCounter = 0;
         ChangeState(startBattleState);
     }
 

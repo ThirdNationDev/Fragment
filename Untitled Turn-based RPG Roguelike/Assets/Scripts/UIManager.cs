@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
-    public BattleCommand currentCommand { get; private set; }
 
     public static UIManager Instance { get; private set; }
 
@@ -19,17 +18,8 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
 
-        currentCommand = null;
     }
 
-    public void Clear()
-    {
-        currentCommand = null;
-    }
-
-    void OnConfirm()
-    {
-        currentCommand = new ConfirmBCom();
-    }
+   
 
 }

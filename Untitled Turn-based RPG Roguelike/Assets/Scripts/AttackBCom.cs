@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class AttackBCom : BattleCommand
 {
-    Combatant combatant;
     Combatant target;
 
 
-    public AttackBCom()
+    public AttackBCom(Combatant actor):base(actor)
     {
     }
 

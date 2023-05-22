@@ -6,14 +6,14 @@ public class ChangeZoneBCom : BattleCommand
 {
     Battlezone start;
     Battlezone end;
-    Combatant combatant;
 
-    public ChangeZoneBCom(Combatant combatant, Battlezone end)
+    public ChangeZoneBCom(Combatant actor, Battlezone target) : base(actor)
     {
-        this.combatant = combatant;
-        this.start = combatant.battlezone;
-        this.end = end;
+        start = combatant.battlezone;
+        end = target;
     }
+
+  
 
     public override void Execute()
     {
