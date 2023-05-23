@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class BattleZone2 : MonoBehaviour
 {
@@ -8,48 +10,88 @@ public class BattleZone2 : MonoBehaviour
 
     public int numCombatants;
 
-    GameObject[] tileArray;
+    public List<GameObject> combatants;
+
+    public int minWidth;
+
+    List<GameObject> tileArray;
+
+    public TextMeshProUGUI inputWidth;
+
+    public int width { get {
+            if (tileArray != null)
+            {
+                return tileArray.Count;
+            }
+            else { return 0; }
+        } private set { } }
 
     public GameObject combatantPrefab;
 
     void Awake()
     {
-        Resize(numCombatants);
+        tileArray = new List<GameObject>();
+        combatants = new List<GameObject>();
+        Resize(minWidth);
     }
 
-    public void Resize(int numCombatants)
+    //only odd widths allowed, will increase by one if even
+    public void Resize(int newWidth)
     {
-        this.numCombatants = numCombatants;
+        if(newWidth%2 == 0)
+        {
+            newWidth++;
+        }
         Vector3 scale = battleZoneTilePrefab.transform.localScale;
 
-        if(numCombatants == 0)
+        if(newWidth == width || newWidth < 0)
         {
-            tileArray = new GameObject[3];
+            return;
+        }
+        else if(newWidth > width)
+        {
+
+            //begin adding new tiles after existing ones
+            for (int x = width; x < newWidth; x++)
+            {
+
+                GameObject tile = Instantiate(battleZoneTilePrefab);
+                tile.transform.position += Vector3.Scale(scale, new Vector3(x, 0, 0));
+                tile.transform.parent = this.transform;
+                tile.name = "Tile " + x.ToString();
+                tileArray.Add(tile);
+            }
+        }
+        else //newWidth is smaller, must remove cells
+        {
+            for(int x = width-1; x > newWidth; x--){
+                GameObject deadTile = tileArray[x];
+                tileArray.RemoveAt(x);
+                Destroy(deadTile);
+
+            }
+            
 
         }
-        else
-        {
-            tileArray = new GameObject[numCombatants*2 + 1];
-        }
 
-        for (int x = 0;x < tileArray.GetLength(0); x++)
-        {
-            
-            GameObject tile = Instantiate(battleZoneTilePrefab);
-            tile.transform.position += Vector3.Scale(scale, new Vector3(x, 0, 0));
-            tile.transform.parent = this.transform;
-            tile.name = "Tile " + x.ToString();
-            tileArray[x] = tile;
-            
-        }
+
     }    
+
+    public void ResizeInput()
+    {
+        Debug.Log("Input: " + inputWidth.text.Trim());
+        string input = inputWidth.text.Trim();
+        Resize(int.Parse(input));
+        //Resize(int.Parse("7"));
+        //Resize(Convert.ToInt32(input));
+    }
 
     public void AddCombatant()
     {
         //Check to see if there is sufficient space. If not, add more tiles.
         //Each combatant should have an empty tile between it and the closest one
         numCombatants++;
-        if(tileArray.Length < (numCombatants*2 + 1))
+        if(tileArray.Count < (numCombatants*2 + 1))
         {
             Resize(numCombatants);
         }
