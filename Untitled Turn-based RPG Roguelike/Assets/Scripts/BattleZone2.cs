@@ -94,6 +94,11 @@ public class BattleZone2 : MonoBehaviour
        ArrangeCombatants();
     }    
 
+    /// <summary>
+    /// Destroys the gameobject tile. Does not destroy any child Combatants, 
+    /// but will remove them as child.
+    /// </summary>
+    /// <param name="tile"></param>
     void DestroyTile(GameObject tile)
     {
         Combatant combatant = tile.GetComponentInChildren<Combatant>();
@@ -106,6 +111,11 @@ public class BattleZone2 : MonoBehaviour
         Destroy(tile);
     }
 
+    /// <summary>
+    /// Removes the gameobject from the tile and form the list of combatants,
+    /// but does not destroy it.
+    /// </summary>
+    /// <param name="go"></param>
     public void RemoveCombatant(GameObject go)
     {
         combatants.Remove(go);
@@ -130,7 +140,9 @@ public class BattleZone2 : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// For resizing zone with UI command
+    /// </summary>
     public void ResizeInput()
     {
         string input = inputWidth.text.Trim();
@@ -138,6 +150,9 @@ public class BattleZone2 : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Adds a prefab combatant, then rearranges the zone
+    /// </summary>
     public void AddCombatant()
     {
         GameObject combatant = Instantiate(combatantPrefab);
@@ -151,6 +166,11 @@ public class BattleZone2 : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// Arranges the combatants evenly and centered across the zone.
+    /// Not sure if stable. 
+    /// </summary>
     void ArrangeCombatants()
     {
         if(combatants.Count == 0) { return; }  //if no combatants, no need to arrange
