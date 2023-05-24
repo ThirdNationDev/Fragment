@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Linq;
 
 public class BattleZone2 : MonoBehaviour
 {
     public GameObject battleZoneTilePrefab;
-
-    public int numCombatants;
 
     public List<GameObject> combatants;
 
@@ -55,14 +54,16 @@ public class BattleZone2 : MonoBehaviour
             return;
         }
 
+        if((newWidth/2 +1) < combatants.Count) //don't make it too small for the combatants
+        {
+            return;
+        }
+
         if (newWidth < width)  //destroy extra tiles
         {
             for (int x = width - 1; x >= newWidth; x--)
             {
-                GameObject deadTile = tileArray[x];
-                tileArray.RemoveAt(x);
-                Destroy(deadTile);
-
+                DestroyTile(tileArray[x]);
             }
         }
         else if (newWidth > width) //create new tiles on the end
@@ -90,7 +91,26 @@ public class BattleZone2 : MonoBehaviour
         }
 
        Recenter();
+       ArrangeCombatants();
     }    
+
+    void DestroyTile(GameObject tile)
+    {
+        Combatant combatant = tile.GetComponentInChildren<Combatant>();
+        if(combatant != null) //don't destroy combatant
+        {
+            combatant.transform.parent = null;
+            ArrangeCombatants();
+        }
+        tileArray.Remove(tile);
+        Destroy(tile);
+    }
+
+    public void RemoveCombatant(GameObject go)
+    {
+        combatants.Remove(go);
+        go.transform.parent = null;
+    }
 
     /// <summary>
     /// Recenters the tiles so that within the battlezone object, the central tile  is at origin.
@@ -126,35 +146,23 @@ public class BattleZone2 : MonoBehaviour
         {
             Resize(width += 2);
         }
-        int leftIndex = width / 2;
-        int rightIndex = leftIndex;
-        int placementIndex = leftIndex;
-        bool combatantPlaced = false;
-        while (!combatantPlaced && leftIndex >=0 && rightIndex <= width)
+
+        ArrangeCombatants();
+
+    }
+
+    void ArrangeCombatants()
+    {
+        if(combatants.Count == 0) { return; }  //if no combatants, no need to arrange
+
+        int index = tileArray.Count/2 - (combatants.Count - 1);
+        
+        foreach(GameObject go in combatants)
         {
-            if(tileArray[leftIndex].transform.childCount == 0)
-            {
-                placementIndex = leftIndex;
-                combatantPlaced = true;
-            }
-            else if(tileArray[rightIndex].transform.childCount == 0)
-            {
-                placementIndex = rightIndex;
-                combatantPlaced = true;
-            }
-            else
-            {
-                leftIndex -= 2;
-                rightIndex += 2;
-            }
+            go.transform.position = tileArray[index].transform.position;
+            go.transform.parent = tileArray[index].transform;
+            index += 2;
         }
-        combatant.transform.position = tileArray[placementIndex].transform.position;
-        combatant.transform.parent = tileArray[placementIndex].transform;
-
-
-        //Check to see if there is sufficient space. If not, add more tiles.
-        //Each combatant should have an empty tile between it and the closest one
-
 
     }
 }
