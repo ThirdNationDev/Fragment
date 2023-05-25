@@ -11,10 +11,12 @@ public class CombatantStats: ScriptableObject
     public int health;
     public int AP;
     public int startingAP;
+    public int maxRange;
+    public int range;
 
     public int aggression;
     public int compassion;
-    public int diligence;
+    public int discipline;
     public int guile;
 
 }

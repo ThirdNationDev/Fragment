@@ -12,21 +12,22 @@ public abstract class Combatant : MonoBehaviour
     public virtual void EnterCombat(Battlezone zone)
     {
         battlezone = zone;
-        transform.position = zone.transform.position;
-        transform.parent = zone.transform;
+        zone.AddCombatant(this);
 
         stats.AP = stats.startingAP;
         stats.health = stats.maxHealth;
+        stats.range = stats.maxRange;
 
     }
 
     public virtual void MoveTo(Battlezone newZone)
     {
+        int distance = Mathf.Abs(battlezone.zoneNumber - newZone.zoneNumber);
         //Move combatant to new zone and locaiton
-        if (stats.AP > 0)
+        if (distance <= stats.range)
         {
-            this.transform.position = newZone.transform.position;
-            this.transform.parent = newZone.transform;
+            battlezone.RemoveCombatant(this.gameObject);
+            newZone.AddCombatant(this);
             battlezone = newZone;
             stats.AP--;
         }
@@ -35,10 +36,6 @@ public abstract class Combatant : MonoBehaviour
 
     public virtual void MoveForwardOne()
     {
-        Debug.Log("BMI: " + BattleManager.Instance);
-        Debug.Log("BMIB: " + BattleManager.Instance.battlefield);
-        Debug.Log("BMIBZ: " + BattleManager.Instance.battlefield.getZone(0));
-        Debug.Log("BZ: " + battlezone);
         Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber + 1);
         ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
         BattleManager.Instance.ExecuteCommand(command);

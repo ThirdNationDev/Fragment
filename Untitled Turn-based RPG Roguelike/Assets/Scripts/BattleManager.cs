@@ -12,6 +12,11 @@ public class BattleManager : MonoBehaviour
     public Battlefield battlefield { get; private set; }
     public Stack<BattleCommand> commandList;
 
+
+    public int playerStartingZone;
+    public int enemyStartingZone;
+
+
     public int turnCtr;
     int combatantIndex;
 

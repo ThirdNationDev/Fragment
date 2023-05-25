@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9138b8faff9b7b241917ff079079b1c7, type: 3}
-  m_Name: PinkyStats
+  m_Name: TestEnemyStats
   m_EditorClassIdentifier: 
-  unitNumber: 1
-  maxHealth: 100
-  health: 100
-  AP: 3
-  startingAP: 3
+  unitNumber: 2
+  maxHealth: 1
+  health: 1
+  AP: -31
+  startingAP: 1
   maxRange: 1
   range: 1
-  aggression: 10
-  compassion: 9
+  aggression: 1
+  compassion: 1
   discipline: 0
-  guile: 7
+  guile: 1

@@ -5,7 +5,7 @@ using TMPro;
 using System;
 using System.Linq;
 
-public class BattleZone2 : MonoBehaviour
+public class Battlezone2 : MonoBehaviour
 {
     public GameObject battleZoneTilePrefab;
 
@@ -16,6 +16,8 @@ public class BattleZone2 : MonoBehaviour
     List<GameObject> tileArray;
 
     public TMP_InputField inputWidth;
+
+    public int zoneNumber;
 
     public int width { get {
             if (tileArray != null)
