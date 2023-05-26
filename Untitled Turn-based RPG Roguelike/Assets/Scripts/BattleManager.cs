@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     public BattleStateController battleStateController { get; private set; }
     public Battlefield battlefield { get; private set; }
     public Stack<BattleCommand> commandList;
+    public BattleCommand currentCommand;
 
 
     public int playerStartingZone;
@@ -51,6 +52,7 @@ public class BattleManager : MonoBehaviour
 
         turnCtr = 0;
         combatantIndex = 0;
+        currentCommand = null;
     }
 
     public void PlaceCombatants()

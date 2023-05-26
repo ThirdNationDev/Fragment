@@ -7,17 +7,26 @@ public abstract class Combatant : MonoBehaviour
     private UnitProfile unit;
     public Battlezone battlezone;
     public CombatantStats stats;
+    
+    public BattleCommand movementCommand;
+    public BattleCommand lightAttack;
+    public BattleCommand midAttack;
+    public BattleCommand heavyAttack;
+    public BattleCommand defendBCom;
+
+    BattleCommand defendCommand;
 
 
     public virtual void EnterCombat(Battlezone zone)
     {
         battlezone = zone;
         zone.AddCombatant(this);
-
         stats.AP = stats.startingAP;
         stats.health = stats.maxHealth;
         stats.range = stats.maxRange;
 
+        defendCommand = ScriptableObject.CreateInstance("DefendBCom") as BattleCommand;
+        defendBCom.Initialize(this);
     }
 
     public virtual void MoveTo(Battlezone newZone)
@@ -37,15 +46,15 @@ public abstract class Combatant : MonoBehaviour
     public virtual void MoveForwardOne()
     {
         Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber + 1);
-        ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
-        BattleManager.Instance.ExecuteCommand(command);
+        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
+        //BattleManager.Instance.ExecuteCommand(command);
         //MoveTo(targetZone);
     }
 
     public virtual void MoveBackOne()
     {
         Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber - 1);
-        ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
-        BattleManager.Instance.ExecuteCommand(command);
+        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
+       // BattleManager.Instance.ExecuteCommand(command);
     }
 }

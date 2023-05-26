@@ -29,6 +29,21 @@ public class ExecuteBattleState : IBattleState
         //otherwise, move to next combatant in queue and start the next turn
         
          //controller.ChangeState(controller.startTurnBattleState);
+
+        //CHeck if there is a command
+        if(BattleManager.Instance.currentCommand != null)
+        {
+            BattleCommand command = BattleManager.Instance.currentCommand;
+            BattleManager.Instance.commandList.Push(command);
+            command.Execute();
+            BattleManager.Instance.currentCommand = null;
+            if (command.endsTurn)
+            {
+                controller.ChangeState(controller.startTurnBattleState);
+            }
+        }
+        //Check if it is a turn ending command
+        //
         
 
     }

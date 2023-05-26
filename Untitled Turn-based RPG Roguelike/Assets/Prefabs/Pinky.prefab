@@ -1554,6 +1554,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battlezone: {fileID: 0}
   stats: {fileID: 11400000, guid: 00af288d8c9037e4db2ded7bdb61a459, type: 2}
+  movementCommand: {fileID: 0}
+  lightAttack: {fileID: 0}
+  midAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  defendBCom: {fileID: 4172960285069459559, guid: ac58f3ab0c9306440ae45690ca71b995, type: 3}
   holo: {fileID: 8758932652137771438}
 --- !u!1 &2804624405766374416
 GameObject:

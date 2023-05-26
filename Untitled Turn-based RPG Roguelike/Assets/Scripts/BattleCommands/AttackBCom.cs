@@ -7,9 +7,7 @@ public class AttackBCom : BattleCommand
     Combatant target;
 
 
-    public AttackBCom(Combatant actor):base(actor)
-    {
-    }
+
 
     
 

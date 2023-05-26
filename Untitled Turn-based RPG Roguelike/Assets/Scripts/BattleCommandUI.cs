@@ -32,4 +32,11 @@ public class BattleCommandUI : MonoBehaviour
         BattleManager.Instance.currentCombatant.MoveBackOne();
     }
 
+    public void Defend()
+
+    {
+
+        BattleManager.Instance.currentCommand = BattleManager.Instance.currentCombatant.defendBCom;
+    }
+
 }

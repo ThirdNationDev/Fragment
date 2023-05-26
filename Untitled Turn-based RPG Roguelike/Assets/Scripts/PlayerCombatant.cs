@@ -6,5 +6,9 @@ public class PlayerCombatant : Combatant
 {
 
     public GameObject holo;
-    
+
+    private void Awake()
+    {
+        
+    }
 }
