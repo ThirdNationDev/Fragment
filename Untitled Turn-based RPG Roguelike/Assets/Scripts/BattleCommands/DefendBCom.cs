@@ -12,6 +12,7 @@ public class DefendBCom : BattleCommand
 
     public override void Initialize(Combatant actor)
     {
+        Debug.Log("DefendBCom Initialize called.");
         base.Initialize(actor);
         endsTurn = true;
     }

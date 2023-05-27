@@ -14,7 +14,6 @@ public abstract class Combatant : MonoBehaviour
     public BattleCommand heavyAttack;
     public BattleCommand defendBCom;
 
-    BattleCommand defendCommand;
 
 
     public virtual void EnterCombat(Battlezone zone)
@@ -23,9 +22,10 @@ public abstract class Combatant : MonoBehaviour
         zone.AddCombatant(this);
         stats.AP = stats.startingAP;
         stats.health = stats.maxHealth;
-        stats.range = stats.maxRange;
+        stats.stepsRemaining = stats.maxRange;
 
-        defendCommand = ScriptableObject.CreateInstance("DefendBCom") as BattleCommand;
+        //defendCommand = ScriptableObject.CreateInstance("DefendBCom") as BattleCommand;
+        defendBCom = ScriptableObject.CreateInstance<DefendBCom>();
         defendBCom.Initialize(this);
     }
 
@@ -33,7 +33,7 @@ public abstract class Combatant : MonoBehaviour
     {
         int distance = Mathf.Abs(battlezone.zoneNumber - newZone.zoneNumber);
         //Move combatant to new zone and locaiton
-        if (distance <= stats.range)
+        if (distance <= stats.stepsRemaining)
         {
             battlezone.RemoveCombatant(this.gameObject);
             newZone.AddCombatant(this);
@@ -41,6 +41,11 @@ public abstract class Combatant : MonoBehaviour
             stats.AP--;
         }
 
+    }
+
+    public virtual void NewTurn()
+    {
+        stats.stepsRemaining = stats.maxRange;
     }
 
     public virtual void MoveForwardOne()

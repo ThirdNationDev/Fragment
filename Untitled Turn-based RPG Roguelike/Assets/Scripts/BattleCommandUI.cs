@@ -24,6 +24,9 @@ public class BattleCommandUI : MonoBehaviour
 
     public void MoveForwardOne()
     {
+        
+        BattleManager.Instance.currentCommand = BattleManager.Instance.currentCombatant.defendBCom;
+
         BattleManager.Instance.currentCombatant.MoveForwardOne();
     }
 
@@ -38,5 +41,6 @@ public class BattleCommandUI : MonoBehaviour
 
         BattleManager.Instance.currentCommand = BattleManager.Instance.currentCombatant.defendBCom;
     }
+
 
 }

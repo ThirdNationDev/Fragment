@@ -12,7 +12,7 @@ public class CombatantStats: ScriptableObject
     public int AP;
     public int startingAP;
     public int maxRange;
-    public int range;
+    public int stepsRemaining;
 
     public int aggression;
     public int compassion;

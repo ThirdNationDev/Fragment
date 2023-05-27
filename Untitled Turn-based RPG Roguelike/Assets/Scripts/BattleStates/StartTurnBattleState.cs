@@ -12,6 +12,7 @@ public class StartTurnBattleState : IBattleState
         //TODO: Starting effects (poison, etc)
         BattleManager.Instance.turnCtr++;
         BattleManager.Instance.nextCombatant();
+        BattleManager.Instance.currentCombatant.NewTurn();
     }
 
     public void OnExit(BattleStateController controller)

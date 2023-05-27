@@ -182,6 +182,7 @@ public class Battlezone : MonoBehaviour
     public void AddCombatant(Combatant combatant)
     {
         combatants.Add(combatant.gameObject);
+        combatant.battlezone = this;
         if (combatants.Count > (numTiles / 2 + 1))
         {
             Resize(numTiles+2);

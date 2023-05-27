@@ -30,11 +30,13 @@ public abstract class BattleCommand : ScriptableObject
 
     public virtual void Execute()
     {
+        BattleManager.Instance.commandList.Push(this);
 
     }
 
     public virtual void Undo()
     {
+        BattleManager.Instance.commandList.Pop();
 
     }
 
