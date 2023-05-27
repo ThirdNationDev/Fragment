@@ -10,9 +10,19 @@ public class Battlefield : MonoBehaviour
     private Battlezone battleZonePrefab;
 
     [SerializeField]
-    private int numberOfZones;
+    private int initNumZones;
 
     private Battlezone[] battlezones;
+
+    public int numZones
+    {
+        get
+        {
+            return battlezones.Length;
+        }
+
+        private set { }
+    }
 
     private int zoneTileNumber;
 
@@ -26,16 +36,16 @@ public class Battlefield : MonoBehaviour
     {
         if(BattleManager.Instance.playerStartingZone <0 
             || BattleManager.Instance.enemyStartingZone <0
-            || BattleManager.Instance.playerStartingZone >= numberOfZones
-            || BattleManager.Instance.enemyStartingZone >= numberOfZones)
+            || BattleManager.Instance.playerStartingZone >= initNumZones
+            || BattleManager.Instance.enemyStartingZone >= initNumZones)
         {
             Debug.LogError("Battlefield starting zone is incorrect.");
         }
 
         zoneTileNumber = battleZonePrefab.minTileNum;
 
-        battlezones = new Battlezone[numberOfZones];
-        for (int i = 0; i < numberOfZones; i++)
+        battlezones = new Battlezone[initNumZones];
+        for (int i = 0; i < initNumZones; i++)
         {
             Battlezone zone = Instantiate(battleZonePrefab);
             //Debug.Log("Render Size : " + zone.GetComponent<Renderer>().bounds.size.z);
@@ -76,7 +86,7 @@ public class Battlefield : MonoBehaviour
         }
         else
         {
-            return battlezones[0];
+            return null;
         }
     }
 

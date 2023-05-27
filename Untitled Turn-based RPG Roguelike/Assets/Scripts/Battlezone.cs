@@ -17,6 +17,26 @@ public class Battlezone : MonoBehaviour
 
     public int zoneNumber;
 
+    public Battlezone nextzone
+    {
+        get
+        {
+            return battlefield.getZone(zoneNumber + 1);
+        }
+
+        private set { }
+    }
+
+    public Battlezone prevzone
+    {
+        get
+        {
+            return battlefield.getZone(zoneNumber - 1);
+        }
+
+        private set { }
+    }
+
     public Battlefield battlefield;
 
     public int numTiles

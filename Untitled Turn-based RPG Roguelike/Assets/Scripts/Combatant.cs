@@ -24,9 +24,10 @@ public abstract class Combatant : MonoBehaviour
         stats.health = stats.maxHealth;
         stats.stepsRemaining = stats.maxRange;
 
-        //defendCommand = ScriptableObject.CreateInstance("DefendBCom") as BattleCommand;
         defendBCom = ScriptableObject.CreateInstance<DefendBCom>();
         defendBCom.Initialize(this);
+        movementCommand = ScriptableObject.CreateInstance<ChangeZoneBCom>();
+        movementCommand.Initialize(this);
     }
 
     public virtual void MoveTo(Battlezone newZone)

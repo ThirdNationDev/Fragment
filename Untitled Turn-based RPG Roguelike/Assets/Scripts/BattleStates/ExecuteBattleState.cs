@@ -34,7 +34,6 @@ public class ExecuteBattleState : IBattleState
         if(BattleManager.Instance.currentCommand != null)
         {
             BattleCommand command = BattleManager.Instance.currentCommand;
-            BattleManager.Instance.commandList.Push(command);
             command.Execute();
             BattleManager.Instance.currentCommand = null;
             if (command.endsTurn)

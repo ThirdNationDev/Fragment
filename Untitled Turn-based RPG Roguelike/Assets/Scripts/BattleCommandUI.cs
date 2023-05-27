@@ -8,6 +8,7 @@ public class BattleCommandUI : MonoBehaviour
 
     public TextMeshProUGUI combatantNameText;
     public TextMeshProUGUI combatantHealth;
+    Combatant currentCombatant;
 
 
     private void Awake()
@@ -17,17 +18,17 @@ public class BattleCommandUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        Combatant current = BattleManager.Instance.currentCombatant;
-        combatantNameText.text = current.name;
-        combatantHealth.text = current.stats.health.ToString() + "/" + current.stats.maxHealth.ToString();
+        currentCombatant = BattleManager.Instance.currentCombatant;
+        combatantNameText.text = currentCombatant.name;
+        combatantHealth.text = currentCombatant.stats.health.ToString() + "/" + currentCombatant.stats.maxHealth.ToString();
     }
 
     public void MoveForwardOne()
     {
         
-        BattleManager.Instance.currentCommand = BattleManager.Instance.currentCombatant.defendBCom;
-
-        BattleManager.Instance.currentCombatant.MoveForwardOne();
+        BattleCommand moveForward = currentCombatant.movementCommand;
+        moveForward.SetTarget(currentCombatant.battlezone.nextzone);
+        BattleManager.Instance.currentCommand = moveForward;
     }
 
     public void MoveBackOne()

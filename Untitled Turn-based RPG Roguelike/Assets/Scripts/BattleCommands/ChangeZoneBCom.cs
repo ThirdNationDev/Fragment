@@ -14,6 +14,11 @@ public class ChangeZoneBCom : BattleCommand
     //}
     public override void Execute()
     {
+        if(zoneTarget == null) //do nothing if no valid zone target
+        {
+            return;
+        }
+
         base.Execute();
         int distance = Mathf.Abs(combatant.battlezone.zoneNumber - zoneTarget.zoneNumber);
         if(distance <= combatant.stats.stepsRemaining)
@@ -22,15 +27,7 @@ public class ChangeZoneBCom : BattleCommand
             zoneTarget.AddCombatant(combatant);
             combatant.stats.stepsRemaining -= distance;
         }
-        //int distance = Mathf.Abs(battlezone.zoneNumber - newZone.zoneNumber);
-        ////Move combatant to new zone and locaiton
-        //if (distance <= stats.stepsRemaining)
-        //{
-        //    battlezone.RemoveCombatant(this.gameObject);
-        //    newZone.AddCombatant(this);
-        //    battlezone = newZone;
-        //    stats.AP--;
-        //}
+
     }
 
     public override void Initialize(Combatant actor)
