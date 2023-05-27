@@ -42,6 +42,11 @@ public class BattleStateController : MonoBehaviour
         currentState = newState;
         currentState.OnEnter(this);
     }
+
+    public override string ToString()
+    {
+        return currentState.ToString();
+    }
 }
 
 public interface IBattleState

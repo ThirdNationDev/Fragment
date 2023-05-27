@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu]
 public class DefendBCom : BattleCommand
@@ -29,5 +30,10 @@ public class DefendBCom : BattleCommand
     public override void Undo()
     {
         base.Undo();
+    }
+
+    public override string ToString()
+    {
+        return combatant.ToString() + " used " + this.GetType().Name + "<br>";
     }
 }
