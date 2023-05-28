@@ -231,4 +231,9 @@ public class Battlezone : MonoBehaviour
         }
 
     }
+
+    public override string ToString()
+    {
+        return this.name;
+    }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class Battlefield : MonoBehaviour
@@ -83,6 +84,18 @@ public class Battlefield : MonoBehaviour
         if ((0 <= i) &&(i < battlezones.Length))
         {
             return battlezones[i];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public Battlezone[] getZones(int start, int end)
+    {
+        if ((0 <= start) &&  (end < battlezones.Length) && (start <= end))
+        {
+            return battlezones.Skip(start).Take(end-start+1).ToArray<Battlezone>();
         }
         else
         {

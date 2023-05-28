@@ -6,26 +6,22 @@ using UnityEngine;
 public class ChangeZoneBCom : BattleCommand
 {
 
-
-    //public override void Execute()
-    //{
-    //    base.Execute();
-    //    combatant.MoveTo(end);
-    //}
     public override void Execute()
     {
-        if(zoneTarget == null) //do nothing if no valid zone target
+        if(zoneTarget == null || combatant.zonesInMoveRange == null) //do nothing if no valid zone target
         {
             return;
         }
 
-        base.Execute();
-        int distance = Mathf.Abs(combatant.battlezone.zoneNumber - zoneTarget.zoneNumber);
-        if(distance <= combatant.stats.stepsRemaining)
+        //if zone is in range, move there
+        foreach(Battlezone zone in combatant.zonesInMoveRange)
         {
-            combatant.battlezone.RemoveCombatant(combatant.gameObject);
-            zoneTarget.AddCombatant(combatant);
-            combatant.stats.stepsRemaining -= distance;
+            if (zone.Equals(zoneTarget))
+            {
+                combatant.battlezone.RemoveCombatant(combatant.gameObject);
+                zoneTarget.AddCombatant(combatant);
+                base.Execute();
+            }
         }
 
     }
@@ -49,5 +45,12 @@ public class ChangeZoneBCom : BattleCommand
     public override void Undo()
     {
         base.Undo();
+    }
+
+    public override string ToString()
+    {
+        return combatant.ToString() + " used " + this.GetType().Name
+            + "to move from " + zoneStart.ToString() + " to " + zoneTarget.ToString()
+            + ".<br>";
     }
 }

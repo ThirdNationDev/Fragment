@@ -30,7 +30,7 @@ public abstract class BattleCommand : ScriptableObject
 
     public virtual void Execute()
     {
-        BattleManager.Instance.commandList.Push(this);
+        BattleManager.Instance.commandList.Push(this.ShallowClone());
 
     }
 
@@ -38,6 +38,11 @@ public abstract class BattleCommand : ScriptableObject
     {
         BattleManager.Instance.commandList.Pop();
 
+    }
+
+    public virtual BattleCommand ShallowClone()
+    {
+        return this.MemberwiseClone() as BattleCommand;
     }
 
 }

@@ -14,6 +14,8 @@ public abstract class Combatant : MonoBehaviour
     public BattleCommand heavyAttack;
     public BattleCommand defendBCom;
 
+    public Battlezone[] zonesInMoveRange;
+
 
 
     public virtual void EnterCombat(Battlezone zone)
@@ -46,7 +48,9 @@ public abstract class Combatant : MonoBehaviour
 
     public virtual void NewTurn()
     {
-        stats.stepsRemaining = stats.maxRange;
+        int lowZoneNum = battlezone.zoneNumber - stats.maxRange;
+        int highZoneNum = battlezone.zoneNumber + stats.maxRange;
+        zonesInMoveRange = BattleManager.Instance.battlefield.getZones(lowZoneNum, highZoneNum);
     }
 
     public virtual void MoveForwardOne()
@@ -62,5 +66,10 @@ public abstract class Combatant : MonoBehaviour
         Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber - 1);
         //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
        // BattleManager.Instance.ExecuteCommand(command);
+    }
+
+    public override string ToString()
+    {
+        return this.name;
     }
 }

@@ -25,16 +25,22 @@ public class BattleCommandUI : MonoBehaviour
 
     public void MoveForwardOne()
     {
-        
-        BattleCommand moveForward = currentCombatant.movementCommand;
-        moveForward.SetTarget(currentCombatant.battlezone.nextzone);
-        BattleManager.Instance.currentCommand = moveForward;
+        Move(currentCombatant.battlezone.nextzone);
+
     }
 
     public void MoveBackOne()
     {
-        BattleManager.Instance.currentCombatant.MoveBackOne();
+        Move(currentCombatant.battlezone.prevzone);
     }
+
+    private void Move(Battlezone target)
+    {
+        BattleCommand move = currentCombatant.movementCommand;
+        move.SetTarget(target);
+        BattleManager.Instance.currentCommand = move;
+    }
+
 
     public void Defend()
 
