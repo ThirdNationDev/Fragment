@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BattleCommand : ScriptableObject
+public abstract class BattleCommand 
 {
     internal Combatant combatant;
     internal Combatant combatTarget;
@@ -10,6 +10,7 @@ public abstract class BattleCommand : ScriptableObject
     internal Battlezone zoneStart;
 
     public bool endsTurn { get; internal set; }
+
 
     public virtual void Initialize(Combatant actor)
     {

@@ -8,11 +8,34 @@ public abstract class Combatant : MonoBehaviour
     public Battlezone battlezone;
     public CombatantStats stats;
     
-    public BattleCommand movementCommand;
-    public BattleCommand lightAttack;
-    public BattleCommand midAttack;
-    public BattleCommand heavyAttack;
-    public BattleCommand defendBCom;
+    [SerializeField]
+    public BasicDefendSkill moveSkill;
+    [SerializeField]
+    IEquipableSkill lightSkill;
+    [SerializeField]
+    IEquipableSkill midSkill;
+    [SerializeField]
+    IEquipableSkill heavySkill;
+    [SerializeField]
+    IEquipableSkill defendSkill;
+
+    public BattleCommand defendCommand
+    {
+        get
+        {
+            return defendSkill.Command(this);
+        }
+        private set { }
+    }
+
+    public BattleCommand moveCommand
+    {
+        get
+        {
+            return moveSkill.Command(this);
+        }
+        private set { }
+    }
 
     public Battlezone[] zonesInMoveRange;
 
@@ -26,13 +49,10 @@ public abstract class Combatant : MonoBehaviour
         stats.health = stats.maxHealth;
         stats.stepsRemaining = stats.maxRange;
 
-        defendBCom = ScriptableObject.CreateInstance<DefendBCom>();
-        defendBCom.Initialize(this);
-        movementCommand = ScriptableObject.CreateInstance<ChangeZoneBCom>();
-        movementCommand.Initialize(this);
-    }
 
-    public virtual void MoveTo(Battlezone newZone)
+}
+
+public virtual void MoveTo(Battlezone newZone)
     {
         int distance = Mathf.Abs(battlezone.zoneNumber - newZone.zoneNumber);
         //Move combatant to new zone and locaiton

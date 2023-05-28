@@ -36,7 +36,7 @@ public class BattleCommandUI : MonoBehaviour
 
     private void Move(Battlezone target)
     {
-        BattleCommand move = currentCombatant.movementCommand;
+        BattleCommand move = currentCombatant.moveCommand;
         move.SetTarget(target);
         BattleManager.Instance.currentCommand = move;
     }
@@ -46,7 +46,7 @@ public class BattleCommandUI : MonoBehaviour
 
     {
 
-        BattleManager.Instance.currentCommand = BattleManager.Instance.currentCombatant.defendBCom;
+        BattleManager.Instance.currentCommand = BattleManager.Instance.currentCombatant.defendCommand;
     }
 
 
