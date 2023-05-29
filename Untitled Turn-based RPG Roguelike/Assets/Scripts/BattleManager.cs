@@ -8,6 +8,13 @@ public class BattleManager : MonoBehaviour
     public static BattleManager Instance { get; private set; }
     public Combatant[] combatantPrefabs;
     private Combatant[] combatants;
+    public float damageBuffer;
+
+    internal float CalculateDamage(float damageDealt, Combatant combatTarget)
+    {
+        return damageDealt * (damageBuffer / (damageBuffer + combatTarget.stats.discipline));
+    }
+
     public BattleStateController battleStateController { get; private set; }
     public Battlefield battlefield { get; private set; }
     public Stack<BattleCommand> commandList;
@@ -76,7 +83,6 @@ public class BattleManager : MonoBehaviour
         commandList.Push(bc);
         bc.Execute();
     }
-
 
 
 }

@@ -9,7 +9,6 @@ public class CommandLog : MonoBehaviour
     public TextMeshProUGUI commandLog;
     public ScrollRect scroller;
     string logtext;
-    BattleCommand lastCommand;
     BattleCommand currentCommand;
 
     int lastCount;
@@ -19,7 +18,6 @@ public class CommandLog : MonoBehaviour
     void Awake()
     {
         logtext = "";
-        lastCommand = null;
         currentCommand = null;
 
         lastCount = 0;

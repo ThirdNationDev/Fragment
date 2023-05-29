@@ -10,6 +10,12 @@ public abstract class BattleCommand
     internal Battlezone zoneStart;
 
     public bool endsTurn { get; internal set; }
+    public bool targetsZone { get; internal set; }
+    public bool targetsCombatant { get; internal set; }
+    public bool targetsSelf { get; internal set; }
+
+    [SerializeField]
+    public int range;
 
 
     public virtual void Initialize(Combatant actor)
@@ -17,6 +23,11 @@ public abstract class BattleCommand
         combatant = actor;
         zoneStart = actor.battlezone;
         endsTurn = false;
+
+        //one of these must be set true in derived class
+        targetsZone = false;
+        targetsCombatant = false;
+        targetsSelf = false;
     }
 
     public virtual void SetTarget(Combatant target)
@@ -31,7 +42,7 @@ public abstract class BattleCommand
 
     public virtual void Execute()
     {
-        BattleManager.Instance.commandList.Push(this.ShallowClone());
+        BattleManager.Instance.commandList.Push(this);
 
     }
 
@@ -41,9 +52,5 @@ public abstract class BattleCommand
 
     }
 
-    public virtual BattleCommand ShallowClone()
-    {
-        return this.MemberwiseClone() as BattleCommand;
-    }
 
 }

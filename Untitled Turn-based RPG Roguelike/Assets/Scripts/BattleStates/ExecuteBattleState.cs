@@ -14,21 +14,16 @@ public class ExecuteBattleState : IBattleState
     {
         Debug.Log("ExecuteBattleState.OnExit() called.");
         //TODO: Push commands onto queue
-        //TODO: Move on to next combatant in queue
+        BattleManager.Instance.turnCtr++;
+        BattleManager.Instance.currentCombatant.EndTurn();
+        BattleManager.Instance.nextCombatant();
+
 
     }
 
     public void UpdateState(BattleStateController controller)
     {
-        //Debug.Log("ExecuteBattleState.UpdateState() called.");
-        //TODO: When cinematics are done, move to next character in queue
-        //if all enemy combatants dead, you won!
-        //controller.ChangeState(controller.wonBattleState);
-        //if all player characters dead, you lose!
-        //controller.ChangeState(controller.lostBattleState);
-        //otherwise, move to next combatant in queue and start the next turn
-        
-         //controller.ChangeState(controller.startTurnBattleState);
+
 
         //CHeck if there is a command
         if(BattleManager.Instance.currentCommand != null)

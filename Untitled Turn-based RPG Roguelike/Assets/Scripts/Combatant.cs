@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,31 @@ public abstract class Combatant : MonoBehaviour
     private UnitProfile unit;
     public Battlezone battlezone;
     public CombatantStats stats;
+    public ParticleSystem particles;
     
     public BasicMoveSkill moveSkill;
-    IEquipableSkill lightSkill;
-    IEquipableSkill midSkill;
-    IEquipableSkill heavySkill;
- 
+    public BasicAttackSkill lightSkill;
+    public BasicAttackSkill midSkill;
+    public BasicAttackSkill heavySkill;
+
     public BasicDefendSkill defendSkill;
+
+    public virtual void ReceiveDamage(float damage)
+    {
+        //TODO: Play damaged animation
+        stats.health -= (int) Math.Round(damage);
+        if(stats.health <= 0)
+        {
+            Death();
+        }
+    }
+
+    public virtual void Death()
+    {
+        throw new NotImplementedException();
+    }
+
+
 
     public BattleCommand defendCommand
     {
@@ -33,6 +52,33 @@ public abstract class Combatant : MonoBehaviour
         private set { }
     }
 
+    public BattleCommand lightSkillCommand
+    {
+        get
+        {
+            return lightSkill.Command(this);
+        }
+        private set { }
+    }
+
+    public BattleCommand midSkillCommand
+    {
+        get
+        {
+            return midSkill.Command(this);
+        }
+        private set { }
+    }
+
+    public BattleCommand heavySkillCommand
+    {
+        get
+        {
+            return heavySkill.Command(this);
+        }
+        private set { }
+    }
+
     public Battlezone[] zonesInMoveRange;
 
 
@@ -44,7 +90,7 @@ public abstract class Combatant : MonoBehaviour
         stats.AP = stats.startingAP;
         stats.health = stats.maxHealth;
         stats.stepsRemaining = stats.maxRange;
-
+        particles.Stop();
 
 }
 
@@ -62,11 +108,17 @@ public virtual void MoveTo(Battlezone newZone)
 
     }
 
-    public virtual void NewTurn()
+    public virtual void StartTurn()
     {
         int lowZoneNum = battlezone.zoneNumber - stats.maxRange;
         int highZoneNum = battlezone.zoneNumber + stats.maxRange;
         zonesInMoveRange = BattleManager.Instance.battlefield.getZones(lowZoneNum, highZoneNum);
+        particles.Play();
+    }
+
+    public virtual void EndTurn()
+    {
+        particles.Stop();
     }
 
     public virtual void MoveForwardOne()
