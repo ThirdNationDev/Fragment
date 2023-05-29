@@ -144,8 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battlezone: {fileID: 0}
   stats: {fileID: 11400000, guid: ae8d6739a6ad3324a9087bd9d012fe8f, type: 2}
-  movementCommand: {fileID: 0}
-  lightAttack: {fileID: 0}
-  midAttack: {fileID: 0}
-  heavyAttack: {fileID: 0}
-  defendBCom: {fileID: 4172960285069459559, guid: ac58f3ab0c9306440ae45690ca71b995, type: 3}
+  moveSkill: {fileID: 7065795181310970587, guid: aad373dd07bced64c9ba99c649a76f90, type: 3}
+  defendSkill: {fileID: 1259075689959377625, guid: 2d7903cfe559c2644ae7a7f2b6bc3006, type: 3}
+  zonesInMoveRange: []

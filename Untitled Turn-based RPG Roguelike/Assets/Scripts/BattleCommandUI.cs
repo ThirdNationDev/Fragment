@@ -44,8 +44,7 @@ public class BattleCommandUI : MonoBehaviour
 
     public void Defend()
 
-    {
-
+    { 
         BattleManager.Instance.currentCommand = BattleManager.Instance.currentCombatant.defendCommand;
     }
 

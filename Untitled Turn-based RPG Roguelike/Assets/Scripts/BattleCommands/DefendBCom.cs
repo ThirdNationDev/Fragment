@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu]
 public class DefendBCom : BattleCommand
 {
     public override void Execute()

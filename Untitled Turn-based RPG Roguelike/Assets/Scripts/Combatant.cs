@@ -8,16 +8,12 @@ public abstract class Combatant : MonoBehaviour
     public Battlezone battlezone;
     public CombatantStats stats;
     
-    [SerializeField]
-    public BasicDefendSkill moveSkill;
-    [SerializeField]
+    public BasicMoveSkill moveSkill;
     IEquipableSkill lightSkill;
-    [SerializeField]
     IEquipableSkill midSkill;
-    [SerializeField]
     IEquipableSkill heavySkill;
-    [SerializeField]
-    IEquipableSkill defendSkill;
+ 
+    public BasicDefendSkill defendSkill;
 
     public BattleCommand defendCommand
     {
