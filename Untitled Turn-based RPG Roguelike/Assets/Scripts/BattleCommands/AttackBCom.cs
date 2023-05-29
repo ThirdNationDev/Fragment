@@ -19,6 +19,7 @@ public class AttackBCom : BattleCommand
     public override void Initialize(Combatant actor)
     {
         base.Initialize(actor);
+        range = 2;
     }
 
     public override void SetTarget(Combatant target)

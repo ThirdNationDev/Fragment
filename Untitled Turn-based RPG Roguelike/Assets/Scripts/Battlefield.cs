@@ -60,6 +60,17 @@ public class Battlefield : MonoBehaviour
         }
     }
 
+    internal List<Combatant> getCombatants(int z1, int z2)
+    {
+        Battlezone[] zonesInRange = getZones(z1, z2);
+        List<Combatant> targets = new List<Combatant>();
+        foreach(Battlezone zone in zonesInRange)
+        {
+            targets.Concat<Combatant>(zone.combatants);
+        }
+        return targets;
+    }
+
     public void PlaceCombatants(Combatant[] combatants)
     {
         Combatant c;

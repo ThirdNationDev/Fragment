@@ -100,7 +100,7 @@ public virtual void MoveTo(Battlezone newZone)
         //Move combatant to new zone and locaiton
         if (distance <= stats.stepsRemaining)
         {
-            battlezone.RemoveCombatant(this.gameObject);
+            battlezone.RemoveCombatant(this);
             newZone.AddCombatant(this);
             battlezone = newZone;
             stats.AP--;

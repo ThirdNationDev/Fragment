@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,23 @@ public abstract class BattleCommand
         targetsZone = false;
         targetsCombatant = false;
         targetsSelf = false;
+
+    }
+
+    internal virtual List<Combatant> getTargets()
+    {
+        List<Combatant> targets = new List<Combatant>();
+        if (targetsSelf)
+        {
+            targets.Add(this.combatant);
+        }
+        else if (targetsCombatant)
+        {
+            targets = BattleManager.Instance.battlefield.getCombatants(
+                zoneStart.zoneNumber - range, zoneStart.zoneNumber + range);
+        }
+
+        return targets;
     }
 
     public virtual void SetTarget(Combatant target)

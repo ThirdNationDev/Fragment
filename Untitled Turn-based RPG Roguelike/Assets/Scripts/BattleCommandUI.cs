@@ -10,7 +10,7 @@ public class BattleCommandUI : MonoBehaviour
     public TextMeshProUGUI combatantNameText;
     public TextMeshProUGUI combatantHealth;
     Combatant currentCombatant;
-    public GameObject targettingPanel;
+    public TargetSelectPanel targetSelectPanel;
 
     public Button lightAttackButton;
     public Button midAttackButton;
@@ -29,7 +29,7 @@ public class BattleCommandUI : MonoBehaviour
 
         TextMeshProUGUI lightAttackButtonText = lightAttackButton.GetComponentInChildren<TextMeshProUGUI>();
         lightAttackButtonText.text = currentCombatant.lightSkill.name;
-        targettingPanel.SetActive(false);
+        targetSelectPanel.Deactivate();
     }
 
 
@@ -62,8 +62,8 @@ public class BattleCommandUI : MonoBehaviour
 
     public void LightSkill()
     {
-        targettingPanel.SetActive(true);
         selectedCommand = currentCombatant.lightSkillCommand;
+        targetSelectPanel.DisplayTargets();
     }
 
     public void MidSkill()

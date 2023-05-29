@@ -18,7 +18,7 @@ public class ChangeZoneBCom : BattleCommand
         {
             if (zone.Equals(zoneTarget))
             {
-                combatant.battlezone.RemoveCombatant(combatant.gameObject);
+                combatant.battlezone.RemoveCombatant(combatant);
                 zoneTarget.AddCombatant(combatant);
                 base.Execute();
             }

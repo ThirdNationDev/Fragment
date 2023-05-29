@@ -7,14 +7,19 @@ using TMPro;
 public class TargetSelectPanel : MonoBehaviour
 {
     public GameObject panel;
-    public Button targetButtonPrefab;
-    public ScrollView scrollview;
+    public GameObject targetButtonPrefab;
+    ScrollView scrollview;
     List<Combatant> targets;
 
-   public void Deactivate()
+    void Awake()
     {
-        panel.SetActive(false);
+        scrollview = GameObject.Find("Target Scroll").GetComponent<ScrollView>();
+    }
+
+    public void Deactivate()
+    {
         this.Clear();
+        panel.SetActive(false);
     }
 
     public void Clear()
@@ -25,7 +30,15 @@ public class TargetSelectPanel : MonoBehaviour
 
     public void DisplayTargets()
     {
-
+        this.gameObject.SetActive(true);
+        targets = BattleManager.Instance.currentCommand.getTargets();
+        foreach(Combatant target in targets)
+        {
+            GameObject go = Instantiate(targetButtonPrefab);
+            Button b = go.GetComponent<Button>();
+            b.text = target.name;
+            scrollview.Add(b);
+        }
     }
 
     public Combatant SelectTarget(Combatant selected)

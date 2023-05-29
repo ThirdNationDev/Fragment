@@ -9,7 +9,7 @@ public class Battlezone : MonoBehaviour
 {
     public GameObject battleZoneTilePrefab;
 
-    public List<GameObject> combatants;
+    public List<Combatant> combatants;
 
     public int minTileNum;
 
@@ -74,7 +74,7 @@ public class Battlezone : MonoBehaviour
     void Awake()
     {
         tileArray = new List<GameObject>();
-        combatants = new List<GameObject>();
+        combatants = new List<Combatant>();
         Resize(minTileNum);
     }
 
@@ -159,10 +159,10 @@ public class Battlezone : MonoBehaviour
     /// but does not destroy it.
     /// </summary>
     /// <param name="go"></param>
-    public void RemoveCombatant(GameObject go)
+    public void RemoveCombatant(Combatant combatant)
     {
-        combatants.Remove(go);
-        go.transform.parent = null;
+        combatants.Remove(combatant);
+        combatant.transform.parent = null;
         if (combatants.Count <= (numTiles / 2 + 1))
         {
             Resize(numTiles - 2);
@@ -201,7 +201,7 @@ public class Battlezone : MonoBehaviour
 
     public void AddCombatant(Combatant combatant)
     {
-        combatants.Add(combatant.gameObject);
+        combatants.Add(combatant);
         combatant.battlezone = this;
         if (combatants.Count > (numTiles / 2 + 1))
         {
@@ -223,10 +223,10 @@ public class Battlezone : MonoBehaviour
 
         int index = numTiles/2 - (combatants.Count - 1);
         
-        foreach(GameObject go in combatants)
+        foreach(Combatant combatant in combatants)
         {
-            go.transform.position = tileArray[index].transform.position;
-            go.transform.parent = tileArray[index].transform;
+            combatant.transform.position = tileArray[index].transform.position;
+            combatant.transform.parent = tileArray[index].transform;
             index += 2;
         }
 
