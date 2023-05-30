@@ -28,11 +28,11 @@ public class CommandLog : MonoBehaviour
     {
         //if (BattleManager.Instance.commandList.Count > 0)
         //{
-        //    currentCommand = BattleManager.Instance.commandList.Peek();
-        //    if (currentCommand != lastCommand)
+        //    commandToExecute = BattleManager.Instance.commandList.Peek();
+        //    if (commandToExecute != lastCommand)
         //    {
-        //        logtext += currentCommand.ToString();
-        //        lastCommand = currentCommand;
+        //        logtext += commandToExecute.ToString();
+        //        lastCommand = commandToExecute;
         //        scroller.velocity = new Vector2(0f, 1000f);
         //    }
         //}

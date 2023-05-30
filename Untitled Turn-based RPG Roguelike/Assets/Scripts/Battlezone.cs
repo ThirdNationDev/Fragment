@@ -189,16 +189,6 @@ public class Battlezone : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Adds a prefab combatant, then rearranges the zone
-    /// </summary>
-    public void AddCombatant()
-    {
-        GameObject combatant = Instantiate(combatantPrefab);
-        AddCombatant(combatant.GetComponent<Combatant>());
-
-    }
-
     public void AddCombatant(Combatant combatant)
     {
         combatants.Add(combatant);

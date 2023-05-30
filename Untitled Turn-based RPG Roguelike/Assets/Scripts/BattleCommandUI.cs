@@ -23,7 +23,7 @@ public class BattleCommandUI : MonoBehaviour
     private void Start()
     {
         currentCombatant = BattleManager.Instance.currentCombatant;
-        selectedCommand = null;
+        selectedCommand = BattleManager.Instance.commandSelected;
         zoneTarget = null;
         combatTarget = null;
 
@@ -62,7 +62,7 @@ public class BattleCommandUI : MonoBehaviour
 
     public void LightSkill()
     {
-        selectedCommand = currentCombatant.lightSkillCommand;
+        BattleManager.Instance.commandSelected = currentCombatant.lightSkillCommand;
         targetSelectPanel.DisplayTargets();
     }
 
@@ -82,10 +82,15 @@ public class BattleCommandUI : MonoBehaviour
 
         if(combatTarget != null) { selectedCommand.SetTarget(combatTarget); }
 
-        BattleManager.Instance.currentCommand = selectedCommand;
+        BattleManager.Instance.commandToExecute = selectedCommand;
 
         this.selectedCommand = null;
         this.zoneTarget = null;
         this.combatTarget = null;
+    }
+
+    public void Cancel()
+    {
+        targetSelectPanel.Deactivate();
     }
 }

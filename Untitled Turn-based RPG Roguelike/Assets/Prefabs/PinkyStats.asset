@@ -17,8 +17,8 @@ MonoBehaviour:
   health: 100
   AP: 3
   startingAP: 3
-  maxRange: 1
-  range: 1
+  maxRange: 2
+  stepsRemaining: 2
   aggression: 10
   compassion: 9
   discipline: 0

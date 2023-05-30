@@ -9,6 +9,7 @@ public abstract class BattleCommand
     internal Combatant combatTarget;
     internal Battlezone zoneTarget;
     internal Battlezone zoneStart;
+    internal string name;
 
     public bool endsTurn { get; internal set; }
     public bool targetsZone { get; internal set; }
@@ -24,6 +25,7 @@ public abstract class BattleCommand
         combatant = actor;
         zoneStart = actor.battlezone;
         endsTurn = false;
+        name = "BattleCommand";
 
         //one of these must be set true in derived class
         targetsZone = false;
@@ -41,6 +43,7 @@ public abstract class BattleCommand
         }
         else if (targetsCombatant)
         {
+            Debug.Log("Targets combatants: " + targetsCombatant);
             targets = BattleManager.Instance.battlefield.getCombatants(
                 zoneStart.zoneNumber - range, zoneStart.zoneNumber + range);
         }

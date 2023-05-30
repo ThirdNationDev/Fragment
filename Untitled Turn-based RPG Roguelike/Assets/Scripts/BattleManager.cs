@@ -17,8 +17,10 @@ public class BattleManager : MonoBehaviour
 
     public BattleStateController battleStateController { get; private set; }
     public Battlefield battlefield { get; private set; }
+    public BattleCommandUI battleCommandUI { get; private set; }
     public Stack<BattleCommand> commandList;
-    public BattleCommand currentCommand;
+    public BattleCommand commandToExecute;
+    public BattleCommand commandSelected;
 
 
     public int playerStartingZone;
@@ -55,11 +57,13 @@ public class BattleManager : MonoBehaviour
 
         battleStateController = GetComponent<BattleStateController>();
         battlefield = GetComponentInChildren<Battlefield>();
+        battleCommandUI = GetComponentInChildren<BattleCommandUI>();
         commandList = new Stack<BattleCommand>();
 
         turnCtr = 0;
         combatantIndex = 0;
-        currentCommand = null;
+        commandToExecute = null;
+        commandSelected = null;
     }
 
     public void PlaceCombatants()

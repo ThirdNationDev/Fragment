@@ -1,50 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using TMPro;
 
 public class TargetSelectPanel : MonoBehaviour
 {
     public GameObject panel;
     public GameObject targetButtonPrefab;
-    ScrollView scrollview;
+    public RectTransform scrollContent;
     List<Combatant> targets;
+    List<GameObject> buttons;
 
     void Awake()
     {
-        scrollview = GameObject.Find("Target Scroll").GetComponent<ScrollView>();
+        targets = new List<Combatant>();
+        buttons = new List<GameObject>();
     }
 
     public void Deactivate()
     {
-        this.Clear();
+        Clear();
+        BattleManager.Instance.commandSelected = null;
         panel.SetActive(false);
     }
 
     public void Clear()
     {
-        scrollview.Clear();
         targets.Clear();
+        foreach(GameObject go in buttons)
+        {
+            Destroy(go);
+        }
+        buttons.Clear();
+
     }
 
     public void DisplayTargets()
     {
+        Clear();
         this.gameObject.SetActive(true);
-        targets = BattleManager.Instance.currentCommand.getTargets();
+        Debug.Log("CC: " + BattleManager.Instance.commandSelected.name);
+        targets = BattleManager.Instance.commandSelected.getTargets();
+        Debug.Log(targets.Count);
         foreach(Combatant target in targets)
         {
             GameObject go = Instantiate(targetButtonPrefab);
+            go.transform.SetParent(scrollContent.transform);
             Button b = go.GetComponent<Button>();
-            b.text = target.name;
-            scrollview.Add(b);
+            TextMeshProUGUI buttonText = b.GetComponentInChildren<TextMeshProUGUI>();
+
+            buttonText.text = target.name;
+            buttons.Add(go);
+            
         }
     }
 
-    public Combatant SelectTarget(Combatant selected)
+    public void SelectTarget(Combatant selected)
     {
-        return selected;
-        return null;
     }
 
  

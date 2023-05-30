@@ -26,11 +26,11 @@ public class ExecuteBattleState : IBattleState
 
 
         //CHeck if there is a command
-        if(BattleManager.Instance.currentCommand != null)
+        if(BattleManager.Instance.commandToExecute != null)
         {
-            BattleCommand command = BattleManager.Instance.currentCommand;
+            BattleCommand command = BattleManager.Instance.commandToExecute;
             command.Execute();
-            BattleManager.Instance.currentCommand = null;
+            BattleManager.Instance.commandToExecute = null;
             if (command.endsTurn)
             {
                 controller.ChangeState(controller.startTurnBattleState);

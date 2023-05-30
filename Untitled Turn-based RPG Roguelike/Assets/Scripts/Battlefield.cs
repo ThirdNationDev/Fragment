@@ -63,10 +63,12 @@ public class Battlefield : MonoBehaviour
     internal List<Combatant> getCombatants(int z1, int z2)
     {
         Battlezone[] zonesInRange = getZones(z1, z2);
+        Debug.Log("zones in range length: " + zonesInRange.Length);
         List<Combatant> targets = new List<Combatant>();
         foreach(Battlezone zone in zonesInRange)
         {
-            targets.Concat<Combatant>(zone.combatants);
+            Debug.Log("Zone combatants: " + zone.combatants.Count);
+            targets.AddRange(zone.combatants);
         }
         return targets;
     }
