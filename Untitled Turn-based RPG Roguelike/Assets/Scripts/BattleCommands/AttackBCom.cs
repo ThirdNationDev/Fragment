@@ -5,12 +5,13 @@ using UnityEngine;
 public class AttackBCom : BattleCommand
 {
     float skillDamage = 10;
+    float damageReceived;
 
     public override void Execute()
     {
         base.Execute();
         float damageDealt = skillDamage + combatant.stats.aggression;
-        float damageReceived = BattleManager.Instance.CalculateDamage(damageDealt, combatTarget);
+        damageReceived = BattleManager.Instance.CalculateDamage(damageDealt, combatTarget);
         //Excecute attack animation
         combatTarget.ReceiveDamage(damageReceived);
 
@@ -19,9 +20,11 @@ public class AttackBCom : BattleCommand
     public override void Initialize(Combatant actor)
     {
         base.Initialize(actor);
+        endsTurn = true;
         range = 2;
         name = "AttackBCom";
         targetsCombatant = true;
+        damageReceived = 0;
     }
 
     public override void SetTarget(Combatant target)
@@ -37,5 +40,11 @@ public class AttackBCom : BattleCommand
     public override void Undo()
     {
         base.Undo();
+    }
+
+    public override string ToString()
+    {
+        return combatant.ToString() +" attacks " + combatTarget.ToString() + " for " 
+            + damageReceived + " points of damage.";
     }
 }

@@ -36,8 +36,7 @@ public class ExecuteBattleState : IBattleState
                 controller.ChangeState(controller.startTurnBattleState);
             }
         }
-        //Check if it is a turn ending command
-        //
+
         
 
     }

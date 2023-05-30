@@ -63,6 +63,7 @@ public abstract class BattleCommand
 
     public virtual void Execute()
     {
+        Debug.Log("Base execute called.");
         BattleManager.Instance.commandList.Push(this);
 
     }

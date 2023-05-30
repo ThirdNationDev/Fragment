@@ -17,7 +17,6 @@ public class BattleManager : MonoBehaviour
 
     public BattleStateController battleStateController { get; private set; }
     public Battlefield battlefield { get; private set; }
-    public BattleCommandUI battleCommandUI { get; private set; }
     public Stack<BattleCommand> commandList;
     public BattleCommand commandToExecute;
     public BattleCommand commandSelected;
@@ -57,7 +56,6 @@ public class BattleManager : MonoBehaviour
 
         battleStateController = GetComponent<BattleStateController>();
         battlefield = GetComponentInChildren<Battlefield>();
-        battleCommandUI = GetComponentInChildren<BattleCommandUI>();
         commandList = new Stack<BattleCommand>();
 
         turnCtr = 0;
@@ -80,12 +78,6 @@ public class BattleManager : MonoBehaviour
     public void CreateBattlefield()
     {
         battlefield.CreateBattlefield();
-    }
-
-    public void ExecuteCommand(BattleCommand bc)
-    {
-        commandList.Push(bc);
-        bc.Execute();
     }
 
 

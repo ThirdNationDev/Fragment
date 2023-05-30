@@ -16,20 +16,14 @@ public class BattleCommandUI : MonoBehaviour
     public Button midAttackButton;
     public Button heavyAttackButton;
 
-    BattleCommand selectedCommand;
-    Battlezone zoneTarget;
-    Combatant combatTarget;
 
     private void Start()
     {
         currentCombatant = BattleManager.Instance.currentCombatant;
-        selectedCommand = BattleManager.Instance.commandSelected;
-        zoneTarget = null;
-        combatTarget = null;
+
 
         TextMeshProUGUI lightAttackButtonText = lightAttackButton.GetComponentInChildren<TextMeshProUGUI>();
         lightAttackButtonText.text = currentCombatant.lightSkill.name;
-        targetSelectPanel.Deactivate();
     }
 
 
@@ -40,57 +34,6 @@ public class BattleCommandUI : MonoBehaviour
         combatantHealth.text = currentCombatant.stats.health.ToString() + "/" + currentCombatant.stats.maxHealth.ToString();
     }
 
-    public void MoveForwardOne()
-    {
-        selectedCommand = currentCombatant.moveCommand;
-        zoneTarget = currentCombatant.battlezone.nextzone;
-        SendCommand();
-    }
 
-    public void MoveBackOne()
-    {
-        selectedCommand = currentCombatant.moveCommand;
-        zoneTarget = currentCombatant.battlezone.prevzone;
-        SendCommand();
-    }
 
-    public void Defend()
-    { 
-        selectedCommand = currentCombatant.defendCommand;
-        SendCommand();
-    }
-
-    public void LightSkill()
-    {
-        BattleManager.Instance.commandSelected = currentCombatant.lightSkillCommand;
-        targetSelectPanel.DisplayTargets();
-    }
-
-    public void MidSkill()
-    {
-
-    }
-
-    public void HeavySkill()
-    {
-
-    }
-
-    void SendCommand()
-    {
-        if(zoneTarget != null) { selectedCommand.SetTarget(zoneTarget); }
-
-        if(combatTarget != null) { selectedCommand.SetTarget(combatTarget); }
-
-        BattleManager.Instance.commandToExecute = selectedCommand;
-
-        this.selectedCommand = null;
-        this.zoneTarget = null;
-        this.combatTarget = null;
-    }
-
-    public void Cancel()
-    {
-        targetSelectPanel.Deactivate();
-    }
 }

@@ -49,7 +49,7 @@ public class TargetSelectPanel : MonoBehaviour
             go.transform.SetParent(scrollContent.transform);
             Button b = go.GetComponent<Button>();
             TextMeshProUGUI buttonText = b.GetComponentInChildren<TextMeshProUGUI>();
-
+            b.onClick.AddListener(delegate { SelectTarget(target); });
             buttonText.text = target.name;
             buttons.Add(go);
             
@@ -58,6 +58,8 @@ public class TargetSelectPanel : MonoBehaviour
 
     public void SelectTarget(Combatant selected)
     {
+        BattleManager.Instance.commandSelected.SetTarget(selected);
+        UIManager.Instance.SendCommand();
     }
 
  

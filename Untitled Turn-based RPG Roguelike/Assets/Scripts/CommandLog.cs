@@ -26,16 +26,6 @@ public class CommandLog : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //if (BattleManager.Instance.commandList.Count > 0)
-        //{
-        //    commandToExecute = BattleManager.Instance.commandList.Peek();
-        //    if (commandToExecute != lastCommand)
-        //    {
-        //        logtext += commandToExecute.ToString();
-        //        lastCommand = commandToExecute;
-        //        scroller.velocity = new Vector2(0f, 1000f);
-        //    }
-        //}
 
         if(BattleManager.Instance.commandList.Count > lastCount)
         {
