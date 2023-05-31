@@ -36,11 +36,14 @@ public class BattleManager : MonoBehaviour
     {
         if(combatants.Length > 0)
         {
-            combatantIndex++;
-            if(combatantIndex >= combatants.Length || combatantIndex < 0)
+            do
             {
-                combatantIndex = 0;
-            }
+                combatantIndex++;
+                if (combatantIndex >= combatants.Length || combatantIndex < 0)
+                {
+                    combatantIndex = 0;
+                }
+            } while (!combatants[combatantIndex].isActiveAndEnabled);
         }
         
     }

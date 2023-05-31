@@ -29,7 +29,10 @@ public abstract class Combatant : MonoBehaviour
 
     public virtual void Death()
     {
-        throw new NotImplementedException();
+        BattleCommand command = new DeathBCom();
+        command.Initialize(this);
+        BattleManager.Instance.commandSelected = command;
+        UIManager.Instance.SendCommand();
     }
 
 

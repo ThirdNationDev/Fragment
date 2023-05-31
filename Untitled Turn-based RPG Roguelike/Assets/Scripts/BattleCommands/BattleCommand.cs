@@ -53,7 +53,8 @@ public abstract class BattleCommand
 
     public virtual void SetTarget(Combatant target)
     {
-        combatTarget = target;
+        if (targetsSelf) { target = combatant; }
+        else { combatTarget = target; }
     }
 
     public virtual void SetTarget(Battlezone target)

@@ -20,7 +20,7 @@ public class AttackBCom : BattleCommand
     public override void Initialize(Combatant actor)
     {
         base.Initialize(actor);
-        endsTurn = true;
+        endsTurn = false;
         range = 2;
         name = "AttackBCom";
         targetsCombatant = true;
