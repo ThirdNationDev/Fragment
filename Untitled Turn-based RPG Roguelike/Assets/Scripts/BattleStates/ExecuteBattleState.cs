@@ -26,18 +26,27 @@ public class ExecuteBattleState : IBattleState
 
 
         //CHeck if there is a command
-        if(BattleManager.Instance.commandToExecute != null)
+        if(BattleManager.Instance.commandsToExecuteQueue.Count >0)
         {
-            BattleCommand command = BattleManager.Instance.commandToExecute;
+            Debug.Log("There is a command to execute.");
+            BattleCommand command = BattleManager.Instance.commandsToExecuteQueue.Dequeue();
             command.Execute();
-            BattleManager.Instance.commandToExecute = null;
             if (command.endsTurn)
             {
                 controller.ChangeState(controller.startTurnBattleState);
             }
         }
-        //Check if it is a turn ending command
-        //
+        //        if(BattleManager.Instance.commandToExecute != null)
+        //{
+        //    BattleCommand command = BattleManager.Instance.commandToExecute;
+        //    command.Execute();
+        //    BattleManager.Instance.commandToExecute = null;
+        //    if (command.endsTurn)
+        //    {
+        //        controller.ChangeState(controller.startTurnBattleState);
+        //    }
+        //}
+
         
 
     }

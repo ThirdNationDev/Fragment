@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class DefendBCom : BattleCommand
+public class DeathBCom : BattleCommand
 {
     public override void Execute()
     {
         base.Execute();
+        combatant.gameObject.SetActive(false);
     }
 
     public override void Initialize(Combatant actor)
@@ -15,6 +16,7 @@ public class DefendBCom : BattleCommand
         base.Initialize(actor);
         endsTurn = true;
         targetsSelf = true;
+        SetTarget(actor);
     }
 
     public override void SetTarget(Combatant target)
@@ -30,6 +32,7 @@ public class DefendBCom : BattleCommand
     public override void Undo()
     {
         base.Undo();
+        combatant.gameObject.SetActive(true);
     }
 
     public override string ToString()

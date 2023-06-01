@@ -40,16 +40,14 @@ public class TargetSelectPanel : MonoBehaviour
     {
         Clear();
         this.gameObject.SetActive(true);
-        Debug.Log("CC: " + BattleManager.Instance.commandSelected.name);
-        targets = BattleManager.Instance.commandSelected.getTargets();
-        Debug.Log(targets.Count);
+        targets = UIManager.Instance.commandSelected.getTargets();
         foreach(Combatant target in targets)
         {
             GameObject go = Instantiate(targetButtonPrefab);
             go.transform.SetParent(scrollContent.transform);
             Button b = go.GetComponent<Button>();
             TextMeshProUGUI buttonText = b.GetComponentInChildren<TextMeshProUGUI>();
-
+            b.onClick.AddListener(delegate { SelectTarget(target); });
             buttonText.text = target.name;
             buttons.Add(go);
             
@@ -58,6 +56,8 @@ public class TargetSelectPanel : MonoBehaviour
 
     public void SelectTarget(Combatant selected)
     {
+        UIManager.Instance.commandSelected.SetTarget(selected);
+        UIManager.Instance.SendCommand();
     }
 
  

@@ -43,7 +43,6 @@ public abstract class BattleCommand
         }
         else if (targetsCombatant)
         {
-            Debug.Log("Targets combatants: " + targetsCombatant);
             targets = BattleManager.Instance.battlefield.getCombatants(
                 zoneStart.zoneNumber - range, zoneStart.zoneNumber + range);
         }
@@ -53,7 +52,8 @@ public abstract class BattleCommand
 
     public virtual void SetTarget(Combatant target)
     {
-        combatTarget = target;
+        if (targetsSelf) { target = combatant; }
+        else { combatTarget = target; }
     }
 
     public virtual void SetTarget(Battlezone target)
@@ -63,14 +63,35 @@ public abstract class BattleCommand
 
     public virtual void Execute()
     {
-        BattleManager.Instance.commandList.Push(this);
+        Debug.Log("Base execute called for " + this.ToString());
+        BattleManager.Instance.executedCommandStack.Push(this);
 
     }
 
     public virtual void Undo()
     {
-        BattleManager.Instance.commandList.Pop();
+        BattleManager.Instance.executedCommandStack.Pop();
 
+    }
+
+    public virtual bool Ready()
+    {
+        if (targetsSelf)
+        {
+            return true;
+        }
+        else if (targetsCombatant && combatTarget != null)
+        {
+            return true;
+        }
+        else if (targetsZone && zoneTarget != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 
