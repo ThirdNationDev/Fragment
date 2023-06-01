@@ -21,7 +21,7 @@ public class TargetSelectPanel : MonoBehaviour
     public void Deactivate()
     {
         Clear();
-        BattleManager.Instance.commandSelected = null;
+        UIManager.Instance.commandSelected = null;
         panel.SetActive(false);
     }
 

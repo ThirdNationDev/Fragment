@@ -36,16 +36,7 @@ public class ExecuteBattleState : IBattleState
                 controller.ChangeState(controller.startTurnBattleState);
             }
         }
-        //        if(BattleManager.Instance.commandToExecute != null)
-        //{
-        //    BattleCommand command = BattleManager.Instance.commandToExecute;
-        //    command.Execute();
-        //    BattleManager.Instance.commandToExecute = null;
-        //    if (command.endsTurn)
-        //    {
-        //        controller.ChangeState(controller.startTurnBattleState);
-        //    }
-        //}
+
 
         
 

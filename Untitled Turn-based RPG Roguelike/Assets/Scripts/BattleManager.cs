@@ -20,8 +20,7 @@ public class BattleManager : MonoBehaviour
     public Battlefield battlefield { get; private set; }
     public Stack<BattleCommand> executedCommandStack;
     public Queue<BattleCommand> commandsToExecuteQueue;
-    public BattleCommand commandToExecute;
-    public BattleCommand commandSelected;
+
 
 
     public int playerStartingZone;
@@ -66,8 +65,7 @@ public class BattleManager : MonoBehaviour
 
         turnCtr = 0;
         combatantIndex = 0;
-        commandToExecute = null;
-        commandSelected = null;
+
     }
 
     public void PlaceCombatants()

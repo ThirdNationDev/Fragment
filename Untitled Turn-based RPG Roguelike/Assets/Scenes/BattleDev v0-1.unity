@@ -1023,6 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStateTurn: {fileID: 83919847}
+  commandLogCount: {fileID: 83919847}
 --- !u!1 &676304321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1784,6 +1785,7 @@ MonoBehaviour:
   - {fileID: 2276929476839494153, guid: 411d5e749e2a3cf458e13569219df9e5, type: 3}
   - {fileID: 2628523625003436508, guid: dadbf5a84d4bdda4cab7ffec5802273b, type: 3}
   damageBuffer: 0
+  numCommandsToExecute: 0
   playerStartingZone: 3
   enemyStartingZone: 7
   turnCtr: 0
