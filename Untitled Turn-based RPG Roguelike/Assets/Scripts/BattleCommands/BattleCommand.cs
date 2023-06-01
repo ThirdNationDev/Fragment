@@ -43,7 +43,6 @@ public abstract class BattleCommand
         }
         else if (targetsCombatant)
         {
-            Debug.Log("Targets combatants: " + targetsCombatant);
             targets = BattleManager.Instance.battlefield.getCombatants(
                 zoneStart.zoneNumber - range, zoneStart.zoneNumber + range);
         }
@@ -64,7 +63,7 @@ public abstract class BattleCommand
 
     public virtual void Execute()
     {
-        Debug.Log("Base execute called.");
+        Debug.Log("Base execute called for " + BattleManager.Instance.commandToExecute.ToString());
         BattleManager.Instance.commandList.Push(this);
 
     }

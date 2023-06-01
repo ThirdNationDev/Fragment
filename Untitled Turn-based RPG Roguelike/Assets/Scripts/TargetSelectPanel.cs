@@ -40,7 +40,6 @@ public class TargetSelectPanel : MonoBehaviour
     {
         Clear();
         this.gameObject.SetActive(true);
-        Debug.Log("CC: " + BattleManager.Instance.commandSelected.name);
         targets = BattleManager.Instance.commandSelected.getTargets();
         Debug.Log(targets.Count);
         foreach(Combatant target in targets)
