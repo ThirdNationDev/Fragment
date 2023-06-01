@@ -9,6 +9,7 @@ public class BattleManager : MonoBehaviour
     public Combatant[] combatantPrefabs;
     private Combatant[] combatants;
     public float damageBuffer;
+    public int numCommandsToExecute;
 
     internal float CalculateDamage(float damageDealt, Combatant combatTarget)
     {
@@ -17,7 +18,8 @@ public class BattleManager : MonoBehaviour
 
     public BattleStateController battleStateController { get; private set; }
     public Battlefield battlefield { get; private set; }
-    public Stack<BattleCommand> commandList;
+    public Stack<BattleCommand> executedCommandStack;
+    public Queue<BattleCommand> commandsToExecuteQueue;
     public BattleCommand commandToExecute;
     public BattleCommand commandSelected;
 
@@ -59,7 +61,8 @@ public class BattleManager : MonoBehaviour
 
         battleStateController = GetComponent<BattleStateController>();
         battlefield = GetComponentInChildren<Battlefield>();
-        commandList = new Stack<BattleCommand>();
+        executedCommandStack = new Stack<BattleCommand>();
+        commandsToExecuteQueue = new Queue<BattleCommand>();
 
         turnCtr = 0;
         combatantIndex = 0;
@@ -83,5 +86,8 @@ public class BattleManager : MonoBehaviour
         battlefield.CreateBattlefield();
     }
 
-
+    private void Update()
+    {
+        numCommandsToExecute = commandsToExecuteQueue.Count;
+    }
 }

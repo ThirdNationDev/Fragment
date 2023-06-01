@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
 
     public TargetSelectPanel targetSelectPanel;
 
+    public BattleCommand commandSelected;
+
+
 
     private void Awake()
     {
@@ -33,7 +36,7 @@ public class UIManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(BattleManager.Instance.commandSelected == null) 
+        if(this.commandSelected == null) 
         { 
             targetSelectPanel.Deactivate(); 
         }
@@ -41,53 +44,56 @@ public class UIManager : MonoBehaviour
 
     public void MoveForwardOne()
     {
-        BattleCommand command = BattleManager.Instance.currentCombatant.moveCommand;
-        command.SetTarget(BattleManager.Instance.currentCombatant.battlezone.nextzone);
-        BattleManager.Instance.commandSelected = command;
+        this.commandSelected = BattleManager.Instance.currentCombatant.moveCommand;
+        this.commandSelected.SetTarget(BattleManager.Instance.currentCombatant.battlezone.nextzone);
         SendCommand();
     }
 
     public void MoveBackOne()
     {
-        BattleCommand command = BattleManager.Instance.currentCombatant.moveCommand;
-        command.SetTarget(BattleManager.Instance.currentCombatant.battlezone.prevzone);
-        BattleManager.Instance.commandSelected = command;
+        this.commandSelected = BattleManager.Instance.currentCombatant.moveCommand;
+        this.commandSelected.SetTarget(BattleManager.Instance.currentCombatant.battlezone.prevzone);
         SendCommand();
     }
 
     public void Defend()
     {
-        BattleManager.Instance.commandSelected = 
-            BattleManager.Instance.currentCombatant.defendCommand;
+        //BattleManager.Instance.commandSelected = 
+        //    BattleManager.Instance.currentCombatant.defendCommand;
+        this.commandSelected = BattleManager.Instance.currentCombatant.defendCommand;
         SendCommand();
     }
 
     public void LightSkill()
     {
-        BattleManager.Instance.commandSelected = 
+        this.commandSelected = 
             BattleManager.Instance.currentCombatant.lightSkillCommand;
         targetSelectPanel.DisplayTargets();
     }
 
     public void MidSkill()
     {
-        BattleManager.Instance.commandSelected =
+        this.commandSelected =
             BattleManager.Instance.currentCombatant.midSkillCommand;
         targetSelectPanel.DisplayTargets();
     }
 
     public void HeavySkill()
     {
-        BattleManager.Instance.commandSelected =
+        this.commandSelected =
             BattleManager.Instance.currentCombatant.heavySkillCommand;
         targetSelectPanel.DisplayTargets();
     }
 
     public void SendCommand()
     {
-        BattleManager.Instance.commandToExecute =
-            BattleManager.Instance.commandSelected;
-        BattleManager.Instance.commandSelected = null;
+        if(commandSelected == null) { return; }
+
+        if (commandSelected.Ready())
+        {
+            BattleManager.Instance.commandsToExecuteQueue.Enqueue(commandSelected);
+            commandSelected = null;
+        }
     }
 
     public void Cancel()

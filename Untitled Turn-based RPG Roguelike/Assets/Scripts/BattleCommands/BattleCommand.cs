@@ -63,15 +63,35 @@ public abstract class BattleCommand
 
     public virtual void Execute()
     {
-        Debug.Log("Base execute called for " + BattleManager.Instance.commandToExecute.ToString());
-        BattleManager.Instance.commandList.Push(this);
+        Debug.Log("Base execute called for " + this.ToString());
+        BattleManager.Instance.executedCommandStack.Push(this);
 
     }
 
     public virtual void Undo()
     {
-        BattleManager.Instance.commandList.Pop();
+        BattleManager.Instance.executedCommandStack.Pop();
 
+    }
+
+    public virtual bool Ready()
+    {
+        if (targetsSelf)
+        {
+            return true;
+        }
+        else if (targetsCombatant && combatTarget != null)
+        {
+            return true;
+        }
+        else if (targetsZone && zoneTarget != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 

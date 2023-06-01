@@ -17,6 +17,9 @@ public abstract class Combatant : MonoBehaviour
 
     public BasicDefendSkill defendSkill;
 
+
+
+
     public virtual void ReceiveDamage(float damage)
     {
         //TODO: Play damaged animation
@@ -31,7 +34,7 @@ public abstract class Combatant : MonoBehaviour
     {
         BattleCommand command = new DeathBCom();
         command.Initialize(this);
-        BattleManager.Instance.commandSelected = command;
+        UIManager.Instance.commandSelected = command;
         UIManager.Instance.SendCommand();
     }
 
@@ -117,6 +120,7 @@ public virtual void MoveTo(Battlezone newZone)
         int highZoneNum = battlezone.zoneNumber + stats.maxRange;
         zonesInMoveRange = BattleManager.Instance.battlefield.getZones(lowZoneNum, highZoneNum);
         particles.Play();
+
     }
 
     public virtual void EndTurn()
@@ -143,4 +147,6 @@ public virtual void MoveTo(Battlezone newZone)
     {
         return this.name;
     }
+
+
 }

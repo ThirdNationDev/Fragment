@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BattleCommandUI : MonoBehaviour
+public class DisplayBattleCommandUI : MonoBehaviour
 {
 
     public TextMeshProUGUI combatantNameText;

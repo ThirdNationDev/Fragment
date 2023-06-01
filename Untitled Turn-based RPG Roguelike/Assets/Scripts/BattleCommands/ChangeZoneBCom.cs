@@ -30,6 +30,7 @@ public class ChangeZoneBCom : BattleCommand
     {
         base.Initialize(actor);
         endsTurn = false;
+        targetsZone = true;
     }
 
     public override void SetTarget(Combatant target)

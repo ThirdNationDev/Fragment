@@ -20,6 +20,6 @@ public class BattleManagerPanel : MonoBehaviour
         currentStateTurn.text = "State: " + BattleManager.Instance.battleStateController.ToString()
             + ", Turn: " + BattleManager.Instance.turnCtr.ToString();
 
-        commandLogCount.text = "Command Log Count: " + BattleManager.Instance.commandList.Count;
+        commandLogCount.text = "Command Log Count: " + BattleManager.Instance.executedCommandStack.Count;
     }
 }

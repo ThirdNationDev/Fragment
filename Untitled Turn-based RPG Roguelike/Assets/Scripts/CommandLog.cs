@@ -27,11 +27,11 @@ public class CommandLog : MonoBehaviour
     void LateUpdate()
     {
 
-        if(BattleManager.Instance.commandList.Count > lastCount)
+        if(BattleManager.Instance.executedCommandStack.Count > lastCount)
         {
-            currentCommand = BattleManager.Instance.commandList.Peek();
+            currentCommand = BattleManager.Instance.executedCommandStack.Peek();
             logtext += currentCommand.ToString();
-            lastCount = BattleManager.Instance.commandList.Count;
+            lastCount = BattleManager.Instance.executedCommandStack.Count;
             scroller.velocity = new Vector2(0f, 1000f);
         }
 

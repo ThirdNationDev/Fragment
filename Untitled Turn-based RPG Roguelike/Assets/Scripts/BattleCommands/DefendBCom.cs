@@ -14,6 +14,7 @@ public class DefendBCom : BattleCommand
     {
         base.Initialize(actor);
         endsTurn = true;
+        targetsSelf = true;
     }
 
     public override void SetTarget(Combatant target)

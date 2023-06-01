@@ -40,8 +40,7 @@ public class TargetSelectPanel : MonoBehaviour
     {
         Clear();
         this.gameObject.SetActive(true);
-        targets = BattleManager.Instance.commandSelected.getTargets();
-        Debug.Log(targets.Count);
+        targets = UIManager.Instance.commandSelected.getTargets();
         foreach(Combatant target in targets)
         {
             GameObject go = Instantiate(targetButtonPrefab);
@@ -57,7 +56,7 @@ public class TargetSelectPanel : MonoBehaviour
 
     public void SelectTarget(Combatant selected)
     {
-        BattleManager.Instance.commandSelected.SetTarget(selected);
+        UIManager.Instance.commandSelected.SetTarget(selected);
         UIManager.Instance.SendCommand();
     }
 
