@@ -64,13 +64,13 @@ public abstract class BattleCommand
     public virtual void Execute()
     {
         Debug.Log("Base execute called for " + this.ToString());
-        BattleManager.Instance.executedCommandStack.Push(this);
+       // BattleManager.Instance.executedCommandStack.Push(this);
 
     }
 
     public virtual void Undo()
     {
-        BattleManager.Instance.executedCommandStack.Pop();
+       // BattleManager.Instance.executedCommandStack.Pop();
 
     }
 

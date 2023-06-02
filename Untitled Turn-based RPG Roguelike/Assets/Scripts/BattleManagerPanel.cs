@@ -17,9 +17,6 @@ public class BattleManagerPanel : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        currentStateTurn.text = "State: " + BattleManager.Instance.battleStateController.ToString()
-            + ", Turn: " + BattleManager.Instance.turnCtr.ToString();
-
-        commandLogCount.text = "Command Log Count: " + BattleManager.Instance.executedCommandStack.Count;
+      
     }
 }

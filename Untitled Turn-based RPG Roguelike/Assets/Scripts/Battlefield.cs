@@ -30,7 +30,7 @@ public class Battlefield : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        
+        CreateBattlefield();
     }
 
     internal void CreateBattlefield()
@@ -71,11 +71,11 @@ public class Battlefield : MonoBehaviour
         return targets;
     }
 
-    public void PlaceCombatants(Combatant[] combatants)
+    public void PlaceCombatants(List<Combatant> combatants)
     {
         Combatant c;
         int startingZone = 0;
-        for(int i = 0; i < combatants.Length; i++)
+        for(int i = 0; i < combatants.Count; i++)
         {
             c = combatants[i];
             if(c is PlayerCombatant)
@@ -86,7 +86,7 @@ public class Battlefield : MonoBehaviour
             {
                 startingZone = BattleManager.Instance.enemyStartingZone;
             }
-            c.EnterCombat(battlezones[startingZone]);
+            battlezones[startingZone].AddCombatant(c);
         }
     }
 

@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
 
     public static UIManager Instance { get; private set; }
 
-    public TargetSelectPanel targetSelectPanel;
+    [SerializeField]
+    private TargetSelectPanel targetSelectPanel;
+    [SerializeField]
+    private DisplayBattleCommandUI battleCommandPanel;
 
     public BattleCommand commandSelected;
 
@@ -26,20 +31,33 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
 
+        Assert.IsNotNull(targetSelectPanel);
+        Assert.IsNotNull(battleCommandPanel);
+
+        DeactivateUserInput();
+
+
+
+    }
+
+    private void DeactivateUserInput()
+    {
+        targetSelectPanel.gameObject.SetActive(false);
+        battleCommandPanel.gameObject.SetActive(false);
     }
 
     private void Start()
     {
 
-        targetSelectPanel.Deactivate();
+        //targetSelectPanel.Deactivate();
     }
 
     private void LateUpdate()
     {
-        if(this.commandSelected == null) 
-        { 
-            targetSelectPanel.Deactivate(); 
-        }
+        //if(this.commandSelected == null) 
+        //{ 
+        //    targetSelectPanel.Deactivate(); 
+        //}
     }
 
     public void MoveForwardOne()
@@ -91,8 +109,8 @@ public class UIManager : MonoBehaviour
 
         if (commandSelected.Ready())
         {
-            BattleManager.Instance.commandsToExecuteQueue.Enqueue(commandSelected);
-            commandSelected = null;
+            //BattleManager.Instance.commandsToExecuteQueue.Enqueue(commandSelected);
+            //commandSelected = null;
         }
     }
 

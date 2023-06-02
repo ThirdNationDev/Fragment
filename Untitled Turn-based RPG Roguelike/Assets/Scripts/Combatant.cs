@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-public abstract class Combatant : MonoBehaviour
+public abstract class Combatant : MonoBehaviour, IComparable
 {
     private UnitProfile unit;
     public Battlezone battlezone;
     public CombatantStats stats;
     public ParticleSystem particles;
+    public int countdownToTurn;
     
     public BasicMoveSkill moveSkill;
     public BasicAttackSkill lightSkill;
@@ -148,5 +150,12 @@ public virtual void MoveTo(Battlezone newZone)
         return this.name;
     }
 
+    public int CompareTo(object obj)
+    {
+        Assert.IsNotNull(obj);
+        Assert.IsTrue(obj is Combatant);
 
+        Combatant otherCombatant = obj as Combatant;
+        return this.countdownToTurn.CompareTo(otherCombatant.countdownToTurn);
+    }
 }

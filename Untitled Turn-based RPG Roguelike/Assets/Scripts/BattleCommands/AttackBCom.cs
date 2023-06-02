@@ -11,7 +11,7 @@ public class AttackBCom : BattleCommand
     {
         base.Execute();
         float damageDealt = skillDamage + combatant.stats.aggression;
-        damageReceived = BattleManager.Instance.CalculateDamage(damageDealt, combatTarget);
+       // damageReceived = BattleManager.Instance.CalculateDamage(damageDealt, combatTarget);
         //Excecute attack animation
         combatTarget.ReceiveDamage(damageReceived);
 

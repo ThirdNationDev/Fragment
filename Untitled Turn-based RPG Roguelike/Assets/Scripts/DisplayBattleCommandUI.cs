@@ -29,9 +29,9 @@ public class DisplayBattleCommandUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        currentCombatant = BattleManager.Instance.currentCombatant;
-        combatantNameText.text = currentCombatant.name;
-        combatantHealth.text = currentCombatant.stats.health.ToString() + "/" + currentCombatant.stats.maxHealth.ToString();
+        //currentcombatant = battlemanager.instance.currentcombatant;
+        //combatantnametext.text = currentcombatant.name;
+        //combatantHealth.text = currentCombatant.stats.health.ToString() + "/" + currentCombatant.stats.maxHealth.ToString();
     }
 
 
