@@ -200,8 +200,6 @@ public class Battlezone : MonoBehaviour
         }
 
         ArrangeCombatants();
-
-
     }
     /// <summary>
     /// Arranges the combatants evenly and centered across the zone.

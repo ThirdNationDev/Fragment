@@ -90,19 +90,15 @@ public abstract class Combatant : MonoBehaviour, IComparable
     public Battlezone[] zonesInMoveRange;
 
 
-
-    public virtual void EnterCombat(Battlezone zone)
+    private void Awake()
     {
-        battlezone = zone;
-        zone.AddCombatant(this);
         stats.AP = stats.startingAP;
         stats.health = stats.maxHealth;
         stats.stepsRemaining = stats.maxRange;
         particles.Stop();
+    }
 
-}
-
-public virtual void MoveTo(Battlezone newZone)
+    public virtual void MoveTo(Battlezone newZone)
     {
         int distance = Mathf.Abs(battlezone.zoneNumber - newZone.zoneNumber);
         //Move combatant to new zone and locaiton

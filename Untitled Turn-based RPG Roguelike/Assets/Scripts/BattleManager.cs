@@ -125,6 +125,7 @@ public class BattleManager : MonoBehaviour
     private void ActivateBattleCommandUI()
     {
         Debug.Log("Activating the Battle Command UI");
+        UIManager.Instance.ActivateBattleUI();
     }
 
     private void PlayOpeningCinematics()
