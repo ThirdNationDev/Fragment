@@ -7,8 +7,8 @@ public class PlayerCombatant : Combatant
 
     public GameObject holo;
 
-    private void Awake()
+    public override void Awake()
     {
-        
+        base.Awake();
     }
 }

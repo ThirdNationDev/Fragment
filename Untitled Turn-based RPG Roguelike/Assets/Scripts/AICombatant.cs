@@ -4,4 +4,7 @@ using UnityEngine;
 
 public abstract class AICombatant : Combatant
 {
+
+
+
 }

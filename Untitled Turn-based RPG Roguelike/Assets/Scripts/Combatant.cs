@@ -90,8 +90,9 @@ public abstract class Combatant : MonoBehaviour, IComparable
     public Battlezone[] zonesInMoveRange;
 
 
-    private void Awake()
+    public virtual void Awake()
     {
+        Debug.Log("Awake called for " + this.ToString());
         stats.AP = stats.startingAP;
         stats.health = stats.maxHealth;
         stats.stepsRemaining = stats.maxRange;

@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        //Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -35,9 +36,6 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(battleCommandPanel);
 
         DeactivateUserInput();
-
-
-
     }
 
     private void DeactivateUserInput()
@@ -119,4 +117,8 @@ public class UIManager : MonoBehaviour
         targetSelectPanel.Deactivate();
     }
 
+    internal void ActivateBattleUI()
+    {
+        battleCommandPanel.gameObject.SetActive(true);
+    }
 }

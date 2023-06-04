@@ -1605,6 +1605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSelectPanel: {fileID: 813767687}
+  battleCommandPanel: {fileID: 1170900681}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,8 +1730,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 756923212}
-  - component: {fileID: 756923213}
   - component: {fileID: 756923214}
+  - component: {fileID: 756923215}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -1754,18 +1755,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &756923213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756923211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6d310ed74fcc644a505bff2148edac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &756923214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,17 +1767,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea9fa105918d41419f7bde2d94fe718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnCtr: 0
   combatantPrefabs:
   - {fileID: 2276929476839494153, guid: 411d5e749e2a3cf458e13569219df9e5, type: 3}
   - {fileID: 2628523625003436508, guid: dadbf5a84d4bdda4cab7ffec5802273b, type: 3}
   - {fileID: 4177664659866125422, guid: 4870f50fc21ce9e42888caaa855a629a, type: 3}
   - {fileID: 2276929476839494153, guid: 411d5e749e2a3cf458e13569219df9e5, type: 3}
   - {fileID: 2628523625003436508, guid: dadbf5a84d4bdda4cab7ffec5802273b, type: 3}
-  damageBuffer: 0
-  numCommandsToExecute: 0
   playerStartingZone: 3
   enemyStartingZone: 7
-  turnCtr: 0
+--- !u!114 &756923215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756923211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d673b0402a01a74f8860afb851ecc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &805840992
 GameObject:
   m_ObjectHideFlags: 0
@@ -2807,10 +2806,10 @@ RectTransform:
   m_Father: {fileID: 1788329579}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -5.59}
+  m_SizeDelta: {x: 200, y: 11.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1314148247
 MonoBehaviour:
