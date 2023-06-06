@@ -6,6 +6,9 @@ using Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+using Random = UnityEngine.Random;
+
+
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance { get; private set; }
@@ -40,6 +43,7 @@ public class BattleManager : MonoBehaviour
         combatantsInTurnOrder = new List<Combatant>();
         defeatedCombatants = new List<Combatant>();
 
+
         turnCtr = 0;
     }
 
@@ -53,11 +57,11 @@ public class BattleManager : MonoBehaviour
     }
     private void Update()
     {
-        if (playerWon())
+        if (PlayerWon())
         {
             StartVictorySequence();
         }
-        else if (playerLost())
+        else if (PlayerLost())
         {
             StartLossSequence();
         }
@@ -74,14 +78,13 @@ public class BattleManager : MonoBehaviour
         {
             combatantsInTurnOrder.Add(Instantiate(combatantPrefabs[i]).GetComponent<Combatant>());
         }
-
     }
 
     private void StartLossSequence()
     {
         Debug.Log("Starting the Loss Sequence");    }
 
-    private bool playerLost()
+    private bool PlayerLost()
     {
         Debug.Log("Checking if the enemy won");
 
@@ -104,7 +107,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Starting the won sequence.");
     }
 
-    private bool playerWon()
+    private bool PlayerWon()
     {
         Debug.Log("Checking if the player won");
 
@@ -137,22 +140,24 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("Preparing the Combatants for Battle");
         battlefield.PlaceCombatants(combatantsInTurnOrder);
+        SetInitialTurnOrder();
+        currentCombatant.StartTurn();
+    }
+
+    private void SetInitialTurnOrder()
+    {
+        foreach (Combatant c in combatantsInTurnOrder)
+        {
+            c.countdownToTurn = (int)Random.Range(1, 100);
+        }
+
+        combatantsInTurnOrder.Sort();
+
     }
 
     private void PrepareBattlefield()
     {
         Debug.Log("Preparing the Battlefield");
-    }
-
-    public void PlaceCombatants()
-    {
-        //combatants = new Combatant[combatantPrefabs.Length];
-        //for(int i = 0; i < combatantPrefabs.Length; i++)
-        //{
-        //    combatants[i] = Instantiate(combatantPrefabs[i]).GetComponent<Combatant>();
-        //}
-        
-        //battlefield.PlaceCombatants(combatants);
     }
 
     public void CreateBattlefield()
@@ -161,13 +166,30 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    internal void startTheNextCombatantTurn()
+    internal void StartTheNextCombatantTurn()
     {
         Assert.IsNotNull(combatantsInTurnOrder);
         Assert.AreNotEqual(combatantsInTurnOrder.Count, 0);
 
+        currentCombatant.EndTurn();
+        AdvanceTurnCountdown();
+        currentCombatant.StartTurn();
+    }
 
+    private void AdvanceTurnCountdown()
+    {
+        Combatant lastCombatant = currentCombatant;
+        int timePassed = currentCombatant.countdownToTurn;
+        Assert.AreNotEqual(timePassed, 0);
 
+        foreach(Combatant c in combatantsInTurnOrder)
+        {
+            c.countdownToTurn -= timePassed;
+            Assert.IsTrue((c.countdownToTurn >= 0) && (c.countdownToTurn <= 100));
+        }
 
+        currentCombatant.countdownToTurn = 100;
+        combatantsInTurnOrder.Sort();
+        Assert.AreNotEqual(lastCombatant, currentCombatant);
     }
 }

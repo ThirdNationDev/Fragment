@@ -76,8 +76,7 @@ public class UIManager : MonoBehaviour
     {
         //BattleManager.Instance.commandSelected = 
         //    BattleManager.Instance.currentCombatant.defendCommand;
-        this.commandSelected = BattleManager.Instance.currentCombatant.defendCommand;
-        SendCommand();
+        CommandManager.Instance.AddCommand(new DefendCommand(BattleManager.Instance.currentCombatant));
     }
 
     public void LightSkill()

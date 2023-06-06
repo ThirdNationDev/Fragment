@@ -3,38 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class CommandLog : MonoBehaviour
 {
-    public TextMeshProUGUI commandLog;
-    public ScrollRect scroller;
-    string logtext;
-    BattleCommand currentCommand;
+    [SerializeField]
+    private CommandLogEntry commandLogEntryPrefab;
 
-    int lastCount;
+    private int lastCount;
 
+    [SerializeField]
+    private ScrollRect scroller;
+
+    [SerializeField]
+    private GameObject scrollerContent;
+
+    private void AddNewLogEntry(CommandManager.ICommand command)
+    {
+        CommandLogEntry entry = Instantiate<CommandLogEntry>(commandLogEntryPrefab);
+        entry.transform.SetParent(scrollerContent.transform);
+
+        entry.combatantText.text = BattleManager.Instance.currentCombatant.ToString();
+        entry.commandText.text = command.ToString();
+        entry.commandNumberText.text = lastCount.ToString().PadLeft(3, '0');
+    }
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        logtext = "";
-        currentCommand = null;
-
         lastCount = 0;
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
+        while (CommandManager.Instance.CommandCount > lastCount)
+        {
+            int commandIndex = CommandManager.Instance.CommandCount - 1 - lastCount;  //Stack array indexing puts 0 at most recent
+            AddNewLogEntry(CommandManager.Instance.CommandAtIndex(commandIndex));
+            lastCount++;
+        }
 
-        //if(BattleManager.Instance.executedCommandStack.Count > lastCount)
-        //{
-        //    currentCommand = BattleManager.Instance.executedCommandStack.Peek();
-        //    logtext += currentCommand.ToString();
-        //    lastCount = BattleManager.Instance.executedCommandStack.Count;
-        //    scroller.velocity = new Vector2(0f, 1000f);
-        //}
-
-        //commandLog.text = logtext;
+        scroller.velocity = new Vector2(0f, 1000f);
     }
 }
