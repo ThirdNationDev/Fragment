@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
 public class Battlefield : MonoBehaviour
 {
     [SerializeField]
     private Battlezone battleZonePrefab;
 
+    private Battlezone[] battlezones;
+
     [SerializeField]
     private int initNumZones;
 
-    private Battlezone[] battlezones;
+    private int zoneTileNumber;
 
     public int numZones
     {
@@ -25,18 +26,70 @@ public class Battlefield : MonoBehaviour
         private set { }
     }
 
-    private int zoneTileNumber;
-
-    // Start is called before the first frame update
-    void Awake()
+    public Battlezone getZone(int i)
     {
-        CreateBattlefield();
+        if ((0 <= i) && (i < battlezones.Length))
+        {
+            return battlezones[i];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public Battlezone[] getZones(int start, int end)
+    {
+        if ((0 <= start) && (end < battlezones.Length) && (start <= end))
+        {
+            return battlezones.Skip(start).Take(end - start + 1).ToArray<Battlezone>();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void PlaceCombatants(List<Combatant> combatants)
+    {
+        Combatant c;
+        int startingZone = 0;
+        for (int i = 0; i < combatants.Count; i++)
+        {
+            c = combatants[i];
+            if (c is PlayerCombatant)
+            {
+                startingZone = BattleManager.Instance.playerStartingZone;
+            }
+            else if (c is EnemyCombatant)
+            {
+                startingZone = BattleManager.Instance.enemyStartingZone;
+            }
+            battlezones[startingZone].AddCombatant(c);
+        }
+    }
+
+    public void ResizeBattlefield()
+    {
+        //find the max tile width across all the zones
+        int maxTileWidth = 0;
+        int minZoneWidth;
+        foreach (Battlezone zone in battlezones)
+        {
+            minZoneWidth = zone.combatants.Count + 2;
+            maxTileWidth = minZoneWidth > maxTileWidth ? minZoneWidth : maxTileWidth;
+        }
+
+        foreach (Battlezone zone in battlezones)
+        {
+            zone.Resize(maxTileWidth);
+        }
     }
 
     internal void CreateBattlefield()
     {
-        if(BattleManager.Instance.playerStartingZone <0 
-            || BattleManager.Instance.enemyStartingZone <0
+        if (BattleManager.Instance.playerStartingZone < 0
+            || BattleManager.Instance.enemyStartingZone < 0
             || BattleManager.Instance.playerStartingZone >= initNumZones
             || BattleManager.Instance.enemyStartingZone >= initNumZones)
         {
@@ -64,76 +117,26 @@ public class Battlefield : MonoBehaviour
     {
         Battlezone[] zonesInRange = getZones(z1, z2);
         List<Combatant> targets = new List<Combatant>();
-        foreach(Battlezone zone in zonesInRange)
+        foreach (Battlezone zone in zonesInRange)
         {
             targets.AddRange(zone.combatants);
         }
         return targets;
     }
 
-    public void PlaceCombatants(List<Combatant> combatants)
+    internal void MoveCombatant(Combatant combatant, Battlezone endZone)
     {
-        Combatant c;
-        int startingZone = 0;
-        for(int i = 0; i < combatants.Count; i++)
-        {
-            c = combatants[i];
-            if(c is PlayerCombatant)
-            {
-                startingZone = BattleManager.Instance.playerStartingZone;
-            }
-            else if ( c is EnemyCombatant)
-            {
-                startingZone = BattleManager.Instance.enemyStartingZone;
-            }
-            battlezones[startingZone].AddCombatant(c);
-        }
+        throw new NotImplementedException();
     }
 
-    public Battlezone getZone(int i)
+    // Start is called before the first frame update
+    private void Awake()
     {
-        if ((0 <= i) &&(i < battlezones.Length))
-        {
-            return battlezones[i];
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public Battlezone[] getZones(int start, int end)
-    {
-        if ((0 <= start) &&  (end < battlezones.Length) && (start <= end))
-        {
-            return battlezones.Skip(start).Take(end-start+1).ToArray<Battlezone>();
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public void ResizeBattlefield()
-    {
-        //find the max tile width across all the zones
-        int maxTileWidth=0;
-        int minZoneWidth;
-        foreach(Battlezone zone in battlezones)
-        {
-            minZoneWidth = zone.combatants.Count + 2;
-            maxTileWidth = minZoneWidth > maxTileWidth ? minZoneWidth : maxTileWidth;
-        }
-
-        foreach(Battlezone zone in battlezones)
-        {
-            zone.Resize(maxTileWidth);
-        }
+        CreateBattlefield();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 }

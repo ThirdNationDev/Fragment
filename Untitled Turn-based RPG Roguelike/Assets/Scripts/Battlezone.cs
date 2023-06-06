@@ -7,15 +7,25 @@ using System.Linq;
 
 public class Battlezone : MonoBehaviour
 {
+    public Battlefield battlefield;
     public GameObject battleZoneTilePrefab;
 
+    public GameObject combatantPrefab;
     public List<Combatant> combatants;
 
     public int minTileNum;
 
-    List<GameObject> tileArray;
-
     public int zoneNumber;
+    private List<GameObject> tileArray;
+
+    public float length
+    {
+        get
+        {
+            return battleZoneTilePrefab.transform.localScale.z;
+        }
+        private set { }
+    }
 
     public Battlezone nextzone
     {
@@ -24,6 +34,19 @@ public class Battlezone : MonoBehaviour
             return battlefield.getZone(zoneNumber + 1);
         }
 
+        private set { }
+    }
+
+    public int numTiles
+    {
+        get
+        {
+            if (tileArray != null)
+            {
+                return tileArray.Count;
+            }
+            else { return 0; }
+        }
         private set { }
     }
 
@@ -37,20 +60,6 @@ public class Battlezone : MonoBehaviour
         private set { }
     }
 
-    public Battlefield battlefield;
-
-    public int numTiles
-    { 
-        get
-        {
-            if (tileArray != null)
-            {
-                return tileArray.Count;
-            }
-            else { return 0; }
-        } private set { }
-    }
-
     public float width
     {
         get
@@ -60,22 +69,34 @@ public class Battlezone : MonoBehaviour
         private set { }
     }
 
-    public float length
+    public void AddCombatant(Combatant combatant)
     {
-        get
+        combatants.Add(combatant);
+        combatant.battlezone = this;
+        if (combatants.Count > (numTiles / 2 + 1))
         {
-            return battleZoneTilePrefab.transform.localScale.z;
+            Resize(numTiles + 2);
+            battlefield.ResizeBattlefield();
         }
-        private set { }
+
+        ArrangeCombatants();
     }
 
-    public GameObject combatantPrefab;
-
-    void Awake()
+    /// <summary>
+    /// Removes the gameobject from the tile and form the list of combatants,
+    /// but does not destroy it.
+    /// </summary>
+    /// <param name="go"></param>
+    public void RemoveCombatant(Combatant combatant)
     {
-        tileArray = new List<GameObject>();
-        combatants = new List<Combatant>();
-        Resize(minTileNum);
+        combatants.Remove(combatant);
+        combatant.transform.parent = null;
+        if (combatants.Count <= (numTiles / 2 + 1))
+        {
+            Resize(numTiles - 2);
+            battlefield.ResizeBattlefield();
+        }
+        ArrangeCombatants();
     }
 
     /// <summary>
@@ -86,7 +107,6 @@ public class Battlezone : MonoBehaviour
     /// <param name="newTileNum">Must be odd. Value will be incremented if even.</param>
     public void Resize(int newTileNum)
     {
-
         //input checks
         if (newTileNum % 2 == 0)  //odd numbers only
         {
@@ -98,7 +118,7 @@ public class Battlezone : MonoBehaviour
             return;
         }
 
-        if((newTileNum/2 +1) < combatants.Count) //don't make it too small for the combatants
+        if ((newTileNum / 2 + 1) < combatants.Count) //don't make it too small for the combatants
         {
             return;
         }
@@ -130,22 +150,51 @@ public class Battlezone : MonoBehaviour
                 tile.name = "Tile " + i.ToString();
                 tileArray.Add(tile);
                 lastTilePos = tile.transform.position;
-
             }
         }
-       Recenter();
-       ArrangeCombatants();
-    }    
+        Recenter();
+        ArrangeCombatants();
+    }
+
+    public override string ToString()
+    {
+        return this.name;
+    }
 
     /// <summary>
-    /// Destroys the gameobject tile. Does not destroy any child Combatants, 
+    /// Arranges the combatants evenly and centered across the zone.
+    /// Not sure if stable.
+    /// </summary>
+    private void ArrangeCombatants()
+    {
+        if (combatants.Count == 0) { return; }  //if no combatants, no need to arrange
+
+        int index = numTiles / 2 - (combatants.Count - 1);
+
+        foreach (Combatant combatant in combatants)
+        {
+            combatant.transform.position = tileArray[index].transform.position;
+            combatant.transform.parent = tileArray[index].transform;
+            index += 2;
+        }
+    }
+
+    private void Awake()
+    {
+        tileArray = new List<GameObject>();
+        combatants = new List<Combatant>();
+        Resize(minTileNum);
+    }
+
+    /// <summary>
+    /// Destroys the gameobject tile. Does not destroy any child Combatants,
     /// but will remove them as child.
     /// </summary>
     /// <param name="tile"></param>
-    void DestroyTile(GameObject tile)
+    private void DestroyTile(GameObject tile)
     {
         Combatant combatant = tile.GetComponentInChildren<Combatant>();
-        if(combatant != null) //don't destroy combatant
+        if (combatant != null) //don't destroy combatant
         {
             combatant.transform.parent = null;
             ArrangeCombatants();
@@ -155,73 +204,18 @@ public class Battlezone : MonoBehaviour
     }
 
     /// <summary>
-    /// Removes the gameobject from the tile and form the list of combatants,
-    /// but does not destroy it.
-    /// </summary>
-    /// <param name="go"></param>
-    public void RemoveCombatant(Combatant combatant)
-    {
-        combatants.Remove(combatant);
-        combatant.transform.parent = null;
-        if (combatants.Count <= (numTiles / 2 + 1))
-        {
-            Resize(numTiles - 2);
-            battlefield.ResizeBattlefield();
-        }
-        ArrangeCombatants();
-    }
-
-    /// <summary>
     /// Recenters the tiles so that within the battlezone object, the central tile  is at origin.
     /// </summary>
-    void Recenter()
+    private void Recenter()
     {
-        if(numTiles <= 0) { return; }
+        if (numTiles <= 0) { return; }
 
         int centerTileIndex = numTiles / 2; //works because always odd number of tiles, and first tileindex is 0
         Vector3 center = tileArray[centerTileIndex].transform.position - this.gameObject.transform.position;
 
-        for(int i = 0; i < numTiles; i++)
+        for (int i = 0; i < numTiles; i++)
         {
             tileArray[i].transform.position -= center;
         }
-
-    }
-
-
-    public void AddCombatant(Combatant combatant)
-    {
-        combatants.Add(combatant);
-        combatant.battlezone = this;
-        if (combatants.Count > (numTiles / 2 + 1))
-        {
-            Resize(numTiles+2);
-            battlefield.ResizeBattlefield();
-        }
-
-        ArrangeCombatants();
-    }
-    /// <summary>
-    /// Arranges the combatants evenly and centered across the zone.
-    /// Not sure if stable. 
-    /// </summary>
-    void ArrangeCombatants()
-    {
-        if(combatants.Count == 0) { return; }  //if no combatants, no need to arrange
-
-        int index = numTiles/2 - (combatants.Count - 1);
-        
-        foreach(Combatant combatant in combatants)
-        {
-            combatant.transform.position = tileArray[index].transform.position;
-            combatant.transform.parent = tileArray[index].transform;
-            index += 2;
-        }
-
-    }
-
-    public override string ToString()
-    {
-        return this.name;
     }
 }

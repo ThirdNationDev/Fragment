@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 
 public class CommandManager : MonoBehaviour
 {
+    public static EmptyCommand EmptyCommand = new EmptyCommand();
     private Stack<ICommand> CommandsBuffer = new Stack<ICommand>();
 
     public interface ICommand

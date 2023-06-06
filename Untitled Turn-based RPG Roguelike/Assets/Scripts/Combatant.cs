@@ -6,41 +6,17 @@ using UnityEngine.Assertions;
 
 public abstract class Combatant : MonoBehaviour, IComparable
 {
-    private UnitProfile unit;
     public Battlezone battlezone;
-    public CombatantStats stats;
-    public ParticleSystem particles;
     public int countdownToTurn;
-    
-    public BasicMoveSkill moveSkill;
+    public BasicDefendSkill defendSkill;
+    public BasicAttackSkill heavySkill;
     public BasicAttackSkill lightSkill;
     public BasicAttackSkill midSkill;
-    public BasicAttackSkill heavySkill;
-
-    public BasicDefendSkill defendSkill;
-
-
-
-
-    public virtual void ReceiveDamage(float damage)
-    {
-        //TODO: Play damaged animation
-        stats.health -= (int) Math.Round(damage);
-        if(stats.health <= 0)
-        {
-            Death();
-        }
-    }
-
-    public virtual void Death()
-    {
-        BattleCommand command = new DeathBCom();
-        command.Initialize(this);
-        UIManager.Instance.commandSelected = command;
-        UIManager.Instance.SendCommand();
-    }
-
-
+    public BasicMoveSkill moveSkill;
+    public ParticleSystem particles;
+    public CombatantStats stats;
+    public Battlezone[] zonesInMoveRange;
+    private UnitProfile unit;
 
     public BattleCommand defendCommand
     {
@@ -51,11 +27,11 @@ public abstract class Combatant : MonoBehaviour, IComparable
         private set { }
     }
 
-    public BattleCommand moveCommand
+    public BattleCommand heavySkillCommand
     {
         get
         {
-            return moveSkill.Command(this);
+            return heavySkill.Command(this);
         }
         private set { }
     }
@@ -78,17 +54,14 @@ public abstract class Combatant : MonoBehaviour, IComparable
         private set { }
     }
 
-    public BattleCommand heavySkillCommand
+    public BattleCommand moveCommand
     {
         get
         {
-            return heavySkill.Command(this);
+            return moveSkill.Command(this);
         }
         private set { }
     }
-
-    public Battlezone[] zonesInMoveRange;
-
 
     public virtual void Awake()
     {
@@ -97,6 +70,43 @@ public abstract class Combatant : MonoBehaviour, IComparable
         stats.health = stats.maxHealth;
         stats.stepsRemaining = stats.maxRange;
         particles.Stop();
+    }
+
+    public int CompareTo(object obj)
+    {
+        Assert.IsNotNull(obj);
+        Assert.IsTrue(obj is Combatant);
+
+        Combatant otherCombatant = obj as Combatant;
+        return this.countdownToTurn.CompareTo(otherCombatant.countdownToTurn);
+    }
+
+    public virtual void Death()
+    {
+        //BattleCommand command = new DeathBCom();
+        //command.Initialize(this);
+        //UIManager.Instance.commandSelected = command;
+        //UIManager.Instance.SendCommand();
+    }
+
+    public virtual void EndTurn()
+    {
+        particles.Stop();
+    }
+
+    public virtual void MoveBackOne()
+    {
+        Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber - 1);
+        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
+        // BattleManager.Instance.ExecuteCommand(command);
+    }
+
+    public virtual void MoveForwardOne()
+    {
+        Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber + 1);
+        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
+        //BattleManager.Instance.ExecuteCommand(command);
+        //MoveTo(targetZone);
     }
 
     public virtual void MoveTo(Battlezone newZone)
@@ -110,7 +120,16 @@ public abstract class Combatant : MonoBehaviour, IComparable
             battlezone = newZone;
             stats.AP--;
         }
+    }
 
+    public virtual void ReceiveDamage(float damage)
+    {
+        //TODO: Play damaged animation
+        stats.health -= (int)Math.Round(damage);
+        if (stats.health <= 0)
+        {
+            Death();
+        }
     }
 
     public virtual void StartTurn()
@@ -119,40 +138,10 @@ public abstract class Combatant : MonoBehaviour, IComparable
         int highZoneNum = battlezone.zoneNumber + stats.maxRange;
         zonesInMoveRange = BattleManager.Instance.battlefield.getZones(lowZoneNum, highZoneNum);
         particles.Play();
-
-    }
-
-    public virtual void EndTurn()
-    {
-        particles.Stop();
-    }
-
-    public virtual void MoveForwardOne()
-    {
-        Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber + 1);
-        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
-        //BattleManager.Instance.ExecuteCommand(command);
-        //MoveTo(targetZone);
-    }
-
-    public virtual void MoveBackOne()
-    {
-        Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber - 1);
-        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
-       // BattleManager.Instance.ExecuteCommand(command);
     }
 
     public override string ToString()
     {
         return this.name;
-    }
-
-    public int CompareTo(object obj)
-    {
-        Assert.IsNotNull(obj);
-        Assert.IsTrue(obj is Combatant);
-
-        Combatant otherCombatant = obj as Combatant;
-        return this.countdownToTurn.CompareTo(otherCombatant.countdownToTurn);
     }
 }
