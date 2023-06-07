@@ -1604,8 +1604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be22c0b57b9627c459aa63d928514480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSelectPanel: {fileID: 813767687}
   battleCommandPanel: {fileID: 1170900681}
+  targetSelectPanel: {fileID: 813767687}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,8 +2015,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 813767683}
-  targetButtonPrefab: {fileID: 3752358329069930529, guid: d7b5750555285884881d57469253d8bc, type: 3}
   scrollContent: {fileID: 337877283}
+  targetButtonPrefab: {fileID: 3752358329069930529, guid: d7b5750555285884881d57469253d8bc, type: 3}
 --- !u!1 &892055154
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,9 +2378,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54e19ecbd7ccea439b007dddf8b97c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandLogEntryPrefab: {fileID: 2560587522884136523, guid: bc18d85d8455fa642ab88d9be22e75fb, type: 3}
   scroller: {fileID: 1384201690}
   scrollerContent: {fileID: 1788329578}
-  commandLogEntryPrefab: {fileID: 2560587522884136523, guid: bc18d85d8455fa642ab88d9be22e75fb, type: 3}
 --- !u!1 &1051134924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,7 +2828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1788329579}
   m_Horizontal: 0
-  m_Vertical: 0
+  m_Vertical: 1
   m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1

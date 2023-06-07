@@ -54,20 +54,12 @@ public class UIManager : MonoBehaviour
 
     public void MoveBackOne()
     {
-        Combatant actor = BattleManager.Instance.currentCombatant;
-        Battlezone start = actor.battlezone;
-        Battlezone end = BattleManager.Instance.currentCombatant.battlezone.prevzone;
-
-        CommandManager.Instance.AddCommand(new MoveCommand(actor, start, end));
+        MoveCombatant(BattleManager.Instance.currentCombatant.battlezone.prevzone);
     }
 
     public void MoveForwardOne()
     {
-        Combatant actor = BattleManager.Instance.currentCombatant;
-        Battlezone start = actor.battlezone;
-        Battlezone end = BattleManager.Instance.currentCombatant.battlezone.nextzone;
-
-        CommandManager.Instance.AddCommand(new MoveCommand(actor, start, end));
+        MoveCombatant(BattleManager.Instance.currentCombatant.battlezone.nextzone);
     }
 
     public void SendCommand()
@@ -116,6 +108,15 @@ public class UIManager : MonoBehaviour
         //{
         //    targetSelectPanel.Deactivate();
         //}
+    }
+
+    private void MoveCombatant(Battlezone target)
+    {
+        Combatant actor = BattleManager.Instance.currentCombatant;
+        if (actor.CanMoveTo(target))
+        {
+            CommandManager.Instance.AddCommand(new MoveCommand(actor, actor.battlezone, target));
+        }
     }
 
     private void Start()

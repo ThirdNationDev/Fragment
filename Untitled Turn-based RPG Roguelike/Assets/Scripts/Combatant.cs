@@ -94,34 +94,6 @@ public abstract class Combatant : MonoBehaviour, IComparable
         particles.Stop();
     }
 
-    public virtual void MoveBackOne()
-    {
-        Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber - 1);
-        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
-        // BattleManager.Instance.ExecuteCommand(command);
-    }
-
-    public virtual void MoveForwardOne()
-    {
-        Battlezone targetZone = BattleManager.Instance.battlefield.getZone(battlezone.zoneNumber + 1);
-        //ChangeZoneBCom command = new ChangeZoneBCom(this, targetZone);
-        //BattleManager.Instance.ExecuteCommand(command);
-        //MoveTo(targetZone);
-    }
-
-    public virtual void MoveTo(Battlezone newZone)
-    {
-        int distance = Mathf.Abs(battlezone.zoneNumber - newZone.zoneNumber);
-        //Move combatant to new zone and locaiton
-        if (distance <= stats.stepsRemaining)
-        {
-            battlezone.RemoveCombatant(this);
-            newZone.AddCombatant(this);
-            battlezone = newZone;
-            stats.AP--;
-        }
-    }
-
     public virtual void ReceiveDamage(float damage)
     {
         //TODO: Play damaged animation
@@ -143,5 +115,17 @@ public abstract class Combatant : MonoBehaviour, IComparable
     public override string ToString()
     {
         return this.name;
+    }
+
+    internal bool CanMoveTo(Battlezone target)
+    {
+        foreach (Battlezone zone in zonesInMoveRange)
+        {
+            if (zone == target)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
