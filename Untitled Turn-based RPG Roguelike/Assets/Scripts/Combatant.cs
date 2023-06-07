@@ -18,47 +18,47 @@ public abstract class Combatant : MonoBehaviour, IComparable
     public Battlezone[] zonesInMoveRange;
     private UnitProfile unit;
 
-    public BattleCommand defendCommand
+    public CommandManager.ICommand defendCommand
     {
         get
         {
-            return defendSkill.Command(this);
+            return defendSkill.Command();
         }
         private set { }
     }
 
-    public BattleCommand heavySkillCommand
+    public CommandManager.ICommand heavySkillCommand
     {
         get
         {
-            return heavySkill.Command(this);
+            return heavySkill.Command();
         }
         private set { }
     }
 
-    public BattleCommand lightSkillCommand
+    public CommandManager.ICommand lightSkillCommand
     {
         get
         {
-            return lightSkill.Command(this);
+            return lightSkill.Command();
         }
         private set { }
     }
 
-    public BattleCommand midSkillCommand
+    public CommandManager.ICommand midSkillCommand
     {
         get
         {
-            return midSkill.Command(this);
+            return midSkill.Command();
         }
         private set { }
     }
 
-    public BattleCommand moveCommand
+    public CommandManager.ICommand moveCommand
     {
         get
         {
-            return moveSkill.Command(this);
+            return moveSkill.Command();
         }
         private set { }
     }
@@ -97,11 +97,11 @@ public abstract class Combatant : MonoBehaviour, IComparable
     public virtual void ReceiveDamage(float damage)
     {
         //TODO: Play damaged animation
-        stats.health -= (int)Math.Round(damage);
-        if (stats.health <= 0)
-        {
-            Death();
-        }
+        //stats.health -= (int)Math.Round(damage);
+        //if (stats.health <= 0)
+        //{
+        //    Death();
+        //}
     }
 
     public virtual void StartTurn()

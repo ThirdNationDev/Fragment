@@ -9,13 +9,18 @@ public class EmptyCommand : CommandManager.ICommand
         Debug.LogError("Empty Command Execute Called");
     }
 
-    public void Undo()
+    public void SetActor(Combatant actor)
     {
-        Debug.LogError("Empty Command Undo Called");
+        Debug.LogError("Empty Command SetActor called with " + actor.ToString());
     }
 
     public override string ToString()
     {
         return "Empty Command.";
+    }
+
+    public void Undo()
+    {
+        Debug.LogError("Empty Command Undo Called");
     }
 }

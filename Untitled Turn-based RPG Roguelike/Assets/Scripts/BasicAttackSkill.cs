@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class BasicAttackSkill : MonoBehaviour, IEquipableSkill
 {
-    public BattleCommand Command()
+    public CommandManager.ICommand Command()
     {
-        return new AttackBCom();
+        throw new System.NotImplementedException();
     }
 
-    public BattleCommand Command(Combatant actor)
+    public Damage DealDamage()
     {
-        BattleCommand command = new AttackBCom();
-        command.Initialize(actor);
-        return command;
-
+        throw new System.NotImplementedException();
     }
-
 }

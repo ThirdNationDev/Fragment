@@ -3,39 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class MoveCommand : CommandManager.ICommand
+public class MoveCommand : CommandManager.ITargetZoneCommand
 {
-    private Combatant combatant;
+    private Combatant actor;
     private Battlezone endZone;
     private Battlezone startZone;
 
     public MoveCommand()
     {
-        combatant = null;
+        actor = null;
         endZone = null;
         startZone = null;
-    }
-
-    public MoveCommand(Combatant actor, Battlezone start, Battlezone end)
-    {
-        Initialize(actor, start, end);
     }
 
     public void Execute()
     {
         Assert.IsNotNull(endZone);
         Assert.IsNotNull(startZone);
-        Assert.IsNotNull(combatant);
+        Assert.IsNotNull(actor);
 
-        startZone.RemoveCombatant(combatant);
-        endZone.AddCombatant(combatant);
+        startZone.RemoveCombatant(actor);
+        endZone.AddCombatant(actor);
     }
 
-    public void Initialize(Combatant actor, Battlezone start, Battlezone end)
+    public void SetActor(Combatant actor)
     {
-        combatant = actor;
-        startZone = start;
-        endZone = end;
+        this.actor = actor;
+        this.startZone = actor.battlezone;
+    }
+
+    public void SetTarget(Battlezone target)
+    {
+        this.endZone = target;
     }
 
     public override string ToString()

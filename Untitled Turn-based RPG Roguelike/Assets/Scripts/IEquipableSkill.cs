@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IEquipableSkill
-{ 
-    public BattleCommand Command();
+{
+    public CommandManager.ICommand Command();
 
-    public BattleCommand Command(Combatant actor);
+    public Damage DealDamage();
 }

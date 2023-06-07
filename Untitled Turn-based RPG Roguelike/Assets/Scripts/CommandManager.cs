@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 
 public class CommandManager : MonoBehaviour
 {
+    public static CommandBuilder CommandBuilder = new CommandBuilder();
     public static EmptyCommand EmptyCommand = new EmptyCommand();
     private Stack<ICommand> CommandsBuffer = new Stack<ICommand>();
 
@@ -15,9 +16,25 @@ public class CommandManager : MonoBehaviour
     {
         void Execute();
 
+        void SetActor(Combatant actor);
+
         String ToString();
 
         void Undo();
+    }
+
+    public interface ITargetCombatantCommand : ICommand
+    {
+        void SetTarget(Combatant target);
+    }
+
+    public interface ITargetSelfCommand : ICommand
+    {
+    }
+
+    public interface ITargetZoneCommand : ICommand
+    {
+        void SetTarget(Battlezone target);
     }
 
     public static CommandManager Instance { get; private set; }

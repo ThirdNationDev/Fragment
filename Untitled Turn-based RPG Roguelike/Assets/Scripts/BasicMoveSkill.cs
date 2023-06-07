@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class BasicMoveSkill : MonoBehaviour, IEquipableSkill
 {
-    public BattleCommand Command()
+    public CommandManager.ICommand Command()
     {
-        return new ChangeZoneBCom();
+        return new MoveCommand();
     }
 
-    public BattleCommand Command(Combatant actor)
+    public Damage DealDamage()
     {
-        BattleCommand command = new ChangeZoneBCom();
-        command.Initialize(actor);
-        return command;
+        throw new System.NotImplementedException();
     }
-
- 
 }

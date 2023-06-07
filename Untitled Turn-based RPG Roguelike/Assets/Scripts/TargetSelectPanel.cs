@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class TargetSelectPanel : MonoBehaviour
 {
@@ -50,6 +51,11 @@ public class TargetSelectPanel : MonoBehaviour
     {
         //UIManager.Instance.commandSelected.SetTarget(selected);
         //UIManager.Instance.SendCommand();
+    }
+
+    internal void DisplayTargetsForCommand(CommandManager.ICommand lightSkillCommand)
+    {
+        throw new NotImplementedException();
     }
 
     private void Awake()

@@ -2,14 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefendCommand : CommandManager.ICommand
+public class DefendCommand : CommandManager.ITargetSelfCommand
 {
-    Combatant combatant;
-
-    public DefendCommand(Combatant actor)
-    {
-        combatant = actor;
-    }
+    private Combatant actor;
 
     public void Execute()
     {
@@ -20,9 +15,9 @@ public class DefendCommand : CommandManager.ICommand
         CommandManager.Instance.AddCommand(new EndTurnCommand());
     }
 
-    public void Undo()
+    public void SetActor(Combatant actor)
     {
-        throw new System.NotImplementedException();
+        this.actor = actor;
     }
 
     public override string ToString()
@@ -30,5 +25,8 @@ public class DefendCommand : CommandManager.ICommand
         return "Defended.";
     }
 
-
+    public void Undo()
+    {
+        throw new System.NotImplementedException();
+    }
 }

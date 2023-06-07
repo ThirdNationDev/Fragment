@@ -26,9 +26,7 @@ public class UIManager : MonoBehaviour
 
     public void Defend()
     {
-        //BattleManager.Instance.commandSelected =
-        //    BattleManager.Instance.currentCombatant.defendCommand;
-        CommandManager.Instance.AddCommand(new DefendCommand(BattleManager.Instance.currentCombatant));
+        CommandManager.Instance.AddCommand(BattleManager.Instance.currentCombatant.defendCommand);
     }
 
     public void HeavySkill()
@@ -43,6 +41,7 @@ public class UIManager : MonoBehaviour
         //this.commandSelected =
         //    BattleManager.Instance.currentCombatant.lightSkillCommand;
         //targetSelectPanel.DisplayTargets();
+        targetSelectPanel.DisplayTargetsForCommand(BattleManager.Instance.currentCombatant.lightSkillCommand);
     }
 
     public void MidSkill()
@@ -115,7 +114,10 @@ public class UIManager : MonoBehaviour
         Combatant actor = BattleManager.Instance.currentCombatant;
         if (actor.CanMoveTo(target))
         {
-            CommandManager.Instance.AddCommand(new MoveCommand(actor, actor.battlezone, target));
+            CommandManager.ITargetZoneCommand command = actor.moveCommand as CommandManager.ITargetZoneCommand;
+            command.SetActor(actor);
+            command.SetTarget(target);
+            CommandManager.Instance.AddCommand(command);
         }
     }
 
