@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class DefendCommand : CommandManager.ITargetSelfCommand
 {
+    private readonly bool endsTurn = true;
     private Combatant actor;
+    private Battlezone startingZone;
+    public Combatant Actor { get => actor; set => actor = value; }
+
+    public bool EndsTurn => endsTurn;
+
+    public Battlezone StartingZone { get => startingZone; set => startingZone = value; }
 
     public void Execute()
     {
         //TODO: Combatant defense increase
         //TODO:Combatant defense animation
-
-        //End the turn
-        CommandManager.Instance.AddCommand(new EndTurnCommand());
-    }
-
-    public void SetActor(Combatant actor)
-    {
-        this.actor = actor;
     }
 
     public override string ToString()

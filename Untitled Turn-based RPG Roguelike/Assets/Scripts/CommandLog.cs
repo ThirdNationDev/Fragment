@@ -23,7 +23,7 @@ public class CommandLog : MonoBehaviour
         CommandLogEntry entry = Instantiate<CommandLogEntry>(commandLogEntryPrefab);
         entry.transform.SetParent(scrollerContent.transform);
 
-        entry.combatantText.text = BattleManager.Instance.currentCombatant.ToString();
+        entry.combatantText.text = command.Actor.ToString();
         entry.commandText.text = command.ToString();
         entry.commandNumberText.text = lastCount.ToString().PadLeft(3, '0');
     }

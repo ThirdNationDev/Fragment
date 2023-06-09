@@ -1,3 +1,12 @@
+/* Copyright (C) 2023 Thomas Payne, Third Nation Games - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Third Nation Games license, which unfortunately won't be
+ * written for another century.
+ *
+ * You should have received a copy of the Third Nation Games license with
+ * this file. If not, please write to: dev@thirdnationgames.com, or visit : www.thirdnationgames.com
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,24 +18,22 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
-    public CommandManager.ICommand commandSelected;
+    public static CommandBuilder CommandBuilder = new CommandBuilder();
 
     [SerializeField]
     private DisplayBattleCommandUI battleCommandPanel;
+
+    [SerializeField]
+    private ConfirmCommandPanel confirmCommandPanel;
 
     [SerializeField]
     private TargetSelectPanel targetSelectPanel;
 
     public static UIManager Instance { get; private set; }
 
-    public void Cancel()
+    private Combatant currentCombatant
     {
-        targetSelectPanel.Deactivate();
-    }
-
-    public void Defend()
-    {
-        CommandManager.Instance.AddCommand(BattleManager.Instance.currentCombatant.defendCommand);
+        get { return BattleManager.Instance.currentCombatant; }
     }
 
     public void HeavySkill()
@@ -41,7 +48,7 @@ public class UIManager : MonoBehaviour
         //this.commandSelected =
         //    BattleManager.Instance.currentCombatant.lightSkillCommand;
         //targetSelectPanel.DisplayTargets();
-        targetSelectPanel.DisplayTargetsForCommand(BattleManager.Instance.currentCombatant.lightSkillCommand);
+        targetSelectPanel.DisplayTargetsForCommand(currentCombatant.lightSkillCommand);
     }
 
     public void MidSkill()
@@ -51,25 +58,33 @@ public class UIManager : MonoBehaviour
         //targetSelectPanel.DisplayTargets();
     }
 
-    public void MoveBackOne()
+    public void OnCancel()
     {
-        MoveCombatant(BattleManager.Instance.currentCombatant.battlezone.prevzone);
+        targetSelectPanel.Deactivate();
+        CommandBuilder.Clear();
+        confirmCommandPanel.Hide();
     }
 
-    public void MoveForwardOne()
+    public void OnConfirmCommand()
     {
-        MoveCombatant(BattleManager.Instance.currentCombatant.battlezone.nextzone);
+        ConfirmCommand();
     }
 
-    public void SendCommand()
+    public void OnDefend()
     {
-        //if (commandSelected == null) { return; }
+        CommandBuilder.Command = currentCombatant.defendCommand;
+        CommandBuilder.Actor = currentCombatant;
+        confirmCommandPanel.Display();
+    }
 
-        //if (commandSelected.Ready())
-        //{
-        //    //BattleManager.Instance.commandsToExecuteQueue.Enqueue(commandSelected);
-        //    //commandSelected = null;
-        //}
+    public void OnMoveBackOne()
+    {
+        MoveCombatant(currentCombatant.battlezone.prevzone);
+    }
+
+    public void OnMoveForwardOne()
+    {
+        MoveCombatant(currentCombatant.battlezone.nextzone);
     }
 
     internal void ActivateBattleUI()
@@ -92,7 +107,14 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(battleCommandPanel);
 
         DeactivateUserInput();
-        commandSelected = CommandManager.EmptyCommand;
+        CommandBuilder.Clear();
+    }
+
+    private void ConfirmCommand()
+    {
+        CommandManager.Instance.AddCommand(CommandBuilder.GetFinishedCommand());
+        CommandBuilder.Clear();
+        confirmCommandPanel.Hide();
     }
 
     private void DeactivateUserInput()
@@ -103,26 +125,22 @@ public class UIManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        //if(this.commandSelected == null)
-        //{
-        //    targetSelectPanel.Deactivate();
-        //}
     }
 
     private void MoveCombatant(Battlezone target)
     {
-        Combatant actor = BattleManager.Instance.currentCombatant;
-        if (actor.CanMoveTo(target))
+        if (currentCombatant.CanMoveTo(target))
         {
-            CommandManager.ITargetZoneCommand command = actor.moveCommand as CommandManager.ITargetZoneCommand;
-            command.SetActor(actor);
-            command.SetTarget(target);
-            CommandManager.Instance.AddCommand(command);
+            CommandBuilder.Command = currentCombatant.moveCommand;
+            CommandBuilder.Actor = currentCombatant;
+            CommandBuilder.StartingZone = currentCombatant.battlezone;
+            CommandBuilder.TargetZone = target;
+
+            ConfirmCommand();
         }
     }
 
     private void Start()
     {
-        //targetSelectPanel.Deactivate();
     }
 }

@@ -8,15 +8,28 @@ using UnityEngine.Assertions;
 
 public class CommandManager : MonoBehaviour
 {
-    public static CommandBuilder CommandBuilder = new CommandBuilder();
-    public static EmptyCommand EmptyCommand = new EmptyCommand();
     private Stack<ICommand> CommandsBuffer = new Stack<ICommand>();
 
     public interface ICommand
     {
-        void Execute();
+        public Combatant Actor
+        {
+            get;
+            set;
+        }
 
-        void SetActor(Combatant actor);
+        public bool EndsTurn
+        {
+            get;
+        }
+
+        public Battlezone StartingZone
+        {
+            set;
+            get;
+        }
+
+        void Execute();
 
         String ToString();
 
@@ -25,7 +38,11 @@ public class CommandManager : MonoBehaviour
 
     public interface ITargetCombatantCommand : ICommand
     {
-        void SetTarget(Combatant target);
+        public Combatant TargetCombatant
+        {
+            get;
+            set;
+        }
     }
 
     public interface ITargetSelfCommand : ICommand
@@ -34,7 +51,11 @@ public class CommandManager : MonoBehaviour
 
     public interface ITargetZoneCommand : ICommand
     {
-        void SetTarget(Battlezone target);
+        public Battlezone TargetZone
+        {
+            get;
+            set;
+        }
     }
 
     public static CommandManager Instance { get; private set; }
@@ -65,6 +86,10 @@ public class CommandManager : MonoBehaviour
     {
         CommandsBuffer.Push(command);
         command.Execute();
+        if (command.EndsTurn)
+        {
+            BattleManager.Instance.StartTheNextCombatantTurn();
+        }
     }
 
     public ICommand[] LastNCommands(int n)

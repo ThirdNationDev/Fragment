@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class EmptyCommand : CommandManager.ICommand
 {
+    private readonly bool endsTurn = false;
+    private Combatant actor;
+    private Battlezone startingZone;
+    public Combatant Actor { get => actor; set => actor = value; }
+
+    public bool EndsTurn => endsTurn;
+
+    public Battlezone StartingZone { get => startingZone; set => startingZone = value; }
+
     public void Execute()
     {
         Debug.LogError("Empty Command Execute Called");
-    }
-
-    public void SetActor(Combatant actor)
-    {
-        Debug.LogError("Empty Command SetActor called with " + actor.ToString());
     }
 
     public override string ToString()

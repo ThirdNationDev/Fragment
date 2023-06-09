@@ -6,15 +6,26 @@ using UnityEngine.Assertions;
 
 public class CommandBuilder
 {
+    public static EmptyCommand EmptyCommand = new EmptyCommand();
+
     private Combatant actor;
+
     private CommandManager.ICommand command;
+
     private Battlezone startingZone;
+
     private Combatant targetCombatant;
+
     private Battlezone targetZone;
+
     public Combatant Actor { set => actor = value; }
+
     public CommandManager.ICommand Command { set => command = value; }
+
     public Battlezone StartingZone { set => startingZone = value; }
+
     public Combatant TargetCombatant { set => targetCombatant = value; }
+
     public Battlezone TargetZone { set => targetZone = value; }
 
     public void Clear()
@@ -43,7 +54,7 @@ public class CommandBuilder
             return CompletedCombatantTargeter();
         }
 
-        return CommandManager.EmptyCommand;
+        return EmptyCommand;
     }
 
     private CommandManager.ICommand CompletedCombatantTargeter()
@@ -52,8 +63,8 @@ public class CommandBuilder
 
         if ((command != null) && (actor != null) && (targetCombatant != null))
         {
-            TCCommand.SetActor(actor);
-            TCCommand.SetTarget(targetCombatant);
+            TCCommand.Actor = actor;
+            TCCommand.TargetCombatant = targetCombatant;
         }
 
         return TCCommand as CommandManager.ICommand;
@@ -65,10 +76,11 @@ public class CommandBuilder
 
         if ((command != null) && (actor != null))
         {
-            TSCommand.SetActor(actor);
+            TSCommand.Actor = actor;
+            return TSCommand as CommandManager.ICommand;
         }
 
-        return TSCommand as CommandManager.ICommand;
+        return EmptyCommand;
     }
 
     private CommandManager.ICommand CompletedZoneTargeter()
@@ -77,8 +89,8 @@ public class CommandBuilder
 
         if ((command != null) && (actor != null) && (startingZone != null) && (targetZone != null))
         {
-            TZCommand.SetActor(actor);
-            TZCommand.SetTarget(targetZone);
+            TZCommand.Actor = actor;
+            TZCommand.TargetZone = targetZone;
         }
 
         return TZCommand as CommandManager.ICommand;

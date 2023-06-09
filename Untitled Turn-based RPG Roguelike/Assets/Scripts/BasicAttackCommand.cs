@@ -6,27 +6,23 @@ using UnityEngine.Assertions;
 
 public class BasicAttackCommand : CommandManager.ITargetCombatantCommand
 {
+    private readonly bool endsTurn = true;
     private Combatant actor;
     private Damage skillDamage;
-    private Combatant target;
+    private Battlezone startingZone;
+    private Combatant targetCombatant;
+    public Combatant Actor { get => actor; set => actor = value; }
+    public bool EndsTurn { get => endsTurn; }
+    public Battlezone StartingZone { get => startingZone; set => startingZone = value; }
+    public Combatant TargetCombatant { get => targetCombatant; set => targetCombatant = value; }
 
     public void Execute()
     {
-        Assert.IsNotNull(actor);
-        Assert.IsNotNull(target);
+        Assert.IsNotNull(Actor);
+        Assert.IsNotNull(targetCombatant);
         Assert.IsNotNull(skillDamage);
 
-        target.ReceiveDamage(skillDamage.ResultingDamageFromTo(actor, target));
-    }
-
-    public void SetActor(Combatant actor)
-    {
-        this.actor = actor;
-    }
-
-    public void SetTarget(Combatant target)
-    {
-        throw new System.NotImplementedException();
+        targetCombatant.ReceiveDamage(skillDamage.ResultingDamageFromTo(Actor, targetCombatant));
     }
 
     public void Undo()
