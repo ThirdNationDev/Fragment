@@ -21,9 +21,9 @@ public class TargetSelectPanel : MonoBehaviour
     public RectTransform scrollContent;
     public GameObject targetButtonPrefab;
     private List<GameObject> buttons;
-    private List<Combatant> targets;
+    private List<ITargetable> targets;
 
-    public void Clear()
+    public void ClearTargets()
     {
         targets.Clear();
         foreach (GameObject go in buttons)
@@ -35,42 +35,46 @@ public class TargetSelectPanel : MonoBehaviour
 
     public void Deactivate()
     {
-        Clear();
+        ClearTargets();
         UIManager.CommandBuilder.Clear();
         panel.SetActive(false);
     }
 
-    public void DisplayTargets()
+    internal void DisplayTargetsForCommand(CommandManager.ICommand command)
     {
-        //Clear();
-        //this.gameObject.SetActive(true);
-        //targets = UIManager.Instance.commandSelected.getTargets();
-        //foreach (Combatant target in targets)
-        //{
-        //    GameObject go = Instantiate(targetButtonPrefab);
-        //    go.transform.SetParent(scrollContent.transform);
-        //    Button b = go.GetComponent<Button>();
-        //    TextMeshProUGUI buttonText = b.GetComponentInChildren<TextMeshProUGUI>();
-        //    b.onClick.AddListener(delegate { SelectTarget(target); });
-        //    buttonText.text = target.name;
-        //    buttons.Add(go);
-        //}
+        Assert.IsNotNull(command);
+
+        ClearTargets();
+        this.gameObject.SetActive(true);
+        targets = command.PotentialTargets();
+        foreach (ITargetable target in targets)
+        {
+            Button b = createButtonInScroll();
+            assignTargetToButton(b, target);
+        }
     }
 
-    public void SelectTarget(Combatant selected)
+    private void assignTargetToButton(Button b, ITargetable target)
     {
-        //UIManager.Instance.commandSelected.SetTarget(selected);
-        //UIManager.Instance.SendCommand();
-    }
+        Assert.IsNotNull(b);
+        Assert.IsNotNull(target);
 
-    internal void DisplayTargetsForCommand(CommandManager.ICommand lightSkillCommand)
-    {
-        throw new NotImplementedException();
+        TextMeshProUGUI buttonText = b.GetComponentInChildren<TextMeshProUGUI>();
+        b.onClick.AddListener(delegate { UIManager.Instance.OnTargetSelect(target); });
+        buttonText.text = target.Name;
     }
 
     private void Awake()
     {
-        targets = new List<Combatant>();
+        targets = new List<ITargetable>();
         buttons = new List<GameObject>();
+    }
+
+    private Button createButtonInScroll()
+    {
+        GameObject go = Instantiate(targetButtonPrefab);
+        go.transform.SetParent(scrollContent.transform);
+        buttons.Add(go);
+        return go.GetComponent<Button>();
     }
 }

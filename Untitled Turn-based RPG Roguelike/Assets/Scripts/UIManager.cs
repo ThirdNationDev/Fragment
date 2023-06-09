@@ -38,24 +38,17 @@ public class UIManager : MonoBehaviour
 
     public void HeavySkill()
     {
-        //this.commandSelected =
-        //    BattleManager.Instance.currentCombatant.heavySkillCommand;
-        //targetSelectPanel.DisplayTargets();
+        setCommandAndDisplayTargets(currentCombatant.heavySkillCommand);
     }
 
     public void LightSkill()
     {
-        //this.commandSelected =
-        //    BattleManager.Instance.currentCombatant.lightSkillCommand;
-        //targetSelectPanel.DisplayTargets();
-        targetSelectPanel.DisplayTargetsForCommand(currentCombatant.lightSkillCommand);
+        setCommandAndDisplayTargets(currentCombatant.lightSkillCommand);
     }
 
     public void MidSkill()
     {
-        //this.commandSelected =
-        //    BattleManager.Instance.currentCombatant.midSkillCommand;
-        //targetSelectPanel.DisplayTargets();
+        setCommandAndDisplayTargets(currentCombatant.midSkillCommand);
     }
 
     public void OnCancel()
@@ -72,9 +65,7 @@ public class UIManager : MonoBehaviour
 
     public void OnDefend()
     {
-        CommandBuilder.Command = currentCombatant.defendCommand;
-        CommandBuilder.Actor = currentCombatant;
-        confirmCommandPanel.Display();
+        setCommandAndDisplayTargets(currentCombatant.defendCommand);
     }
 
     public void OnMoveBackOne()
@@ -85,6 +76,12 @@ public class UIManager : MonoBehaviour
     public void OnMoveForwardOne()
     {
         MoveCombatant(currentCombatant.battlezone.nextzone);
+    }
+
+    public void OnTargetSelect(ITargetable target)
+    {
+        CommandBuilder.SetTarget(target);
+        confirmCommandPanel.Display();
     }
 
     internal void ActivateBattleUI()
@@ -105,9 +102,6 @@ public class UIManager : MonoBehaviour
 
         Assert.IsNotNull(targetSelectPanel);
         Assert.IsNotNull(battleCommandPanel);
-
-        DeactivateUserInput();
-        CommandBuilder.Clear();
     }
 
     private void ConfirmCommand()
@@ -115,6 +109,7 @@ public class UIManager : MonoBehaviour
         CommandManager.Instance.AddCommand(CommandBuilder.GetFinishedCommand());
         CommandBuilder.Clear();
         confirmCommandPanel.Hide();
+        targetSelectPanel.Deactivate();
     }
 
     private void DeactivateUserInput()
@@ -132,15 +127,23 @@ public class UIManager : MonoBehaviour
         if (currentCombatant.CanMoveTo(target))
         {
             CommandBuilder.Command = currentCombatant.moveCommand;
-            CommandBuilder.Actor = currentCombatant;
-            CommandBuilder.StartingZone = currentCombatant.battlezone;
-            CommandBuilder.TargetZone = target;
+            CommandBuilder.SetActor(currentCombatant);
+            CommandBuilder.SetTarget(target);
 
             ConfirmCommand();
         }
     }
 
+    private void setCommandAndDisplayTargets(CommandManager.ICommand command)
+    {
+        CommandBuilder.Command = command;
+        CommandBuilder.SetActor(currentCombatant);
+        targetSelectPanel.DisplayTargetsForCommand(CommandBuilder.Command);
+    }
+
     private void Start()
     {
+        DeactivateUserInput();
+        CommandBuilder.Clear();
     }
 }

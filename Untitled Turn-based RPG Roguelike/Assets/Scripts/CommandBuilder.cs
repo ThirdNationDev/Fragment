@@ -1,4 +1,12 @@
-using System;
+/* Copyright (C) 2023 Thomas Payne, Third Nation Games - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Third Nation Games license, which unfortunately won't be
+ * written for another century.
+ *
+ * You should have received a copy of the Third Nation Games license with
+ * this file. If not, please write to: dev@thirdnationgames.com, or visit : www.thirdnationgames.com
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,91 +16,44 @@ public class CommandBuilder
 {
     public static EmptyCommand EmptyCommand = new EmptyCommand();
 
-    private Combatant actor;
-
     private CommandManager.ICommand command;
 
-    private Battlezone startingZone;
-
-    private Combatant targetCombatant;
-
-    private Battlezone targetZone;
-
-    public Combatant Actor { set => actor = value; }
-
-    public CommandManager.ICommand Command { set => command = value; }
-
-    public Battlezone StartingZone { set => startingZone = value; }
-
-    public Combatant TargetCombatant { set => targetCombatant = value; }
-
-    public Battlezone TargetZone { set => targetZone = value; }
+    public CommandManager.ICommand Command { get => command; set => command = value; }
 
     public void Clear()
     {
-        Actor = null;
         Command = null;
-        TargetZone = null;
-        StartingZone = null;
-        TargetCombatant = null;
     }
 
     public CommandManager.ICommand GetFinishedCommand()
     {
+        Assert.IsNotNull(Command);
+        Assert.IsNotNull(Command.Actor);
+        Assert.IsNotNull(Command.Target);
+
+        return Command;
+    }
+
+    public void SetActor(Combatant combatant)
+    {
+        Assert.IsNotNull(Command);
+        Assert.IsNotNull(combatant);
+
+        Command.Actor = combatant;
+    }
+
+    public void SetCommand(CommandManager.ICommand command)
+    {
         Assert.IsNotNull(command);
 
-        if (command is CommandManager.ITargetSelfCommand)
-        {
-            return CompletedSelfTargeter();
-        }
-        else if (command is CommandManager.ITargetZoneCommand)
-        {
-            return CompletedZoneTargeter();
-        }
-        else if (command is CommandManager.ITargetCombatantCommand)
-        {
-            return CompletedCombatantTargeter();
-        }
-
-        return EmptyCommand;
+        this.Command = command;
     }
 
-    private CommandManager.ICommand CompletedCombatantTargeter()
+    public void SetTarget(ITargetable target)
     {
-        CommandManager.ITargetCombatantCommand TCCommand = (CommandManager.ITargetCombatantCommand)command;
+        Assert.IsNotNull(Command);
+        Assert.IsNotNull(target);
 
-        if ((command != null) && (actor != null) && (targetCombatant != null))
-        {
-            TCCommand.Actor = actor;
-            TCCommand.TargetCombatant = targetCombatant;
-        }
-
-        return TCCommand as CommandManager.ICommand;
-    }
-
-    private CommandManager.ICommand CompletedSelfTargeter()
-    {
-        CommandManager.ITargetSelfCommand TSCommand = (CommandManager.ITargetSelfCommand)command;
-
-        if ((command != null) && (actor != null))
-        {
-            TSCommand.Actor = actor;
-            return TSCommand as CommandManager.ICommand;
-        }
-
-        return EmptyCommand;
-    }
-
-    private CommandManager.ICommand CompletedZoneTargeter()
-    {
-        CommandManager.ITargetZoneCommand TZCommand = (CommandManager.ITargetZoneCommand)command;
-
-        if ((command != null) && (actor != null) && (startingZone != null) && (targetZone != null))
-        {
-            TZCommand.Actor = actor;
-            TZCommand.TargetZone = targetZone;
-        }
-
-        return TZCommand as CommandManager.ICommand;
+        Command.Target = target;
     }
 }
