@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9298c9237b0f549b77315f5969dfae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  skillAnimation: {fileID: 0}
+  skillStats: {fileID: 11400000, guid: 0e135090ea1fb7b4e95ce8337d0658e8, type: 2}

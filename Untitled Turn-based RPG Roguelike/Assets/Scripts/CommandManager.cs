@@ -18,26 +18,16 @@ public class CommandManager : MonoBehaviour
 
     public interface ICommand
     {
-        public Combatant Actor
-        {
-            get;
-            set;
-        }
+        public Combatant Actor { get; set; }
 
-        public bool EndsTurn
-        {
-            get;
-        }
+        public bool EndsTurn { get; }
 
-        public ITargetable Target
-        {
-            get;
-            set;
-        }
+        public bool SelfTarget { get; }
+
+        public IEquipableSkill Skill { get; set; }
+        public ITargetable Target { get; set; }
 
         public void Execute();
-
-        public List<ITargetable> PotentialTargets();
 
         public string ToString();
 
@@ -70,8 +60,9 @@ public class CommandManager : MonoBehaviour
 
     public void AddCommand(ICommand command)
     {
-        CommandsBuffer.Push(command);
         command.Execute();
+        CommandsBuffer.Push(command);
+
         if (command.EndsTurn)
         {
             BattleManager.Instance.StartTheNextCombatantTurn();

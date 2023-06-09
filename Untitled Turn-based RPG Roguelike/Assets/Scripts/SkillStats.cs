@@ -12,25 +12,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class BasicDefendSkill : MonoBehaviour, IEquipableSkill
+[CreateAssetMenu]
+public class SkillStats : ScriptableObject
 {
     [SerializeField]
-    private GameObject icon;
+    private float flatDamage;
 
     [SerializeField]
-    private Animation skillAnimation;
+    private int range;
 
-    [SerializeField]
-    private SkillStats skillStats;
+    public int Range { get => range; }
 
-    public GameObject Icon { get => icon; }
-    public Animation SkillAnimation { get => skillAnimation; }
-    public SkillStats SkillStats { get => skillStats; }
-
-    public CommandManager.ICommand Command()
+    public Damage SkillDamage()
     {
-        CommandManager.ICommand command = new DefendCommand();
-        command.Skill = this;
-        return command;
+        Damage skillDamage = new();
+        skillDamage.FlatDamage = flatDamage;
+        return skillDamage;
     }
 }

@@ -11,11 +11,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using System;
 
-public class Damage
+public static class BattleCalculator
 {
-    private float flatDamage;
+    public static float CalculateDamage(Combatant attacker, Combatant target, Damage skillDamage)
+    {
+        return 1;
+    }
 
-    public float FlatDamage { get => flatDamage; set => flatDamage = value; }
+    public static bool DoesStatusEffectAttach(Combatant attacker, Combatant target, StatusAttack statusAttack)
+    {
+        return true;
+    }
 }

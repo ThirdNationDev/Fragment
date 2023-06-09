@@ -43,10 +43,11 @@ public class TargetSelectPanel : MonoBehaviour
     internal void DisplayTargetsForCommand(CommandManager.ICommand command)
     {
         Assert.IsNotNull(command);
+        Assert.IsNotNull(command.Actor);
 
         ClearTargets();
         this.gameObject.SetActive(true);
-        targets = command.PotentialTargets();
+        targets = BattleManager.Instance.battlefield.GetPotentialTargets(command);
         foreach (ITargetable target in targets)
         {
             Button b = createButtonInScroll();

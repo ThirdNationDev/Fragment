@@ -15,7 +15,9 @@ using UnityEngine.Assertions;
 public class MoveCommand : CommandManager.ICommand
 {
     private readonly bool endsTurn = false;
+    private readonly bool selfTarget = false;
     private Combatant actor;
+    private IEquipableSkill skill;
     private Battlezone startingZone;
     private ITargetable target;
     private Battlezone targetZone;
@@ -29,17 +31,18 @@ public class MoveCommand : CommandManager.ICommand
 
     public Combatant Actor { get => actor; set => actor = value; }
     public bool EndsTurn => endsTurn;
-    public Battlezone StartingZone { get => startingZone; set => startingZone = value; }
+    public bool SelfTarget => selfTarget;
+    public IEquipableSkill Skill { get => skill; set => skill = value; }
     public ITargetable Target { get => target; set => target = value; }
-    public Battlezone TargetZone { get => targetZone; set => targetZone = value; }
 
     public void Execute()
     {
-        Assert.IsNotNull(targetZone);
-        Assert.IsNotNull(Actor);
+        Assert.IsNotNull(target);
+        Assert.IsNotNull(actor);
 
-        StartingZone = actor.battlezone;
-        StartingZone.RemoveCombatant(Actor);
+        startingZone = actor.battlezone;
+        startingZone.RemoveCombatant(Actor);
+        targetZone = target as Battlezone;
         targetZone.AddCombatant(Actor);
     }
 
@@ -50,12 +53,17 @@ public class MoveCommand : CommandManager.ICommand
 
     public void SetTarget(ITargetable target)
     {
-        throw new System.NotImplementedException();
+        Assert.IsNotNull(target);
+        Assert.IsTrue(target is Battlezone);
+        this.target = target;
     }
 
     public override string ToString()
     {
-        return "Moved from " + StartingZone.ToString() + " to " + targetZone.ToString();
+        Assert.IsNotNull(startingZone);
+        Assert.IsNotNull(targetZone);
+
+        return "Moved from " + startingZone.ToString() + " to " + targetZone.ToString();
     }
 
     public void Undo()

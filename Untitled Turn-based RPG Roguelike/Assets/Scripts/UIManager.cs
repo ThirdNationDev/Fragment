@@ -38,17 +38,17 @@ public class UIManager : MonoBehaviour
 
     public void HeavySkill()
     {
-        setCommandAndDisplayTargets(currentCombatant.heavySkillCommand);
+        SetCommandAndDisplayTargets(currentCombatant.heavySkillCommand);
     }
 
     public void LightSkill()
     {
-        setCommandAndDisplayTargets(currentCombatant.lightSkillCommand);
+        SetCommandAndDisplayTargets(currentCombatant.lightSkillCommand);
     }
 
     public void MidSkill()
     {
-        setCommandAndDisplayTargets(currentCombatant.midSkillCommand);
+        SetCommandAndDisplayTargets(currentCombatant.midSkillCommand);
     }
 
     public void OnCancel()
@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
 
     public void OnDefend()
     {
-        setCommandAndDisplayTargets(currentCombatant.defendCommand);
+        SetCommandAndDisplayTargets(currentCombatant.defendCommand);
     }
 
     public void OnMoveBackOne()
@@ -134,7 +134,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void setCommandAndDisplayTargets(CommandManager.ICommand command)
+    private void SetCommandAndDisplayTargets(CommandManager.ICommand command)
     {
         CommandBuilder.Command = command;
         CommandBuilder.SetActor(currentCombatant);

@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 Thomas Payne, Third Nation Games - All Rights Reserved
+﻿/* Copyright (C) 2023 Thomas Payne, Third Nation Games - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the Third Nation Games license, which unfortunately won't be
  * written for another century.
@@ -11,11 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using System;
 
-public class Damage
+public class StatusAttack
 {
-    private float flatDamage;
-
-    public float FlatDamage { get => flatDamage; set => flatDamage = value; }
 }

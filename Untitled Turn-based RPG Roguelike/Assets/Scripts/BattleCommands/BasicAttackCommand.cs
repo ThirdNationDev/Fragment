@@ -15,29 +15,26 @@ using UnityEngine.Assertions;
 public class BasicAttackCommand : CommandManager.ICommand
 {
     private readonly bool endsTurn = true;
+    private readonly bool selfTarget = false;
     private Combatant actor;
-    private Damage skillDamage;
-    private Battlezone startingZone;
+    private float damageDealt;
+    private IEquipableSkill skill;
     private ITargetable target;
-    private Combatant targetCombatant;
     public Combatant Actor { get => actor; set => actor = value; }
     public bool EndsTurn { get => endsTurn; }
-    public Battlezone StartingZone { get => startingZone; set => startingZone = value; }
+    public bool SelfTarget => selfTarget;
+    public IEquipableSkill Skill { get => skill; set => skill = value; }
     public ITargetable Target { get => target; set => target = value; }
-    public Combatant TargetCombatant { get => targetCombatant; set => targetCombatant = value; }
 
     public void Execute()
     {
         Assert.IsNotNull(Actor);
-        Assert.IsNotNull(targetCombatant);
-        Assert.IsNotNull(skillDamage);
+        Assert.IsNotNull(target);
+        Assert.IsNotNull(skill);
 
-        targetCombatant.ReceiveDamage(skillDamage.ResultingDamageFromTo(Actor, targetCombatant));
-    }
-
-    public List<ITargetable> PotentialTargets()
-    {
-        throw new System.NotImplementedException();
+        Combatant targetCombatant = target as Combatant;
+        damageDealt = BattleCalculator.CalculateDamage(actor, targetCombatant, skill.SkillStats.SkillDamage());
+        targetCombatant.ReceiveDamage(damageDealt);
     }
 
     public void Undo()

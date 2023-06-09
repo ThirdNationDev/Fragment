@@ -108,11 +108,11 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     public virtual void ReceiveDamage(float damage)
     {
         //TODO: Play damaged animation
-        //stats.health -= (int)Math.Round(damage);
-        //if (stats.health <= 0)
-        //{
-        //    Death();
-        //}
+        stats.health -= (int)Math.Round(damage);
+        if (stats.health <= 0)
+        {
+            Death();
+        }
     }
 
     public virtual void StartTurn()
