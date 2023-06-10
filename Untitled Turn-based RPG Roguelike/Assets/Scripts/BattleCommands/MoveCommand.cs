@@ -14,8 +14,8 @@ using UnityEngine.Assertions;
 
 public class MoveCommand : CommandManager.ICommand
 {
+    private readonly CommandManager.TargetType commandTargets = CommandManager.TargetType.TargetSelfOnly;
     private readonly bool endsTurn = false;
-    private readonly bool selfTarget = false;
     private Combatant actor;
     private IEquipableSkill skill;
     private Battlezone startingZone;
@@ -30,8 +30,8 @@ public class MoveCommand : CommandManager.ICommand
     }
 
     public Combatant Actor { get => actor; set => actor = value; }
+    public CommandManager.TargetType CommandTargets => commandTargets;
     public bool EndsTurn => endsTurn;
-    public bool SelfTarget => selfTarget;
     public IEquipableSkill Skill { get => skill; set => skill = value; }
     public ITargetable Target { get => target; set => target = value; }
 

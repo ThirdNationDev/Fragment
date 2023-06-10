@@ -24,8 +24,6 @@ public class Battlefield : MonoBehaviour
     [SerializeField]
     private int initNumZones;
 
-    private int zoneTileNumber;
-
     public int numZones
     {
         get
@@ -38,6 +36,9 @@ public class Battlefield : MonoBehaviour
 
     public Battlezone getZone(int i)
     {
+        Assert.IsTrue(i >= 0);
+        Assert.IsTrue(i < battlezones.Length);
+
         if ((0 <= i) && (i < battlezones.Length))
         {
             return battlezones[i];
@@ -106,13 +107,12 @@ public class Battlefield : MonoBehaviour
             Debug.LogError("Battlefield starting zone is incorrect.");
         }
 
-        zoneTileNumber = battleZonePrefab.minTileNum;
+        int zoneTileNumber = battleZonePrefab.minTileNum;
 
         battlezones = new Battlezone[initNumZones];
         for (int i = 0; i < initNumZones; i++)
         {
             Battlezone zone = Instantiate(battleZonePrefab);
-            //Debug.Log("Render Size : " + zone.GetComponent<Renderer>().bounds.size.z);
             float offset = i * zone.length;
             zone.transform.parent = this.gameObject.transform;
             zone.transform.position += new Vector3(0, 0, offset);
@@ -138,31 +138,60 @@ public class Battlefield : MonoBehaviour
     {
         List<ITargetable> targets = new();
 
-        if (command.SelfTarget)
+        switch (command.CommandTargets)
         {
-            targets.Add(command.Actor);
-        }
-        else
-        {
-            int lowestZone = command.Actor.battlezone.zoneNumber - command.Skill.SkillStats.Range;
-            int highestZone = command.Actor.battlezone.zoneNumber + command.Skill.SkillStats.Range;
+            case CommandManager.TargetType.TargetSelfOnly:
+                targets.Add(command.Actor);
 
-            List<Combatant> combatants = getCombatants(lowestZone, highestZone);
-            targets = combatants.Cast<ITargetable>().ToList();
-        }
+                break;
 
+            case CommandManager.TargetType.TargetAllCombatants:
+                targets = GetCombatantTargetsInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
+                break;
+
+            case CommandManager.TargetType.TargetAllCombatantsExceptSelf:
+                targets = GetCombatantTargetsInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
+                Assert.IsTrue(targets.Remove(command.Actor));
+                break;
+
+            case CommandManager.TargetType.TargetAllZones:
+                targets = GetAllZonesInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
+                break;
+
+            case CommandManager.TargetType.TargetAllZonesExceptCurrent:
+                targets = GetAllZonesInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
+                Assert.IsTrue(targets.Remove(command.Actor.battlezone));
+                break;
+
+            default:
+                Debug.LogError("Invalid TargetType code used in GetPotentialTargets by " + command.ToString());
+                break;
+        }
         return targets;
-    }
-
-    internal void MoveCombatant(Combatant combatant, Battlezone endZone)
-    {
-        throw new NotImplementedException();
     }
 
     // Start is called before the first frame update
     private void Awake()
     {
         CreateBattlefield();
+    }
+
+    private List<ITargetable> GetAllZonesInRange(int startZoneNumber, int range)
+    {
+        int lowestZone = startZoneNumber - range;
+        int highestZone = startZoneNumber + range;
+
+        List<Battlezone> zones = getZones(lowestZone, highestZone).ToList<Battlezone>();
+        return zones.Cast<ITargetable>().ToList();
+    }
+
+    private List<ITargetable> GetCombatantTargetsInRange(int startZoneNumber, int range)
+    {
+        int lowestZone = startZoneNumber - range;
+        int highestZone = startZoneNumber + range;
+
+        List<Combatant> combatants = getCombatants(lowestZone, highestZone);
+        return combatants.Cast<ITargetable>().ToList();
     }
 
     // Update is called once per frame

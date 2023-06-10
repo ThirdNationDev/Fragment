@@ -14,15 +14,15 @@ using UnityEngine.Assertions;
 
 public class BasicAttackCommand : CommandManager.ICommand
 {
+    private readonly CommandManager.TargetType commandTargets = CommandManager.TargetType.TargetAllCombatantsExceptSelf;
     private readonly bool endsTurn = true;
-    private readonly bool selfTarget = false;
     private Combatant actor;
     private float damageDealt;
     private IEquipableSkill skill;
     private ITargetable target;
     public Combatant Actor { get => actor; set => actor = value; }
+    public CommandManager.TargetType CommandTargets => commandTargets;
     public bool EndsTurn { get => endsTurn; }
-    public bool SelfTarget => selfTarget;
     public IEquipableSkill Skill { get => skill; set => skill = value; }
     public ITargetable Target { get => target; set => target = value; }
 

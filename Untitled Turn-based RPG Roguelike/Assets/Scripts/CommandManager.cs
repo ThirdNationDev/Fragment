@@ -16,14 +16,21 @@ public class CommandManager : MonoBehaviour
 {
     private Stack<ICommand> CommandsBuffer = new Stack<ICommand>();
 
+    public enum TargetType
+    {
+        TargetSelfOnly,
+        TargetAllCombatants,
+        TargetAllCombatantsExceptSelf,
+        TargetAllZones,
+        TargetAllZonesExceptCurrent
+    }
+
     public interface ICommand
     {
         public Combatant Actor { get; set; }
 
+        public TargetType CommandTargets { get; }
         public bool EndsTurn { get; }
-
-        public bool SelfTarget { get; }
-
         public IEquipableSkill Skill { get; set; }
         public ITargetable Target { get; set; }
 

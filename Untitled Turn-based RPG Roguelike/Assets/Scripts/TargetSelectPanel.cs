@@ -45,6 +45,12 @@ public class TargetSelectPanel : MonoBehaviour
         Assert.IsNotNull(command);
         Assert.IsNotNull(command.Actor);
 
+        targets = BattleManager.Instance.battlefield.GetPotentialTargets(command);
+        if (targets.Count == 0)
+        {
+            return;
+        }
+
         ClearTargets();
         this.gameObject.SetActive(true);
         targets = BattleManager.Instance.battlefield.GetPotentialTargets(command);

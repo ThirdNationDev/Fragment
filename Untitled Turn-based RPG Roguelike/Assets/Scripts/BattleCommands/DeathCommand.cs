@@ -12,28 +12,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class DefendCommand : CommandManager.ICommand
+public class DeathCommand : CommandManager.ICommand
 {
     private readonly CommandManager.TargetType commandTargets = CommandManager.TargetType.TargetSelfOnly;
-    private readonly bool endsTurn = true;
+    private readonly bool endsTurn = false;
     private Combatant actor;
     private IEquipableSkill skill;
     private ITargetable target;
+
     public Combatant Actor { get => actor; set => actor = value; }
+
     public CommandManager.TargetType CommandTargets => commandTargets;
+
     public bool EndsTurn => endsTurn;
+
     public IEquipableSkill Skill { get => skill; set => skill = value; }
     public ITargetable Target { get => target; set => target = value; }
 
     public void Execute()
     {
-        //TODO: Combatant defense increase
-        //TODO:Combatant defense animation
-    }
-
-    public override string ToString()
-    {
-        return "Defended.";
     }
 
     public void Undo()
