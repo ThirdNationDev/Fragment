@@ -20,6 +20,14 @@ public class CommandBuilder
 
     public CommandManager.ICommand Command { get => command; set => command = value; }
 
+    public static DeathCommand DeathCommand(Combatant victim)
+    {
+        DeathCommand command = new();
+        command.Actor = victim;
+        command.Target = victim;
+        return command;
+    }
+
     public void Clear()
     {
         Command = null;

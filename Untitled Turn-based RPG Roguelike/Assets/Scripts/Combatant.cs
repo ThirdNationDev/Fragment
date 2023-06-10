@@ -94,10 +94,7 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
 
     public virtual void Death()
     {
-        //BattleCommand command = new DeathBCom();
-        //command.Initialize(this);
-        //UIManager.Instance.commandSelected = command;
-        //UIManager.Instance.SendCommand();
+        CommandManager.Instance.AddCommand(CommandBuilder.DeathCommand(this));
     }
 
     public virtual void EndTurn()

@@ -9,18 +9,8 @@
 
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.Assertions;
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Utils;
-
-using UnityEngine;
-using UnityEngine.Assertions;
-
 using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
@@ -46,6 +36,18 @@ public class BattleManager : MonoBehaviour
     public void CreateBattlefield()
     {
         battlefield.CreateBattlefield();
+    }
+
+    public void SetDefeated(Combatant combatant)
+    {
+        Assert.IsNotNull(combatant);
+        Assert.IsNotNull(combatantsInTurnOrder);
+        Assert.IsNotNull(defeatedCombatants);
+        Assert.IsTrue(combatantsInTurnOrder.Count > 0);
+
+        combatant.gameObject.SetActive(false);
+        combatantsInTurnOrder.Remove(combatant);
+        defeatedCombatants.Add(combatant);
     }
 
     internal void StartTheNextCombatantTurn()

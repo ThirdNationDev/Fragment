@@ -31,6 +31,8 @@ public class DeathCommand : CommandManager.ICommand
 
     public void Execute()
     {
+        //TODO: Death animation
+        BattleManager.Instance.SetDefeated(actor);
     }
 
     public void Undo()
