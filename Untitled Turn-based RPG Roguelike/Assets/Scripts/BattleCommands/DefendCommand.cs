@@ -29,6 +29,9 @@ public class DefendCommand : CommandManager.ICommand
     {
         //TODO: Combatant defense increase
         //TODO:Combatant defense animation
+        Assert.IsNotNull(Actor);
+        Assert.IsNotNull(target);
+        Assert.IsNotNull(skill);
     }
 
     public override string ToString()

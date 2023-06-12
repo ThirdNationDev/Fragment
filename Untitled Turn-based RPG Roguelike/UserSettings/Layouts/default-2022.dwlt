@@ -14,17 +14,165 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 284
-    y: 148
+    x: 1336
+    y: 209
+    width: 839
+    height: 679
+  m_ShowMode: 0
+  m_Title: Test Runner
+  m_RootView: {fileID: 5}
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  m_Maximized: 0
+--- !u!114 &2
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PixelRect:
+    serializedVersion: 2
+    x: 162
+    y: 544
+    width: 1059
+    height: 417
+  m_ShowMode: 0
+  m_Title: Console
+  m_RootView: {fileID: 7}
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  m_Maximized: 0
+--- !u!114 &3
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12004, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PixelRect:
+    serializedVersion: 2
+    x: 1242
+    y: 140
     width: 1669
     height: 768
   m_ShowMode: 4
-  m_Title: Scene
-  m_RootView: {fileID: 2}
+  m_Title: Project
+  m_RootView: {fileID: 8}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 0
---- !u!114 &2
+--- !u!114 &4
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: TestRunnerWindow
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 839
+    height: 679
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 17}
+  m_Panes:
+  - {fileID: 17}
+  m_Selected: 0
+  m_LastSelected: 0
+--- !u!114 &5
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 4}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 839
+    height: 679
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  vertical: 0
+  controlID: 2258
+--- !u!114 &6
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: ConsoleWindow
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1059
+    height: 417
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  m_ActualView: {fileID: 18}
+  m_Panes:
+  - {fileID: 18}
+  m_Selected: 0
+  m_LastSelected: 0
+--- !u!114 &7
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 6}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1059
+    height: 417
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  vertical: 0
+  controlID: 284
+--- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,9 +185,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 3}
-  - {fileID: 4}
-  - {fileID: 5}
+  - {fileID: 9}
+  - {fileID: 10}
+  - {fileID: 11}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -52,7 +200,7 @@ MonoBehaviour:
   m_TopViewHeight: 30
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &3
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +222,7 @@ MonoBehaviour:
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LastLoadedLayoutName: 
---- !u!114 &4
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,20 +235,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 6}
-  - {fileID: 7}
-  - {fileID: 8}
+  - {fileID: 12}
+  - {fileID: 13}
+  - {fileID: 14}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 30
     width: 1669
     height: 718
-  m_MinSize: {x: 300, y: 200}
+  m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 97
---- !u!114 &5
+  controlID: 94
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +269,7 @@ MonoBehaviour:
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
---- !u!114 &6
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,15 +288,15 @@ MonoBehaviour:
     y: 0
     width: 923
     height: 718
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 14}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 22}
   m_Panes:
-  - {fileID: 14}
-  - {fileID: 13}
+  - {fileID: 22}
+  - {fileID: 21}
   m_Selected: 0
   m_LastSelected: 1
---- !u!114 &7
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,19 +309,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 9}
-  - {fileID: 10}
+  - {fileID: 15}
+  - {fileID: 16}
   m_Position:
     serializedVersion: 2
     x: 923
     y: 0
-    width: 337
+    width: 445
     height: 718
-  m_MinSize: {x: 100, y: 200}
+  m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 24
---- !u!114 &8
+  controlID: 25
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,18 +336,18 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1260
+    x: 1368
     y: 0
-    width: 409
+    width: 301
     height: 718
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 11}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 11}
+  - {fileID: 19}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &9
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,16 +364,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 337
+    width: 445
     height: 316
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 15}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 23}
   m_Panes:
-  - {fileID: 15}
+  - {fileID: 23}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &10
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -242,16 +390,934 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 316
-    width: 337
+    width: 445
     height: 402
   m_MinSize: {x: 232, y: 271}
   m_MaxSize: {x: 10002, y: 10021}
-  m_ActualView: {fileID: 12}
+  m_ActualView: {fileID: 20}
   m_Panes:
-  - {fileID: 12}
+  - {fileID: 20}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &11
+--- !u!114 &17
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13401, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Test Runner
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 1336
+    y: 209
+    width: 839
+    height: 658
+  m_SerializedDataModeController:
+    m_DataMode: 0
+    m_PreferredDataMode: 0
+    m_SupportedDataModes: 
+    isAutomatic: 1
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+    m_OverlaysVisible: 1
+  m_Spl:
+    ID: 2327
+    splitterInitialOffset: 0
+    currentActiveSplitter: -1
+    realSizes:
+    - 441
+    - 147
+    relativeSizes:
+    - 0.75
+    - 0.25
+    minSizes:
+    - 32
+    - 32
+    maxSizes:
+    - 0
+    - 0
+    lastTotalSize: 588
+    splitSize: 6
+    xOffset: 0
+    m_Version: 1
+    oldRealSizes: 
+    oldMinSizes: 
+    oldMaxSizes: 
+    oldSplitSize: 0
+  m_TestTypeToolbarIndex: 0
+  m_PlayModeTestListGUI:
+    m_Window: {fileID: 17}
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[Untitled Turn-based RPG Roguelike][suite]'
+      name: Untitled Turn-based RPG Roguelike
+      fullName: Untitled Turn-based RPG Roguelike
+      resultStatus: 1
+      duration: 0.1027844
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1004
+      uniqueId: '[PlaymodeTests][C:/Users/thoma/Documents/GitHub/Fragment/Untitled
+        Turn-based RPG Roguelike/Library/ScriptAssemblies/PlaymodeTests.dll][suite]'
+      name: PlaymodeTests.dll
+      fullName: C:/Users/thoma/Documents/GitHub/Fragment/Untitled Turn-based RPG
+        Roguelike/Library/ScriptAssemblies/PlaymodeTests.dll
+      resultStatus: 1
+      duration: 0.0876161
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[Untitled Turn-based RPG Roguelike][suite]'
+    - id: 1001
+      uniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+      name: CombatantTestSuite
+      fullName: CombatantTestSuite
+      resultStatus: 1
+      duration: 3.369282
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1004
+      parentUniqueId: '[PlaymodeTests][C:/Users/thoma/Documents/GitHub/Fragment/Untitled
+        Turn-based RPG Roguelike/Library/ScriptAssemblies/PlaymodeTests.dll][suite]'
+    - id: 1002
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.CombatantTestSuiteSimplePasses]
+      name: CombatantTestSuiteSimplePasses
+      fullName: CombatantTestSuite.CombatantTestSuiteSimplePasses
+      resultStatus: 1
+      duration: 0.4194839
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1003
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.CombatantTestSuiteWithEnumeratorPasses]
+      name: CombatantTestSuiteWithEnumeratorPasses
+      fullName: CombatantTestSuite.CombatantTestSuiteWithEnumeratorPasses
+      resultStatus: 1
+      duration: 0.5346716
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1004
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestCanMoveTo]
+      name: TestCanMoveTo
+      fullName: CombatantTestSuite.TestCanMoveTo
+      resultStatus: 1
+      duration: 0.2397193
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1005
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestCompareTo_Enemy]
+      name: TestCompareTo_Enemy
+      fullName: CombatantTestSuite.TestCompareTo_Enemy
+      resultStatus: 1
+      duration: 0.263302
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1006
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestCompareTo_Player]
+      name: TestCompareTo_Player
+      fullName: CombatantTestSuite.TestCompareTo_Player
+      resultStatus: 1
+      duration: 0.2651768
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1007
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestDeath_Player]
+      name: TestDeath_Player
+      fullName: CombatantTestSuite.TestDeath_Player
+      resultStatus: 1
+      duration: 0.2618648
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1007
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestEndTurn]
+      name: TestEndTurn
+      fullName: CombatantTestSuite.TestEndTurn
+      resultStatus: 1
+      duration: 0.2691904
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1009
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestInitialize_Enemy]
+      name: TestInitialize_Enemy
+      fullName: CombatantTestSuite.TestInitialize_Enemy
+      resultStatus: 1
+      duration: 0.2763505
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1010
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestInitialize_Player]
+      name: TestInitialize_Player
+      fullName: CombatantTestSuite.TestInitialize_Player
+      resultStatus: 1
+      duration: 0.2643099
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1005
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestReceiveDamage]
+      name: TestReceiveDamage
+      fullName: CombatantTestSuite.TestReceiveDamage
+      resultStatus: 1
+      duration: 0.2621121
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1010
+      uniqueId: PlaymodeTests.dll/CombatantTestSuite/[PlaymodeTests][CombatantTestSuite.TestStartTurn]
+      name: TestStartTurn
+      fullName: CombatantTestSuite.TestStartTurn
+      resultStatus: 1
+      duration: 0.2617909
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CombatantTestSuite][suite]
+    - id: 1013
+      uniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandBuilderTestSuite][suite]
+      name: CommandBuilderTestSuite
+      fullName: CommandBuilderTestSuite
+      resultStatus: 1
+      duration: 0.0848024
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1020
+      parentUniqueId: '[PlaymodeTests][C:/Users/thoma/Documents/GitHub/Fragment/Untitled
+        Turn-based RPG Roguelike/Library/ScriptAssemblies/PlaymodeTests.dll][suite]'
+    - id: 1014
+      uniqueId: PlaymodeTests.dll/CommandBuilderTestSuite/[PlaymodeTests][CommandBuilderTestSuite.TestClear]
+      name: TestClear
+      fullName: CommandBuilderTestSuite.TestClear
+      resultStatus: 1
+      duration: 0.0227505
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandBuilderTestSuite][suite]
+    - id: 1015
+      uniqueId: PlaymodeTests.dll/CommandBuilderTestSuite/[PlaymodeTests][CommandBuilderTestSuite.TestGetFinishedCommand]
+      name: TestGetFinishedCommand
+      fullName: CommandBuilderTestSuite.TestGetFinishedCommand
+      resultStatus: 1
+      duration: 0.0136768
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandBuilderTestSuite][suite]
+    - id: 1016
+      uniqueId: PlaymodeTests.dll/CommandBuilderTestSuite/[PlaymodeTests][CommandBuilderTestSuite.TestSetActor]
+      name: TestSetActor
+      fullName: CommandBuilderTestSuite.TestSetActor
+      resultStatus: 1
+      duration: 0.0012748
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandBuilderTestSuite][suite]
+    - id: 1017
+      uniqueId: PlaymodeTests.dll/CommandBuilderTestSuite/[PlaymodeTests][CommandBuilderTestSuite.TestSetCommand]
+      name: TestSetCommand
+      fullName: CommandBuilderTestSuite.TestSetCommand
+      resultStatus: 1
+      duration: 0.0009724
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandBuilderTestSuite][suite]
+    - id: 1018
+      uniqueId: PlaymodeTests.dll/CommandBuilderTestSuite/[PlaymodeTests][CommandBuilderTestSuite.TestSetTarget]
+      name: TestSetTarget
+      fullName: CommandBuilderTestSuite.TestSetTarget
+      resultStatus: 1
+      duration: 0.0009134
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandBuilderTestSuite][suite]
+    - id: 1019
+      uniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandLogTestSuite][suite]
+      name: CommandLogTestSuite
+      fullName: CommandLogTestSuite
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1026
+      parentUniqueId: '[PlaymodeTests][C:/Users/thoma/Documents/GitHub/Fragment/Untitled
+        Turn-based RPG Roguelike/Library/ScriptAssemblies/PlaymodeTests.dll][suite]'
+    - id: 1021
+      uniqueId: PlaymodeTests.dll/CommandLogTestSuite/[PlaymodeTests][CommandLogTestSuite.CommandLogTestSuiteWithEnumeratorPasses]
+      name: CommandLogTestSuiteWithEnumeratorPasses
+      fullName: CommandLogTestSuite.CommandLogTestSuiteWithEnumeratorPasses
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandLogTestSuite][suite]
+    - id: 1021
+      uniqueId: PlaymodeTests.dll/CommandLogTestSuite/[PlaymodeTests][CommandLogTestSuite.TestInitialize]
+      name: TestInitialize
+      fullName: CommandLogTestSuite.TestInitialize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandLogTestSuite][suite]
+    - id: 1013
+      uniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandManagerTestSuite][suite]
+      name: CommandManagerTestSuite
+      fullName: CommandManagerTestSuite
+      resultStatus: 1
+      duration: 0.8088627
+      messages: 
+      output: 'Checking if the player won
+
+        Checking if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1016
+      parentUniqueId: '[PlaymodeTests][C:/Users/thoma/Documents/GitHub/Fragment/Untitled
+        Turn-based RPG Roguelike/Library/ScriptAssemblies/PlaymodeTests.dll][suite]'
+    - id: 1033
+      uniqueId: PlaymodeTests.dll/CommandManagerTestSuite/[PlaymodeTests][CommandManagerTestSuite.TestAddAndExcecuteCommand]
+      name: TestAddAndExcecuteCommand
+      fullName: CommandManagerTestSuite.TestAddAndExcecuteCommand
+      resultStatus: 1
+      duration: 0.2420825
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1032
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandManagerTestSuite][suite]
+    - id: 1015
+      uniqueId: PlaymodeTests.dll/CommandManagerTestSuite/[PlaymodeTests][CommandManagerTestSuite.TestWhenExcecuteCommandShouldEndTheTurn]
+      name: TestWhenExcecuteCommandShouldEndTheTurn
+      fullName: CommandManagerTestSuite.TestWhenExcecuteCommandShouldEndTheTurn
+      resultStatus: 1
+      duration: 0.2621018
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandManagerTestSuite][suite]
+    - id: 1016
+      uniqueId: PlaymodeTests.dll/CommandManagerTestSuite/[PlaymodeTests][CommandManagerTestSuite.TestWhenExcecuteCommandShouldNOTEndTheTurn]
+      name: TestWhenExcecuteCommandShouldNOTEndTheTurn
+      fullName: CommandManagerTestSuite.TestWhenExcecuteCommandShouldNOTEndTheTurn
+      resultStatus: 1
+      duration: 0.2638569
+      messages: 
+      output: 'Preparing the Battlefield
+
+        Instantiating the combatants
+
+        Preparing
+        the Combatants for Battle
+
+        Playing the Opening Cinematics
+
+        Activating
+        the Battle Command UI
+
+        Checking if the player won
+
+        Checking
+        if the enemy won
+
+        Test :0 and 0
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: PlaymodeTests.dll/[PlaymodeTests][CommandManagerTestSuite][suite]
+    m_ResultText: 'TestWhenExcecuteCommandShouldEndTheTurn (0,262s)
+
+      ---
+
+      Preparing
+      the Battlefield
+
+      Instantiating the combatants
+
+      Preparing the
+      Combatants for Battle
+
+      Playing the Opening Cinematics
+
+      Activating
+      the Battle Command UI
+
+      Checking if the player won
+
+      Checking if
+      the enemy won'
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: ef0a2254
+      m_LastClickedID: 1411517167
+      m_ExpandedIDs: fa1536ab3ec23bbcfbbd2dc7da5b4718ebace24155468668ffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+    m_SelectedOption: 0
+  m_EditModeTestListGUI:
+    m_Window: {fileID: 17}
+    m_NewResultList:
+    - id: 1008
+      uniqueId: '[Untitled Turn-based RPG Roguelike][suite]'
+      name: Untitled Turn-based RPG Roguelike
+      fullName: Untitled Turn-based RPG Roguelike
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    m_ResultText: 
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: fa1536abffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+--- !u!114 &18
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12003, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Console
+    m_Image: {fileID: -4327648978806127646, guid: 0000000000000000d000000000000000, type: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 162
+    y: 544
+    width: 1059
+    height: 396
+  m_SerializedDataModeController:
+    m_DataMode: 0
+    m_PreferredDataMode: 0
+    m_SupportedDataModes: 
+    isAutomatic: 1
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+    m_OverlaysVisible: 1
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,9 +1337,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1544
-    y: 178
-    width: 408
+    x: 2610
+    y: 170
+    width: 300
     height: 697
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -298,7 +1364,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &12
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,9 +1384,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1207
-    y: 494
-    width: 335
+    x: 2165
+    y: 486
+    width: 443
     height: 381
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -343,7 +1409,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Playmode Tests
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -351,7 +1417,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Playmode Tests
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\thoma\Documents\GitHub\Fragment\Untitled Turn-based
     RPG Roguelike
@@ -359,9 +1425,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3c070000
-    m_LastClickedID: 1852
-    m_ExpandedIDs: 00000000f4060000d407000000ca9a3bffffff7f
+    m_SelectedIDs: 30750000
+    m_LastClickedID: 30000
+    m_ExpandedIDs: 00000000e6740000e8740000fe740000027d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -377,7 +1443,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 16}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -389,7 +1455,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f4060000d4070000
+    m_ExpandedIDs: 00000000e6740000e8740000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -416,24 +1482,24 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: CommandLogTestSuite
+      m_OriginalName: CommandLogTestSuite
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 80082
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 10}
+      m_ClientGUIView: {fileID: 16}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -441,11 +1507,11 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 162}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 115
---- !u!114 &13
+  m_DirectoriesAreaWidth: 208
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -465,8 +1531,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 284
-    y: 178
+    x: 1242
+    y: 170
     width: 922
     height: 697
   m_SerializedDataModeController:
@@ -543,7 +1609,7 @@ MonoBehaviour:
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &14
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -563,8 +1629,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 284
-    y: 178
+    x: 1242
+    y: 170
     width: 922
     height: 697
   m_SerializedDataModeController:
@@ -978,7 +2044,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &15
+--- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -998,9 +2064,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1207
-    y: 178
-    width: 335
+    x: 2165
+    y: 170
+    width: 443
     height: 295
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1015,9 +2081,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: d2380100
       m_LastClickedID: 0
-      m_ExpandedIDs: 5c5efeff
+      m_ExpandedIDs: 3c53fdffea53fdff2a5afdff4a5ffdfff85ffdffc8a0fdff3aa3fdffe8a3fdfff4abfdff5caefdff0aaffdff1ab7fdff94b9fdff42bafdff64c2fdffecc7fdff9ac8fdffbcd0fdfff0d4fdff9ed5fdffa8ddfdff6cdefdff1adffdff58ebfdffc0edfdff6eeefdfff0fefdff5a01feff0802feff000afeff7a0cfeff280dfeff7415feff0418feffb218feffc020feff6c23feff1a24feff4630feffba32feff6833fefff636fefff041feff9e42feffc876feff4279fefff079feff9a86feff0689feffb489feffc091feff3294feffe094feffd89cfeff7c9ffeff2aa0feff88b1fefffcb3feffaab4feffb4bcfeff6ebdfeff1cbefeffb2f2feffe4f6feff98f7feff9af8feffb2f9feff60fafeffd802ffff9203ffff4004ffff5a31ffffb639ffff643affff3055ffff2c56ffffda56ffff7c5affff2e5fffffdc5fffff1065ffffc467ffff7268ffffa06cffff206fffffce6fffffe673ffff3277ffffe077fffff67bffffb07cffff5e7dffff3283ffffb285ffff6086ffff328cffff088dffffb68dffffce91ffff3c94ffffea94ffff7698ffff3099ffffde99ffff289fffff96a1ffff44a2ffff18a8ffffa2aaffff50abffff84b0ffff5abeffff08bfffff30c3ffffb2c5ffff60c6ffff9ccaffff00d5ffffaed5ffff6ad9ffff72ddffff20deffffe8e1ffffe6faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1033,7 +2099,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 9}
+        m_ClientGUIView: {fileID: 15}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0

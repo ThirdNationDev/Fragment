@@ -14,7 +14,7 @@ using UnityEngine.Assertions;
 
 public class CommandManager : MonoBehaviour
 {
-    private Stack<ICommand> CommandsBuffer = new Stack<ICommand>();
+    private readonly Stack<ICommand> commandsBuffer = new Stack<ICommand>();
 
     public enum TargetType
     {
@@ -47,48 +47,26 @@ public class CommandManager : MonoBehaviour
     {
         get
         {
-            return CommandsBuffer.Count;
+            Assert.IsNotNull(commandsBuffer);
+            return commandsBuffer.Count;
         }
-
-        private set { }
     }
 
     public ICommand LastCommand
     {
         get
         {
-            ICommand command = new EmptyCommand();
-            CommandsBuffer.TryPeek(out command);
-            return command;
-        }
-
-        private set { }
-    }
-
-    public void AddCommand(ICommand command)
-    {
-        command.Execute();
-        CommandsBuffer.Push(command);
-
-        if (command.EndsTurn)
-        {
-            BattleManager.Instance.StartTheNextCombatantTurn();
+            Assert.IsNotNull(commandsBuffer);
+            ICommand command;
+            if (commandsBuffer.TryPeek(out command))
+            {
+                return command;
+            }
+            return new EmptyCommand();
         }
     }
 
-    public ICommand[] LastNCommands(int n)
-    {
-        Assert.IsTrue(n <= CommandsBuffer.Count);
-        ICommand[] array = CommandsBuffer.ToArray();
-        return array[(CommandsBuffer.Count - n)..CommandsBuffer.Count]; //last index not included in slice
-    }
-
-    internal ICommand CommandAtIndex(int n)
-    {
-        Assert.IsTrue(n < CommandsBuffer.Count);
-        ICommand[] array = CommandsBuffer.ToArray();
-        return array[n];
-    }
+    #region UnityMethods
 
     private void Awake()
     {
@@ -101,4 +79,51 @@ public class CommandManager : MonoBehaviour
 
         Instance = this;
     }
+
+    #endregion UnityMethods
+
+    #region ClassMethods
+
+    public void AddAndExecuteCommand(ICommand command)
+    {
+        Assert.IsNotNull(command);
+
+        executeCommand(command);
+
+        commandsBuffer.Push(command);
+    }
+
+    public ICommand[] LastNCommands(int n)
+    {
+        Assert.IsTrue(n <= commandsBuffer.Count);
+        ICommand[] array = commandsBuffer.ToArray();
+        return array[(commandsBuffer.Count - n)..commandsBuffer.Count]; //last index not included in slice
+    }
+
+    internal ICommand CommandAtIndex(int n)
+    {
+        Assert.IsTrue(n < commandsBuffer.Count);
+        ICommand[] array = commandsBuffer.ToArray();
+        return array[n];
+    }
+
+    private void executeCommand(ICommand command)
+    {
+        command.Execute();
+        if (command.EndsTurn)
+        {
+            BattleManager.Instance.StartTheNextCombatantTurn();
+        }
+    }
+
+    #endregion ClassMethods
+
+    #region TestMethods
+
+    public void TestExecuteCommand(ICommand command)
+    {
+        executeCommand(command);
+    }
+
+    #endregion TestMethods
 }

@@ -18,10 +18,12 @@ public class CommandBuilder
 
     private CommandManager.ICommand command;
 
-    public CommandManager.ICommand Command { get => command; set => command = value; }
+    public CommandManager.ICommand Command { get => command; }
 
     public static DeathCommand DeathCommand(Combatant victim)
     {
+        Assert.IsNotNull(victim);
+
         DeathCommand command = new();
         command.Actor = victim;
         command.Target = victim;
@@ -30,7 +32,7 @@ public class CommandBuilder
 
     public void Clear()
     {
-        Command = null;
+        command = null;
     }
 
     public CommandManager.ICommand GetFinishedCommand()
@@ -54,7 +56,7 @@ public class CommandBuilder
     {
         Assert.IsNotNull(command);
 
-        this.Command = command;
+        this.command = command;
     }
 
     public void SetTarget(ITargetable target)

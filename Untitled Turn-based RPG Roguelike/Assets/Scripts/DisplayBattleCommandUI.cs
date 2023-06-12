@@ -28,7 +28,7 @@ public class DisplayBattleCommandUI : MonoBehaviour
     {
         currentCombatant = BattleManager.Instance.currentCombatant;
         combatantNameText.text = currentCombatant.name;
-        combatantHealth.text = currentCombatant.stats.health.ToString() + "/" + currentCombatant.stats.maxHealth.ToString();
+        combatantHealth.text = currentCombatant.Stats.health.ToString() + "/" + currentCombatant.Stats.maxHealth.ToString();
     }
 
     private void Start()

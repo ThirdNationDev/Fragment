@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
 
     private void ConfirmCommand()
     {
-        CommandManager.Instance.AddCommand(CommandBuilder.GetFinishedCommand());
+        CommandManager.Instance.AddAndExecuteCommand(CommandBuilder.GetFinishedCommand());
         CommandBuilder.Clear();
         confirmCommandPanel.Hide();
         targetSelectPanel.Deactivate();
@@ -126,7 +126,7 @@ public class UIManager : MonoBehaviour
     {
         if (currentCombatant.CanMoveTo(target))
         {
-            CommandBuilder.Command = currentCombatant.moveCommand;
+            CommandBuilder.SetCommand(currentCombatant.moveCommand);
             CommandBuilder.SetActor(currentCombatant);
             CommandBuilder.SetTarget(target);
 
@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
 
     private void SetCommandAndDisplayTargets(CommandManager.ICommand command)
     {
-        CommandBuilder.Command = command;
+        CommandBuilder.SetCommand(command);
         CommandBuilder.SetActor(currentCombatant);
         targetSelectPanel.DisplayTargetsForCommand(CommandBuilder.Command);
     }

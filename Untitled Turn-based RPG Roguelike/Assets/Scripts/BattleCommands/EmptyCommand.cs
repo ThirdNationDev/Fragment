@@ -29,6 +29,7 @@ public class EmptyCommand : CommandManager.ICommand
 
     public void Execute()
     {
+        Assert.IsTrue(false);
         Debug.LogError("Empty Command Execute Called");
     }
 

@@ -13,6 +13,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using System;
 
+//Test class: CombatantTestSuite - Inprogress
 public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
 {
     public Battlezone battlezone;
@@ -22,15 +23,21 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     public BasicAttackSkill lightSkill;
     public BasicAttackSkill midSkill;
     public BasicMoveSkill moveSkill;
-    public ParticleSystem particles;
-    public CombatantStats stats;
+
     public Battlezone[] zonesInMoveRange;
-    private UnitProfile unit;
+
+    [SerializeField]
+    private ParticleSystem particles;
+
+    [SerializeField]
+    private CombatantStats stats;
 
     public CommandManager.ICommand defendCommand
     {
         get
         {
+            Assert.IsNotNull(defendSkill);
+            Assert.IsNotNull(defendSkill.Command());
             return defendSkill.Command();
         }
         private set { }
@@ -40,6 +47,8 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     {
         get
         {
+            Assert.IsNotNull(heavySkill);
+            Assert.IsNotNull(heavySkill.Command());
             return heavySkill.Command();
         }
         private set { }
@@ -49,6 +58,8 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     {
         get
         {
+            Assert.IsNotNull(lightSkill);
+            Assert.IsNotNull(lightSkill.Command());
             return lightSkill.Command();
         }
         private set { }
@@ -58,6 +69,8 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     {
         get
         {
+            Assert.IsNotNull(midSkill);
+            Assert.IsNotNull(midSkill.Command());
             return midSkill.Command();
         }
         private set { }
@@ -67,6 +80,8 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     {
         get
         {
+            Assert.IsNotNull(moveSkill);
+            Assert.IsNotNull(moveSkill.Command());
             return moveSkill.Command();
         }
         private set { }
@@ -74,14 +89,34 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
 
     public string Name { get => this.name; }
 
+    public ParticleSystem Particles
+    {
+        get
+        {
+            Assert.IsNotNull(particles);
+            return particles;
+        }
+    }
+
+    public CombatantStats Stats
+    {
+        get
+        {
+            Assert.IsNotNull(stats);
+            return stats;
+        }
+    }
+
+    #region UnityMethods
+
     public virtual void Awake()
     {
-        Debug.Log("Awake called for " + this.ToString());
-        stats.AP = stats.startingAP;
-        stats.health = stats.maxHealth;
-        stats.stepsRemaining = stats.maxRange;
-        particles.Stop();
+        Initialize();
     }
+
+    #endregion UnityMethods
+
+    #region ClassMethods
 
     public int CompareTo(object obj)
     {
@@ -94,19 +129,22 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
 
     public virtual void Death()
     {
-        CommandManager.Instance.AddCommand(CommandBuilder.DeathCommand(this));
+        CommandManager.Instance.AddAndExecuteCommand(CommandBuilder.DeathCommand(this));
     }
 
     public virtual void EndTurn()
     {
-        particles.Stop();
+        Assert.IsTrue(BattleManager.Instance.currentCombatant == this);
+        Assert.IsNotNull(Particles);
+        Particles.Stop();
+        Particles.Clear();
     }
 
     public virtual void ReceiveDamage(float damage)
     {
         //TODO: Play damaged animation
-        stats.health -= (int)Math.Round(damage);
-        if (stats.health <= 0)
+        Stats.health -= (int)Math.Round(damage);
+        if (Stats.health <= 0)
         {
             Death();
         }
@@ -114,10 +152,18 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
 
     public virtual void StartTurn()
     {
-        int lowZoneNum = battlezone.zoneNumber - stats.maxRange;
-        int highZoneNum = battlezone.zoneNumber + stats.maxRange;
+        Assert.IsNotNull(BattleManager.Instance.battlefield);
+        Assert.IsTrue(Stats.maxRange >= 0);
+
+        int lowZoneNum = battlezone.zoneNumber - Stats.maxRange;
+        int highZoneNum = battlezone.zoneNumber + Stats.maxRange;
         zonesInMoveRange = BattleManager.Instance.battlefield.getZones(lowZoneNum, highZoneNum);
-        particles.Play();
+
+        Assert.IsTrue(zonesInMoveRange.Length > 0);
+
+        Particles.Play();
+
+        Assert.IsTrue(Particles.isEmitting);
     }
 
     public override string ToString()
@@ -127,8 +173,12 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
 
     internal bool CanMoveTo(Battlezone target)
     {
+        Assert.IsNotNull(target);
+        Assert.IsTrue(zonesInMoveRange.Length > 0);
+
         foreach (Battlezone zone in zonesInMoveRange)
         {
+            Assert.IsNotNull(zone);
             if (zone == target)
             {
                 return true;
@@ -136,4 +186,27 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
         }
         return false;
     }
+
+    private void Initialize()
+    {
+        Stats.AP = Stats.startingAP;
+        Stats.health = Stats.maxHealth;
+        Particles.Stop();
+    }
+
+    #endregion ClassMethods
+
+    #region TestMethods
+
+    public bool TestCanMoveTo(Battlezone zone)
+    {
+        return CanMoveTo(zone);
+    }
+
+    public void TestWrapperInitialize()
+    {
+        Initialize();
+    }
+
+    #endregion TestMethods
 }

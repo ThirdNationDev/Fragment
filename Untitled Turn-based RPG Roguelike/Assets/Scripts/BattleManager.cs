@@ -22,7 +22,6 @@ public class BattleManager : MonoBehaviour
     public int playerStartingZone;
     public int turnCtr;
     private List<Combatant> combatantsInTurnOrder;
-    private CommandManager commandManager;
     private List<Combatant> defeatedCombatants;
     public static BattleManager Instance { get; private set; }
     public Battlefield battlefield { get; private set; }
@@ -56,6 +55,7 @@ public class BattleManager : MonoBehaviour
         Assert.AreNotEqual(combatantsInTurnOrder.Count, 0);
 
         currentCombatant.EndTurn();
+        turnCtr++;
         AdvanceTurnCountdown();
         currentCombatant.StartTurn();
     }
@@ -94,7 +94,6 @@ public class BattleManager : MonoBehaviour
         Instance = this;
 
         battlefield = GetComponentInChildren<Battlefield>();
-        commandManager = GetComponent<CommandManager>();
         combatantsInTurnOrder = new List<Combatant>();
         defeatedCombatants = new List<Combatant>();
 

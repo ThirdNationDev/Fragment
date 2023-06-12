@@ -22,13 +22,6 @@ public class MoveCommand : CommandManager.ICommand
     private ITargetable target;
     private Battlezone targetZone;
 
-    public MoveCommand()
-    {
-        Actor = null;
-        targetZone = null;
-        startingZone = null;
-    }
-
     public Combatant Actor { get => actor; set => actor = value; }
     public CommandManager.TargetType CommandTargets => commandTargets;
     public bool EndsTurn => endsTurn;
@@ -37,18 +30,15 @@ public class MoveCommand : CommandManager.ICommand
 
     public void Execute()
     {
-        Assert.IsNotNull(target);
-        Assert.IsNotNull(actor);
+        Assert.IsNotNull(Actor);
+        Assert.IsNotNull(Target);
+        Assert.IsNotNull(Skill);
+        Assert.IsTrue(Target is Battlezone);
 
-        startingZone = actor.battlezone;
+        startingZone = Actor.battlezone;
         startingZone.RemoveCombatant(Actor);
-        targetZone = target as Battlezone;
+        targetZone = Target as Battlezone;
         targetZone.AddCombatant(Actor);
-    }
-
-    public List<ITargetable> PotentialTargets()
-    {
-        throw new System.NotImplementedException();
     }
 
     public void SetTarget(ITargetable target)

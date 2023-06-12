@@ -21,18 +21,17 @@ public class DeathCommand : CommandManager.ICommand
     private ITargetable target;
 
     public Combatant Actor { get => actor; set => actor = value; }
-
     public CommandManager.TargetType CommandTargets => commandTargets;
-
     public bool EndsTurn => endsTurn;
-
     public IEquipableSkill Skill { get => skill; set => skill = value; }
     public ITargetable Target { get => target; set => target = value; }
 
     public void Execute()
     {
+        Assert.IsNotNull(Actor);
+
         //TODO: Death animation
-        BattleManager.Instance.SetDefeated(actor);
+        BattleManager.Instance.SetDefeated(Actor);
     }
 
     public void Undo()
