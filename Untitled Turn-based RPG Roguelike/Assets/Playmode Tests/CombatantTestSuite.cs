@@ -10,23 +10,6 @@ public class CombatantTestSuite
     private GameObject enemyCombatantPrefab = Resources.Load<GameObject>("Prefabs/EnemyPrefab");
     private GameObject playerCombatantPrefab = Resources.Load<GameObject>("Prefabs/Pinky");
 
-    // A Test behaves as an ordinary method
-    [Test]
-    public void CombatantTestSuiteSimplePasses()
-    {
-        // Use the Assert class to test conditions
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator CombatantTestSuiteWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
-
     [UnitySetUp]
     public IEnumerator SetUp()
     {
@@ -37,10 +20,10 @@ public class CombatantTestSuite
     [Test]
     public void TestCanMoveTo()
     {
-        Combatant combatant = BattleManager.Instance.currentCombatant;
+        Combatant combatant = BattleManager.Instance.CurrentCombatant;
         int range = combatant.Stats.maxRange;
         int zoneNumber = combatant.battlezone.zoneNumber;
-        Battlezone[] zonesInMoveRange = BattleManager.Instance.battlefield.getZones(zoneNumber - range, zoneNumber + range);
+        Battlezone[] zonesInMoveRange = BattleManager.Instance.battlefield.GetZones(zoneNumber - range, zoneNumber + range);
         foreach (Battlezone zone in zonesInMoveRange)
         {
             Assert.IsTrue(combatant.TestCanMoveTo(zone));
@@ -69,17 +52,10 @@ public class CombatantTestSuite
         Assert.IsTrue(comparison < 0);
     }
 
-    public void TestDeath_Enemy()
-    {
-        Combatant combatant = GameObject.Instantiate(enemyCombatantPrefab).GetComponent<Combatant>();
-        combatant.Death();
-        Assert.IsFalse(combatant.gameObject.activeInHierarchy);
-    }
-
     [Test]
-    public void TestDeath_Player()
+    public void TestDeath()
     {
-        Combatant combatant = GameObject.Instantiate(playerCombatantPrefab).GetComponent<Combatant>();
+        Combatant combatant = BattleManager.Instance.CurrentCombatant;
         combatant.Death();
         Assert.IsFalse(combatant.gameObject.activeInHierarchy);
     }
@@ -87,7 +63,7 @@ public class CombatantTestSuite
     [Test]
     public void TestEndTurn()
     {
-        Combatant combatant = BattleManager.Instance.currentCombatant;
+        Combatant combatant = BattleManager.Instance.CurrentCombatant;
         combatant.EndTurn();
         Assert.IsTrue(combatant.Particles.isStopped);
     }
@@ -124,7 +100,7 @@ public class CombatantTestSuite
     [Test]
     public void TestStartTurn()
     {
-        Combatant combatant = BattleManager.Instance.currentCombatant;
+        Combatant combatant = BattleManager.Instance.CurrentCombatant;
         combatant.EndTurn();
         combatant.StartTurn();
         Assert.IsTrue(combatant.Particles.isEmitting);

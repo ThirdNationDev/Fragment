@@ -107,16 +107,10 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
         }
     }
 
-    #region UnityMethods
-
     public virtual void Awake()
     {
         Initialize();
     }
-
-    #endregion UnityMethods
-
-    #region ClassMethods
 
     public int CompareTo(object obj)
     {
@@ -134,7 +128,7 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
 
     public virtual void EndTurn()
     {
-        Assert.IsTrue(BattleManager.Instance.currentCombatant == this);
+        Assert.IsTrue(BattleManager.Instance.CurrentCombatant == this);
         Assert.IsNotNull(Particles);
         Particles.Stop();
         Particles.Clear();
@@ -154,10 +148,11 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     {
         Assert.IsNotNull(BattleManager.Instance.battlefield);
         Assert.IsTrue(Stats.maxRange >= 0);
+        Assert.IsNotNull(battlezone);
 
         int lowZoneNum = battlezone.zoneNumber - Stats.maxRange;
         int highZoneNum = battlezone.zoneNumber + Stats.maxRange;
-        zonesInMoveRange = BattleManager.Instance.battlefield.getZones(lowZoneNum, highZoneNum);
+        zonesInMoveRange = BattleManager.Instance.battlefield.GetZones(lowZoneNum, highZoneNum);
 
         Assert.IsTrue(zonesInMoveRange.Length > 0);
 
@@ -169,6 +164,16 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
     public override string ToString()
     {
         return this.name;
+    }
+
+    public bool TestCanMoveTo(Battlezone zone)
+    {
+        return CanMoveTo(zone);
+    }
+
+    public void TestWrapperInitialize()
+    {
+        Initialize();
     }
 
     internal bool CanMoveTo(Battlezone target)
@@ -193,20 +198,4 @@ public abstract class Combatant : MonoBehaviour, IComparable, ITargetable
         Stats.health = Stats.maxHealth;
         Particles.Stop();
     }
-
-    #endregion ClassMethods
-
-    #region TestMethods
-
-    public bool TestCanMoveTo(Battlezone zone)
-    {
-        return CanMoveTo(zone);
-    }
-
-    public void TestWrapperInitialize()
-    {
-        Initialize();
-    }
-
-    #endregion TestMethods
 }

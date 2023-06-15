@@ -12,6 +12,7 @@ public class CommandBuilderTestSuite
     [Test]
     public void TestClear()
     {
+        Debug.Log("Test clear called.");
         Combatant combatant = GameObject.Instantiate(playerCombatantPrefab).GetComponent<Combatant>();
         CommandBuilder.SetCommand(combatant.defendCommand);
         CommandBuilder.SetActor(combatant);

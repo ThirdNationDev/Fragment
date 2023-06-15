@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 public static class BattleCalculator
 {
@@ -22,5 +23,21 @@ public static class BattleCalculator
     public static bool DoesStatusEffectAttach(Combatant attacker, Combatant target, StatusAttack statusAttack)
     {
         return true;
+    }
+
+    public static Stack<int> RandomNonrepeatingInts(int startInclusive, int endInclusive, int count)
+    {
+        Stack<int> numbers = new Stack<int>();
+
+        while (numbers.Count < count)
+        {
+            int num = Random.Range(startInclusive, endInclusive + 1); //Random.Range is end exclusive
+            if (!numbers.Contains(num))
+            {
+                numbers.Push(num);
+            }
+        }
+
+        return numbers;
     }
 }

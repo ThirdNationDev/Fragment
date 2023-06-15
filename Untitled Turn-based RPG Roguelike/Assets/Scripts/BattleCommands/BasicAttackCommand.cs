@@ -14,7 +14,7 @@ using UnityEngine.Assertions;
 
 public class BasicAttackCommand : CommandManager.ICommand
 {
-    private readonly CommandManager.TargetType commandTargets = CommandManager.TargetType.TargetAllCombatantsExceptSelf;
+    private readonly CommandManager.TargetType commandTargets = CommandManager.TargetType.TargetAllActiveCombatantsExceptSelf;
     private readonly bool endsTurn = true;
     private Combatant actor;
     private float damageDealt;

@@ -43,7 +43,7 @@ public class Battlezone : MonoBehaviour, ITargetable
     {
         get
         {
-            return battlefield.getZone(zoneNumber + 1);
+            return battlefield.GetZone(zoneNumber + 1);
         }
 
         private set { }
@@ -66,7 +66,7 @@ public class Battlezone : MonoBehaviour, ITargetable
     {
         get
         {
-            return battlefield.getZone(zoneNumber - 1);
+            return battlefield.GetZone(zoneNumber - 1);
         }
 
         private set { }

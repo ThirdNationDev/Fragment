@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     private Combatant currentCombatant
     {
-        get { return BattleManager.Instance.currentCombatant; }
+        get { return BattleManager.Instance.CurrentCombatant; }
     }
 
     public void HeavySkill()

@@ -26,14 +26,14 @@ public class DisplayBattleCommandUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        currentCombatant = BattleManager.Instance.currentCombatant;
+        currentCombatant = BattleManager.Instance.CurrentCombatant;
         combatantNameText.text = currentCombatant.name;
         combatantHealth.text = currentCombatant.Stats.health.ToString() + "/" + currentCombatant.Stats.maxHealth.ToString();
     }
 
     private void Start()
     {
-        currentCombatant = BattleManager.Instance.currentCombatant;
+        currentCombatant = BattleManager.Instance.CurrentCombatant;
 
         TextMeshProUGUI lightAttackButtonText = lightAttackButton.GetComponentInChildren<TextMeshProUGUI>();
         lightAttackButtonText.text = currentCombatant.lightSkill.name;

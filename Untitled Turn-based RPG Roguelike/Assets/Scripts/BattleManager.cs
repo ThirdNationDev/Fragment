@@ -21,15 +21,27 @@ public class BattleManager : MonoBehaviour
     public int enemyStartingZone;
     public int playerStartingZone;
     public int turnCtr;
-    private List<Combatant> combatantsInTurnOrder;
-    private List<Combatant> defeatedCombatants;
+    private CombatantManager combatantManager;
+
     public static BattleManager Instance { get; private set; }
     public Battlefield battlefield { get; private set; }
 
-    public Combatant currentCombatant
+    public List<Combatant> CombatantsInTurnOrderCopy { get => combatantManager.CombatantsInTurnOrderCopy(); }
+
+    public Combatant CurrentCombatant
     {
-        get { return combatantsInTurnOrder[0]; }
-        private set { }
+        get => combatantManager.CurrentCombatant;
+    }
+
+    public List<Combatant> DefeatedCombatantsCopy { get => combatantManager.DefeatedCombatantsCopy(); }
+
+    public void AddCombatantToBattle(Combatant combatant, Battlezone zone)
+    {
+        Assert.IsNotNull(combatant);
+        Assert.IsNotNull(zone);
+
+        combatantManager.AddCombatant(combatant);
+        battlefield.PlaceCombatant(combatant, zone);
     }
 
     public void CreateBattlefield()
@@ -40,47 +52,20 @@ public class BattleManager : MonoBehaviour
     public void SetDefeated(Combatant combatant)
     {
         Assert.IsNotNull(combatant);
-        Assert.IsNotNull(combatantsInTurnOrder);
-        Assert.IsNotNull(defeatedCombatants);
-        Assert.IsTrue(combatantsInTurnOrder.Count > 0);
 
-        combatant.gameObject.SetActive(false);
-        combatantsInTurnOrder.Remove(combatant);
-        defeatedCombatants.Add(combatant);
+        combatantManager.SetDefeated(combatant);
     }
 
-    internal void StartTheNextCombatantTurn()
+    public void StartTheNextCombatantTurn()
     {
-        Assert.IsNotNull(combatantsInTurnOrder);
-        Assert.AreNotEqual(combatantsInTurnOrder.Count, 0);
-
-        currentCombatant.EndTurn();
+        combatantManager.StartTheNextCombatantTurn();
         turnCtr++;
-        AdvanceTurnCountdown();
-        currentCombatant.StartTurn();
     }
 
     private void ActivateBattleCommandUI()
     {
         Debug.Log("Activating the Battle Command UI");
         UIManager.Instance.ActivateBattleUI();
-    }
-
-    private void AdvanceTurnCountdown()
-    {
-        Combatant lastCombatant = currentCombatant;
-        int timePassed = currentCombatant.countdownToTurn;
-        Assert.AreNotEqual(timePassed, 0);
-
-        foreach (Combatant c in combatantsInTurnOrder)
-        {
-            c.countdownToTurn -= timePassed;
-            Assert.IsTrue((c.countdownToTurn >= 0) && (c.countdownToTurn <= 100));
-        }
-
-        currentCombatant.countdownToTurn = 100;
-        combatantsInTurnOrder.Sort();
-        Assert.AreNotEqual(lastCombatant, currentCombatant);
     }
 
     private void Awake()
@@ -93,59 +78,24 @@ public class BattleManager : MonoBehaviour
         }
         Instance = this;
 
-        battlefield = GetComponentInChildren<Battlefield>();
-        combatantsInTurnOrder = new List<Combatant>();
-        defeatedCombatants = new List<Combatant>();
-
-        turnCtr = 0;
+        Initialize();
     }
 
-    private void InstantiateCombatants()
+    private void Initialize()
     {
-        Debug.Log("Instantiating the combatants");
-        Assert.IsNotNull(combatantPrefabs);
-        Assert.AreNotEqual(combatantPrefabs.Length, 0);
-
-        for (int i = 0; i < combatantPrefabs.Length; i++)
-        {
-            combatantsInTurnOrder.Add(Instantiate(combatantPrefabs[i]).GetComponent<Combatant>());
-        }
+        battlefield = GetComponentInChildren<Battlefield>();
+        combatantManager = new CombatantManager();
+        turnCtr = 0;
     }
 
     private bool PlayerLost()
     {
-        Debug.Log("Checking if the enemy won");
-
-        Assert.IsNotNull(combatantsInTurnOrder);
-        Assert.AreNotEqual(combatantsInTurnOrder.Count, 0);
-
-        int playerCount = 0;
-        foreach (Combatant c in combatantsInTurnOrder)
-        {
-            if (c is PlayerCombatant)
-            {
-                playerCount++;
-            }
-        }
-        return playerCount == 0;
+        return combatantManager.AlivePlayerCount() == 0;
     }
 
     private bool PlayerWon()
     {
-        Debug.Log("Checking if the player won");
-
-        Assert.IsNotNull(combatantsInTurnOrder);
-        Assert.AreNotEqual(combatantsInTurnOrder.Count, 0);
-
-        int enemyCount = 0;
-        foreach (Combatant c in combatantsInTurnOrder)
-        {
-            if (c is EnemyCombatant)
-            {
-                enemyCount++;
-            }
-        }
-        return enemyCount == 0;
+        return combatantManager.AliveEnemyCount() == 0;
     }
 
     private void PlayOpeningCinematics()
@@ -161,25 +111,32 @@ public class BattleManager : MonoBehaviour
     private void PrepareCombatantsForBattle()
     {
         Debug.Log("Preparing the Combatants for Battle");
-        battlefield.PlaceCombatants(combatantsInTurnOrder);
-        SetInitialTurnOrder();
-        currentCombatant.StartTurn();
-    }
+        Assert.IsNotNull(combatantPrefabs);
+        Assert.AreNotEqual(combatantPrefabs.Length, 0);
 
-    private void SetInitialTurnOrder()
-    {
-        foreach (Combatant c in combatantsInTurnOrder)
+        Combatant combatant;
+        Battlezone startingZone;
+
+        for (int i = 0; i < combatantPrefabs.Length; i++)
         {
-            c.countdownToTurn = (int)Random.Range(1, 100);
+            combatant = Instantiate(combatantPrefabs[i]).GetComponent<Combatant>();
+            if (combatant.tag == "Player")
+            {
+                startingZone = battlefield.GetZone(playerStartingZone);
+            }
+            else
+            {
+                startingZone = battlefield.GetZone(enemyStartingZone);
+            }
+            AddCombatantToBattle(combatant, startingZone);
         }
 
-        combatantsInTurnOrder.Sort();
+        combatantManager.ReadyFirstTurn();
     }
 
     private void Start()
     {
         PrepareBattlefield();
-        InstantiateCombatants();
         PrepareCombatantsForBattle();
         PlayOpeningCinematics();
         ActivateBattleCommandUI();

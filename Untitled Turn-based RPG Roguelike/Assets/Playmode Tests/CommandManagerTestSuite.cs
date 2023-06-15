@@ -41,15 +41,14 @@ public class CommandManagerTestSuite
         int turn1 = BattleManager.Instance.turnCtr;
         CommandManager.Instance.TestExecuteCommand(command);
         int turn2 = BattleManager.Instance.turnCtr;
-        Debug.Log("Test :" + turn1 + " and " + turn2);
         Assert.AreEqual(turn1, turn2);
     }
 
     private CommandManager.ICommand getDefendCommand()
     {
-        UIManager.CommandBuilder.SetCommand(BattleManager.Instance.currentCombatant.defendCommand);
-        UIManager.CommandBuilder.SetActor(BattleManager.Instance.currentCombatant);
-        UIManager.CommandBuilder.SetTarget(BattleManager.Instance.currentCombatant);
+        UIManager.CommandBuilder.SetCommand(BattleManager.Instance.CurrentCombatant.defendCommand);
+        UIManager.CommandBuilder.SetActor(BattleManager.Instance.CurrentCombatant);
+        UIManager.CommandBuilder.SetTarget(BattleManager.Instance.CurrentCombatant);
 
         CommandManager.ICommand command = UIManager.CommandBuilder.GetFinishedCommand();
         UIManager.CommandBuilder.Clear();
@@ -58,9 +57,9 @@ public class CommandManagerTestSuite
 
     private CommandManager.ICommand getMoveCommand()
     {
-        UIManager.CommandBuilder.SetCommand(BattleManager.Instance.currentCombatant.moveCommand);
-        UIManager.CommandBuilder.SetActor(BattleManager.Instance.currentCombatant);
-        UIManager.CommandBuilder.SetTarget(BattleManager.Instance.currentCombatant.battlezone);
+        UIManager.CommandBuilder.SetCommand(BattleManager.Instance.CurrentCombatant.moveCommand);
+        UIManager.CommandBuilder.SetActor(BattleManager.Instance.CurrentCombatant);
+        UIManager.CommandBuilder.SetTarget(BattleManager.Instance.CurrentCombatant.battlezone);
 
         CommandManager.ICommand command = UIManager.CommandBuilder.GetFinishedCommand();
         UIManager.CommandBuilder.Clear();

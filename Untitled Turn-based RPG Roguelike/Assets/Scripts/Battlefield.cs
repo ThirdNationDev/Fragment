@@ -22,92 +22,27 @@ public class Battlefield : MonoBehaviour
     private Battlezone[] battlezones;
 
     [SerializeField]
-    private int initNumZones;
+    private int initNumZones = 10;
 
     public int numZones
     {
         get
         {
+            Assert.IsNotNull(battlezones);
             return battlezones.Length;
         }
-
-        private set { }
     }
 
-    public Battlezone getZone(int i)
+    public int Width { get => FindMaxTileWidth(); }
+
+    public void CreateBattlefield()
     {
-        Assert.IsTrue(i >= 0);
-        Assert.IsTrue(i < battlezones.Length);
-
-        if ((0 <= i) && (i < battlezones.Length))
-        {
-            return battlezones[i];
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public Battlezone[] getZones(int start, int end)
-    {
-        if ((0 <= start) && (end < battlezones.Length) && (start <= end))
-        {
-            return battlezones.Skip(start).Take(end - start + 1).ToArray<Battlezone>();
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public void PlaceCombatants(List<Combatant> combatants)
-    {
-        Combatant c;
-        int startingZone = 0;
-        for (int i = 0; i < combatants.Count; i++)
-        {
-            c = combatants[i];
-            if (c is PlayerCombatant)
-            {
-                startingZone = BattleManager.Instance.playerStartingZone;
-            }
-            else if (c is EnemyCombatant)
-            {
-                startingZone = BattleManager.Instance.enemyStartingZone;
-            }
-            battlezones[startingZone].AddCombatant(c);
-        }
-    }
-
-    public void ResizeBattlefield()
-    {
-        //find the max tile width across all the zones
-        int maxTileWidth = 0;
-        int minZoneWidth;
-        foreach (Battlezone zone in battlezones)
-        {
-            minZoneWidth = zone.combatants.Count + 2;
-            maxTileWidth = minZoneWidth > maxTileWidth ? minZoneWidth : maxTileWidth;
-        }
-
-        foreach (Battlezone zone in battlezones)
-        {
-            zone.Resize(maxTileWidth);
-        }
-    }
-
-    internal void CreateBattlefield()
-    {
-        if (BattleManager.Instance.playerStartingZone < 0
-            || BattleManager.Instance.enemyStartingZone < 0
-            || BattleManager.Instance.playerStartingZone >= initNumZones
-            || BattleManager.Instance.enemyStartingZone >= initNumZones)
-        {
-            Debug.LogError("Battlefield starting zone is incorrect.");
-        }
-
-        int zoneTileNumber = battleZonePrefab.minTileNum;
+        Assert.IsTrue(initNumZones > 0);
+        Assert.IsFalse(BattleManager.Instance.playerStartingZone < 0);
+        Assert.IsFalse(BattleManager.Instance.enemyStartingZone < 0);
+        Assert.IsFalse(BattleManager.Instance.playerStartingZone >= initNumZones);
+        Assert.IsFalse(BattleManager.Instance.enemyStartingZone >= initNumZones);
+        Assert.IsTrue(battleZonePrefab.minTileNum > 0);
 
         battlezones = new Battlezone[initNumZones];
         for (int i = 0; i < initNumZones; i++)
@@ -123,9 +58,9 @@ public class Battlefield : MonoBehaviour
         }
     }
 
-    internal List<Combatant> getCombatants(int z1, int z2)
+    public List<Combatant> getCombatants(int z1, int z2)
     {
-        Battlezone[] zonesInRange = getZones(z1, z2);
+        Battlezone[] zonesInRange = GetZones(z1, z2);
         List<Combatant> targets = new List<Combatant>();
         foreach (Battlezone zone in zonesInRange)
         {
@@ -134,8 +69,13 @@ public class Battlefield : MonoBehaviour
         return targets;
     }
 
-    internal List<ITargetable> GetPotentialTargets(CommandManager.ICommand command)
+    public List<ITargetable> GetPotentialTargets(CommandManager.ICommand command)
     {
+        Assert.IsNotNull(command);
+        Assert.IsNotNull(command.Actor);
+        Assert.IsNotNull(command.Skill);
+        Assert.IsNotNull(command.Actor.battlezone);
+
         List<ITargetable> targets = new();
 
         switch (command.CommandTargets)
@@ -145,12 +85,16 @@ public class Battlefield : MonoBehaviour
 
                 break;
 
-            case CommandManager.TargetType.TargetAllCombatants:
-                targets = GetCombatantTargetsInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
+            case CommandManager.TargetType.TargetInactiveCombatants:
+                targets = GetInactiveCombatantTargetsInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
                 break;
 
-            case CommandManager.TargetType.TargetAllCombatantsExceptSelf:
-                targets = GetCombatantTargetsInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
+            case CommandManager.TargetType.TargetAllActiveCombatants:
+                targets = GetActiveCombatantTargetsInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
+                break;
+
+            case CommandManager.TargetType.TargetAllActiveCombatantsExceptSelf:
+                targets = GetActiveCombatantTargetsInRange(command.Actor.battlezone.zoneNumber, command.Skill.SkillStats.Range);
                 Assert.IsTrue(targets.Remove(command.Actor));
                 break;
 
@@ -170,10 +114,75 @@ public class Battlefield : MonoBehaviour
         return targets;
     }
 
+    public Battlezone GetZone(int i)
+    {
+        Assert.IsTrue(i >= 0);
+        Assert.IsTrue(i < battlezones.Length);
+
+        return battlezones[i];
+    }
+
+    public Battlezone[] GetZones(int start, int end)
+    {
+        Assert.IsTrue(start <= end);
+
+        start = Math.Clamp(start, 0, battlezones.Length - 1);
+        end = Math.Clamp(end, 0, battlezones.Length - 1);
+
+        return battlezones.Skip(start).Take(end - start + 1).ToArray<Battlezone>();
+    }
+
+    public void ResizeBattlefield()
+    {
+        int maxTileWidth = FindMaxTileWidth();
+        foreach (Battlezone zone in battlezones)
+        {
+            zone.Resize(maxTileWidth);
+        }
+    }
+
+    public void PlaceCombatant(Combatant combatant, int zoneNumber)
+    {
+        PlaceCombatant(combatant, GetZone(zoneNumber));
+    }
+
+    public void PlaceCombatant(Combatant combatant, Battlezone zone)
+    {
+        Assert.IsNotNull(combatant);
+        Assert.IsNotNull(zone);
+        Assert.IsTrue(battlezones.Contains(zone));
+
+        zone.AddCombatant(combatant);
+        ResizeBattlefield();
+    }
+
     // Start is called before the first frame update
     private void Awake()
     {
         CreateBattlefield();
+    }
+
+    private int FindMaxTileWidth()
+    {
+        int maxTileWidth = 0;
+        int minZoneWidth;
+        foreach (Battlezone zone in battlezones)
+        {
+            minZoneWidth = zone.combatants.Count + 2;
+            maxTileWidth = minZoneWidth > maxTileWidth ? minZoneWidth : maxTileWidth;
+        }
+
+        return maxTileWidth;
+    }
+
+    private List<ITargetable> GetActiveCombatantTargetsInRange(int zoneNumber, int range)
+    {
+        List<ITargetable> targets = GetCombatantTargetsInRange(zoneNumber, range);
+        foreach (ITargetable inactiveTarget in BattleManager.Instance.DefeatedCombatantsCopy)
+        {
+            targets.Remove(inactiveTarget);
+        }
+        return targets;
     }
 
     private List<ITargetable> GetAllZonesInRange(int startZoneNumber, int range)
@@ -181,7 +190,7 @@ public class Battlefield : MonoBehaviour
         int lowestZone = startZoneNumber - range;
         int highestZone = startZoneNumber + range;
 
-        List<Battlezone> zones = getZones(lowestZone, highestZone).ToList<Battlezone>();
+        List<Battlezone> zones = GetZones(lowestZone, highestZone).ToList<Battlezone>();
         return zones.Cast<ITargetable>().ToList();
     }
 
@@ -194,8 +203,13 @@ public class Battlefield : MonoBehaviour
         return combatants.Cast<ITargetable>().ToList();
     }
 
-    // Update is called once per frame
-    private void Update()
+    private List<ITargetable> GetInactiveCombatantTargetsInRange(int zoneNumber, int range)
     {
+        List<ITargetable> targets = GetCombatantTargetsInRange(zoneNumber, range);
+        foreach (ITargetable activeTarget in BattleManager.Instance.CombatantsInTurnOrderCopy)
+        {
+            targets.Remove(activeTarget);
+        }
+        return targets;
     }
 }

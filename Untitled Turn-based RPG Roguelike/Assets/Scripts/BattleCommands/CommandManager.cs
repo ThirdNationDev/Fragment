@@ -19,8 +19,9 @@ public class CommandManager : MonoBehaviour
     public enum TargetType
     {
         TargetSelfOnly,
-        TargetAllCombatants,
-        TargetAllCombatantsExceptSelf,
+        TargetInactiveCombatants,
+        TargetAllActiveCombatants,
+        TargetAllActiveCombatantsExceptSelf,
         TargetAllZones,
         TargetAllZonesExceptCurrent
     }
