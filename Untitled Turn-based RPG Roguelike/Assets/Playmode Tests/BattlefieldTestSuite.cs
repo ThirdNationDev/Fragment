@@ -14,7 +14,6 @@ public class BattlefieldTestSuite
     [UnitySetUp]
     public IEnumerator SetUp()
     {
-        Debug.Log("Setup called.");
         SceneManager.LoadScene("Scenes/BattleDev v0-1");
 
         yield return null;
@@ -74,21 +73,25 @@ public class BattlefieldTestSuite
     [Test]
     public void TestTargetAllActive()
     {
+        Assert.IsTrue(false);
     }
 
     [Test]
     public void TestTargetAllActiveExceptSelf()
     {
+        Assert.IsTrue(false);
     }
 
     [Test]
     public void TestTargetAllZones()
     {
+        Assert.IsTrue(false);
     }
 
     [Test]
     public void TestTargetAllZonesExceptSelf()
     {
+        Assert.IsTrue(false);
     }
 
     [Test]
@@ -98,8 +101,9 @@ public class BattlefieldTestSuite
         IEquipableSkill resurrectSkill = GameObject.Instantiate(ResurrectSkillPrefab).GetComponent<IEquipableSkill>();
         UIManager.CommandBuilder.SetCommand(resurrectSkill.Command());
 
-        Combatant combatantAlive = GameObject.Instantiate(playerCombatantPrefab).GetComponent<Combatant>();
-        Combatant combatantDead = GameObject.Instantiate(playerCombatantPrefab).GetComponent<Combatant>();
+        List<Combatant> combatants = BattleManager.Instance.CombatantsInTurnOrderCopy;
+        Combatant combatantAlive = combatants[0];
+        Combatant combatantDead = combatants[1];
         combatantDead.name = "Deadboy";
         BattleManager.Instance.battlefield.PlaceCombatant(combatantAlive, 0);
         BattleManager.Instance.battlefield.PlaceCombatant(combatantDead, 0);
@@ -116,9 +120,9 @@ public class BattlefieldTestSuite
     [Test]
     public void TestTargetSelfOnly()
     {
+        Combatant combatant = BattleManager.Instance.CurrentCombatant;
         UIManager.CommandBuilder.Clear();
-        UIManager.CommandBuilder.SetCommand(new DefendCommand());
-        Combatant combatant = GameObject.Instantiate(playerCombatantPrefab).GetComponent<Combatant>();
+        UIManager.CommandBuilder.SetCommand(combatant.defendCommand);
         UIManager.CommandBuilder.SetActor(combatant);
         UIManager.CommandBuilder.SetTarget(combatant);
 
